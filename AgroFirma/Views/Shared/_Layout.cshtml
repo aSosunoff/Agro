@@ -9,7 +9,8 @@
         @Scripts.Render("~/bundles/modernizr")
     </head>
     <body>
-        <header>
+    @RenderBody()
+    @*<header>
             <div class="content-wrapper">
                 <div class="float-left">
                     <p class="site-title">@Html.ActionLink("your logo here", "Index", "Home")</p>
@@ -40,9 +41,10 @@
                     <p>&copy; @DateTime.Now.Year - My ASP.NET MVC Application</p>
                 </div>
             </div>
-        </footer>
+        </footer>*@
 
         @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
         @RenderSection("scripts", required: false)
     </body>
 </html>
