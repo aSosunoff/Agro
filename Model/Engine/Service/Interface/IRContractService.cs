@@ -4,6 +4,6 @@ namespace Model.Engine.Service.Interface
 {
     public interface IRContractService : IBaseService<IRContractRepository>
     {
-         
+        int Count();
     }
 }

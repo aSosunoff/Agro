@@ -23,6 +23,7 @@ namespace Model
         public int PK_ID { get; set; }
         public string NAME { get; set; }
         public int IS_ACTIVE { get; set; }
+        public int PARENT_ID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<rstock> rstock { get; set; }

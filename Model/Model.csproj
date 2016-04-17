@@ -110,6 +110,7 @@
     <Compile Include="Engine\Service\Logic\SCityService.cs" />
     <Compile Include="Engine\Service\Logic\SStreetService.cs" />
     <Compile Include="Engine\Service\ServiceLayer.cs" />
+    <Compile Include="Infrastructure\PageModel.cs" />
     <Compile Include="ModelEntities.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

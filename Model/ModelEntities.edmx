@@ -10,6 +10,7 @@
             <PropertyRef Name="PK_ID" />
           </Key>
           <Property Name="PK_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PARENT_ID" Type="int" Nullable="false" />
           <Property Name="NAME" Type="varchar" MaxLength="45" Nullable="false" />
           <Property Name="IS_ACTIVE" Type="int" Nullable="false" />
         </EntityType>
@@ -353,6 +354,7 @@
           <Property Name="NAME" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="IS_ACTIVE" Type="Int32" Nullable="false" />
           <NavigationProperty Name="rstock" Relationship="Self.STOCK_CATEGORY_FK" FromRole="ccategory" ToRole="rstock" />
+          <Property Name="PARENT_ID" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="rbasket">
           <Key>
@@ -712,6 +714,7 @@
           <EntitySetMapping Name="ccategory">
             <EntityTypeMapping TypeName="agro_mydbModel.ccategory">
               <MappingFragment StoreEntitySet="ccategory">
+                <ScalarProperty Name="PARENT_ID" ColumnName="PARENT_ID" />
                 <ScalarProperty Name="PK_ID" ColumnName="PK_ID" />
                 <ScalarProperty Name="NAME" ColumnName="NAME" />
                 <ScalarProperty Name="IS_ACTIVE" ColumnName="IS_ACTIVE" />

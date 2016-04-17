@@ -1,4 +1,5 @@
-﻿using Model.Engine.Repository.Interface;
+﻿using System.Linq;
+using Model.Engine.Repository.Interface;
 using Model.Engine.Service.Interface;
 
 namespace Model.Engine.Service.Logic
@@ -7,6 +8,11 @@ namespace Model.Engine.Service.Logic
     {
         public RContractService(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
+        }
+
+        public int Count()
+        {
+            return _Repository.GetAllList().Count();
         }
     }
 }
