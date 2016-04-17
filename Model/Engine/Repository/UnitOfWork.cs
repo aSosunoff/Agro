@@ -8,7 +8,7 @@ using Model.Engine.Repository.Interface;
 
 namespace Model.Engine.Repository
 {
-    class UnitOfWork : Engine, IUnitOfWork
+    public class UnitOfWork : Engine, IUnitOfWork
     {
         private readonly agro_mydbEntities _agroMydbEntities = new agro_mydbEntities();
 

@@ -9,7 +9,7 @@ using Model.Engine.Service.Logic;
 
 namespace Model.Engine.Service
 {
-    class ServiceLayer : Engine, IServiceLayer
+    public class ServiceLayer : Engine, IServiceLayer
     {
         public static IServiceLayer Instance(IServiceLayer serviceLayer)
         {

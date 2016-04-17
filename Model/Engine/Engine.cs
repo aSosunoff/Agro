@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Model.Engine
 {
-    class Engine : IEngine
+    public class Engine : IEngine
     {
         protected Dictionary<Type, Object> Objects = new Dictionary<Type, Object>();
         public T Get<T>()
