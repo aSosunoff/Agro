@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="c94739600af2466d979edd0deefea98a" Name="Diagram1">
+        <EntityTypeShape EntityType="agro_mydbModel.ccategory" Width="1.5" PointX="4.5" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="agro_mydbModel.rbasket" Width="1.5" PointX="8.5" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="agro_mydbModel.rcontract" Width="1.5" PointX="2.5" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="agro_mydbModel.rcontractor_info" Width="1.5" PointX="0.5" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="agro_mydbModel.rnews" Width="1.5" PointX="8.5" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="agro_mydbModel.rorder" Width="1.5" PointX="4.5" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="agro_mydbModel.rstock" Width="1.5" PointX="6.375" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="agro_mydbModel.ruser" Width="1.5" PointX="10.5" PointY="0.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="agro_mydbModel.ruser_info" Width="1.5" PointX="0.5" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="agro_mydbModel.scity" Width="1.5" PointX="12.25" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="agro_mydbModel.sstreet" Width="1.5" PointX="10.5" PointY="6.125" IsExpanded="true" />
+        <AssociationConnector Association="agro_mydbModel.STOCK_CATEGORY_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="agro_mydbModel.BASKET_STOCK_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="agro_mydbModel.BASKET_USER_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="agro_mydbModel.CONTRACT_CONTRACTOR_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="agro_mydbModel.CONTRACT_USER_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="agro_mydbModel.ORDER_CONTRACT_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="agro_mydbModel.CONTRACTOR_INFO_USER_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="agro_mydbModel.ORDER_STOCK_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="agro_mydbModel.USER_INFO_USER_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="agro_mydbModel.USER_STREET_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="agro_mydbModel.STREET_CITY_FK" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

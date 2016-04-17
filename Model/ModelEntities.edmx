@@ -1,0 +1,893 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="agro_mydbModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.7" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ccategory">
+          <Key>
+            <PropertyRef Name="PK_ID" />
+          </Key>
+          <Property Name="PK_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NAME" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="IS_ACTIVE" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="rbasket">
+          <Key>
+            <PropertyRef Name="PK_ID" />
+          </Key>
+          <Property Name="PK_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="QANTITY" Type="int" Nullable="false" />
+          <Property Name="DATE_ADD_PRODUCT" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="FK_ID_STOCK" Type="int" Nullable="false" />
+          <Property Name="FK_ID_USER" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="rcontract">
+          <Key>
+            <PropertyRef Name="PK_ID" />
+          </Key>
+          <Property Name="PK_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FLAG_SIGNATURE" Type="int" Nullable="false" />
+          <Property Name="FLAG_PAYMENT" Type="int" Nullable="false" />
+          <Property Name="DATE" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="DATE_SIGNATURE" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="IS_ACTIVE" Type="int" Nullable="false" />
+          <Property Name="IS_READY" Type="int" Nullable="false" />
+          <Property Name="FK_ID_CONTRACT_CONTRACTOR" Type="int" Nullable="false" />
+          <Property Name="FK_ID_CONTRACT_USER" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="rcontractor_info">
+          <Key>
+            <PropertyRef Name="PK_ID" />
+          </Key>
+          <Property Name="PK_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NAME" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="SURNAME" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="MIDDLE_NAME" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="NAME_COMPANY" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="LEGAL_ADDRESS" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="MAIL_ADDRESS" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="PHONE" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="FAX" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="INN" Type="int" Nullable="false" />
+          <Property Name="KPP" Type="int" Nullable="false" />
+          <Property Name="CHECKING_ACCOUNT" Type="int" Nullable="false" />
+          <Property Name="BANK" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="CORRESPONDENT_ACCOUNT" Type="int" Nullable="false" />
+          <Property Name="BIK" Type="int" Nullable="false" />
+          <Property Name="CITY_NAME" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="FK_USER" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="rnews">
+          <Key>
+            <PropertyRef Name="PK_ID" />
+          </Key>
+          <Property Name="PK_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NAME" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="TEXT" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="DATE" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="IMAGE_PATH" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="rorder">
+          <Key>
+            <PropertyRef Name="PK_ID" />
+          </Key>
+          <Property Name="PK_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="QANTITY" Type="int" Nullable="false" />
+          <Property Name="FK_ID_CONTRACT" Type="int" Nullable="false" />
+          <Property Name="FK_ID_STOCK" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="rstock">
+          <Key>
+            <PropertyRef Name="PK_ID" />
+          </Key>
+          <Property Name="PK_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NAME" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="QANTITY" Type="int" Nullable="false" />
+          <Property Name="STEP" Type="int" Nullable="false" />
+          <Property Name="PRICE_ONE" Type="decimal" Precision="50" Scale="10" Nullable="false" />
+          <Property Name="INFO" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="IMAGE_PATH" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="IS_ACTIVE" Type="int" Nullable="false" />
+          <Property Name="FK_ID_CATEGORY" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ruser">
+          <Key>
+            <PropertyRef Name="PK_ID" />
+          </Key>
+          <Property Name="PK_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NAME" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="SURNAME" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="MIDDLE_NAME" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="NAME_COMPANY" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="LEGAL_ADDRESS" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="MAIL_ADDRESS" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="PHONE" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="FAX" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="INN" Type="int" Nullable="false" />
+          <Property Name="KPP" Type="int" Nullable="false" />
+          <Property Name="CHECKING_ACCOUNT" Type="int" Nullable="false" />
+          <Property Name="BANK" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="CORRESPONDENT_ACCOUNT" Type="int" Nullable="false" />
+          <Property Name="BIK" Type="int" Nullable="false" />
+          <Property Name="LOGIN" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="PASSWORD" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="FK_ID_STREET" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ruser_info">
+          <Key>
+            <PropertyRef Name="PK_ID" />
+          </Key>
+          <Property Name="PK_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NAME" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="SURNAME" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="MIDDLE_NAME" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="NAME_COMPANY" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="LEGAL_ADDRESS" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="MAIL_ADDRESS" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="PHONE" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="FAX" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="INN" Type="int" Nullable="false" />
+          <Property Name="KPP" Type="int" Nullable="false" />
+          <Property Name="CHECKING_ACCOUNT" Type="int" Nullable="false" />
+          <Property Name="BANK" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="CORRESPONDENT_ACCOUNT" Type="int" Nullable="false" />
+          <Property Name="BIK" Type="int" Nullable="false" />
+          <Property Name="CITY_NAME" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="FK_USER" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="scity">
+          <Key>
+            <PropertyRef Name="PK_ID" />
+          </Key>
+          <Property Name="PK_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NAME" Type="varchar" MaxLength="45" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sstreet">
+          <Key>
+            <PropertyRef Name="PK_ID" />
+          </Key>
+          <Property Name="PK_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NAME" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="FK_ID_CITY" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="BASKET_STOCK_FK">
+          <End Role="rstock" Type="Self.rstock" Multiplicity="1" />
+          <End Role="rbasket" Type="Self.rbasket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="rstock">
+              <PropertyRef Name="PK_ID" />
+            </Principal>
+            <Dependent Role="rbasket">
+              <PropertyRef Name="FK_ID_STOCK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="BASKET_USER_FK">
+          <End Role="ruser" Type="Self.ruser" Multiplicity="1" />
+          <End Role="rbasket" Type="Self.rbasket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ruser">
+              <PropertyRef Name="PK_ID" />
+            </Principal>
+            <Dependent Role="rbasket">
+              <PropertyRef Name="FK_ID_USER" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="CONTRACT_CONTRACTOR_FK">
+          <End Role="rcontractor_info" Type="Self.rcontractor_info" Multiplicity="1" />
+          <End Role="rcontract" Type="Self.rcontract" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="rcontractor_info">
+              <PropertyRef Name="PK_ID" />
+            </Principal>
+            <Dependent Role="rcontract">
+              <PropertyRef Name="FK_ID_CONTRACT_CONTRACTOR" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="CONTRACT_USER_FK">
+          <End Role="ruser_info" Type="Self.ruser_info" Multiplicity="1" />
+          <End Role="rcontract" Type="Self.rcontract" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ruser_info">
+              <PropertyRef Name="PK_ID" />
+            </Principal>
+            <Dependent Role="rcontract">
+              <PropertyRef Name="FK_ID_CONTRACT_USER" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="CONTRACTOR_INFO_USER_FK">
+          <End Role="ruser" Type="Self.ruser" Multiplicity="1" />
+          <End Role="rcontractor_info" Type="Self.rcontractor_info" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ruser">
+              <PropertyRef Name="PK_ID" />
+            </Principal>
+            <Dependent Role="rcontractor_info">
+              <PropertyRef Name="FK_USER" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ORDER_CONTRACT_FK">
+          <End Role="rcontract" Type="Self.rcontract" Multiplicity="1" />
+          <End Role="rorder" Type="Self.rorder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="rcontract">
+              <PropertyRef Name="PK_ID" />
+            </Principal>
+            <Dependent Role="rorder">
+              <PropertyRef Name="FK_ID_CONTRACT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ORDER_STOCK_FK">
+          <End Role="rstock" Type="Self.rstock" Multiplicity="1" />
+          <End Role="rorder" Type="Self.rorder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="rstock">
+              <PropertyRef Name="PK_ID" />
+            </Principal>
+            <Dependent Role="rorder">
+              <PropertyRef Name="FK_ID_STOCK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="STOCK_CATEGORY_FK">
+          <End Role="ccategory" Type="Self.ccategory" Multiplicity="1" />
+          <End Role="rstock" Type="Self.rstock" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ccategory">
+              <PropertyRef Name="PK_ID" />
+            </Principal>
+            <Dependent Role="rstock">
+              <PropertyRef Name="FK_ID_CATEGORY" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="STREET_CITY_FK">
+          <End Role="scity" Type="Self.scity" Multiplicity="1" />
+          <End Role="sstreet" Type="Self.sstreet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="scity">
+              <PropertyRef Name="PK_ID" />
+            </Principal>
+            <Dependent Role="sstreet">
+              <PropertyRef Name="FK_ID_CITY" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="USER_INFO_USER_FK">
+          <End Role="ruser" Type="Self.ruser" Multiplicity="1" />
+          <End Role="ruser_info" Type="Self.ruser_info" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ruser">
+              <PropertyRef Name="PK_ID" />
+            </Principal>
+            <Dependent Role="ruser_info">
+              <PropertyRef Name="FK_USER" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="USER_STREET_FK">
+          <End Role="sstreet" Type="Self.sstreet" Multiplicity="1" />
+          <End Role="ruser" Type="Self.ruser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sstreet">
+              <PropertyRef Name="PK_ID" />
+            </Principal>
+            <Dependent Role="ruser">
+              <PropertyRef Name="FK_ID_STREET" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="agro_mydbModelStoreContainer">
+          <EntitySet Name="ccategory" EntityType="Self.ccategory" Schema="agro_mydb" store:Type="Tables" />
+          <EntitySet Name="rbasket" EntityType="Self.rbasket" Schema="agro_mydb" store:Type="Tables" />
+          <EntitySet Name="rcontract" EntityType="Self.rcontract" Schema="agro_mydb" store:Type="Tables" />
+          <EntitySet Name="rcontractor_info" EntityType="Self.rcontractor_info" Schema="agro_mydb" store:Type="Tables" />
+          <EntitySet Name="rnews" EntityType="Self.rnews" Schema="agro_mydb" store:Type="Tables" />
+          <EntitySet Name="rorder" EntityType="Self.rorder" Schema="agro_mydb" store:Type="Tables" />
+          <EntitySet Name="rstock" EntityType="Self.rstock" Schema="agro_mydb" store:Type="Tables" />
+          <EntitySet Name="ruser" EntityType="Self.ruser" Schema="agro_mydb" store:Type="Tables" />
+          <EntitySet Name="ruser_info" EntityType="Self.ruser_info" Schema="agro_mydb" store:Type="Tables" />
+          <EntitySet Name="scity" EntityType="Self.scity" Schema="agro_mydb" store:Type="Tables" />
+          <EntitySet Name="sstreet" EntityType="Self.sstreet" Schema="agro_mydb" store:Type="Tables" />
+          <AssociationSet Name="BASKET_STOCK_FK" Association="Self.BASKET_STOCK_FK">
+            <End Role="rstock" EntitySet="rstock" />
+            <End Role="rbasket" EntitySet="rbasket" />
+          </AssociationSet>
+          <AssociationSet Name="BASKET_USER_FK" Association="Self.BASKET_USER_FK">
+            <End Role="ruser" EntitySet="ruser" />
+            <End Role="rbasket" EntitySet="rbasket" />
+          </AssociationSet>
+          <AssociationSet Name="CONTRACT_CONTRACTOR_FK" Association="Self.CONTRACT_CONTRACTOR_FK">
+            <End Role="rcontractor_info" EntitySet="rcontractor_info" />
+            <End Role="rcontract" EntitySet="rcontract" />
+          </AssociationSet>
+          <AssociationSet Name="CONTRACT_USER_FK" Association="Self.CONTRACT_USER_FK">
+            <End Role="ruser_info" EntitySet="ruser_info" />
+            <End Role="rcontract" EntitySet="rcontract" />
+          </AssociationSet>
+          <AssociationSet Name="CONTRACTOR_INFO_USER_FK" Association="Self.CONTRACTOR_INFO_USER_FK">
+            <End Role="ruser" EntitySet="ruser" />
+            <End Role="rcontractor_info" EntitySet="rcontractor_info" />
+          </AssociationSet>
+          <AssociationSet Name="ORDER_CONTRACT_FK" Association="Self.ORDER_CONTRACT_FK">
+            <End Role="rcontract" EntitySet="rcontract" />
+            <End Role="rorder" EntitySet="rorder" />
+          </AssociationSet>
+          <AssociationSet Name="ORDER_STOCK_FK" Association="Self.ORDER_STOCK_FK">
+            <End Role="rstock" EntitySet="rstock" />
+            <End Role="rorder" EntitySet="rorder" />
+          </AssociationSet>
+          <AssociationSet Name="STOCK_CATEGORY_FK" Association="Self.STOCK_CATEGORY_FK">
+            <End Role="ccategory" EntitySet="ccategory" />
+            <End Role="rstock" EntitySet="rstock" />
+          </AssociationSet>
+          <AssociationSet Name="STREET_CITY_FK" Association="Self.STREET_CITY_FK">
+            <End Role="scity" EntitySet="scity" />
+            <End Role="sstreet" EntitySet="sstreet" />
+          </AssociationSet>
+          <AssociationSet Name="USER_INFO_USER_FK" Association="Self.USER_INFO_USER_FK">
+            <End Role="ruser" EntitySet="ruser" />
+            <End Role="ruser_info" EntitySet="ruser_info" />
+          </AssociationSet>
+          <AssociationSet Name="USER_STREET_FK" Association="Self.USER_STREET_FK">
+            <End Role="sstreet" EntitySet="sstreet" />
+            <End Role="ruser" EntitySet="ruser" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="agro_mydbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ccategory">
+          <Key>
+            <PropertyRef Name="PK_ID" />
+          </Key>
+          <Property Name="PK_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NAME" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IS_ACTIVE" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="rstock" Relationship="Self.STOCK_CATEGORY_FK" FromRole="ccategory" ToRole="rstock" />
+        </EntityType>
+        <EntityType Name="rbasket">
+          <Key>
+            <PropertyRef Name="PK_ID" />
+          </Key>
+          <Property Name="PK_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="QANTITY" Type="Int32" Nullable="false" />
+          <Property Name="DATE_ADD_PRODUCT" Type="DateTime" Nullable="false" />
+          <Property Name="FK_ID_STOCK" Type="Int32" Nullable="false" />
+          <Property Name="FK_ID_USER" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="rstock" Relationship="Self.BASKET_STOCK_FK" FromRole="rbasket" ToRole="rstock" />
+          <NavigationProperty Name="ruser" Relationship="Self.BASKET_USER_FK" FromRole="rbasket" ToRole="ruser" />
+        </EntityType>
+        <EntityType Name="rcontract">
+          <Key>
+            <PropertyRef Name="PK_ID" />
+          </Key>
+          <Property Name="PK_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FLAG_SIGNATURE" Type="Int32" Nullable="false" />
+          <Property Name="FLAG_PAYMENT" Type="Int32" Nullable="false" />
+          <Property Name="DATE" Type="DateTime" Nullable="false" />
+          <Property Name="DATE_SIGNATURE" Type="DateTime" Nullable="false" />
+          <Property Name="IS_ACTIVE" Type="Int32" Nullable="false" />
+          <Property Name="IS_READY" Type="Int32" Nullable="false" />
+          <Property Name="FK_ID_CONTRACT_CONTRACTOR" Type="Int32" Nullable="false" />
+          <Property Name="FK_ID_CONTRACT_USER" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="rcontractor_info" Relationship="Self.CONTRACT_CONTRACTOR_FK" FromRole="rcontract" ToRole="rcontractor_info" />
+          <NavigationProperty Name="ruser_info" Relationship="Self.CONTRACT_USER_FK" FromRole="rcontract" ToRole="ruser_info" />
+          <NavigationProperty Name="rorder" Relationship="Self.ORDER_CONTRACT_FK" FromRole="rcontract" ToRole="rorder" />
+        </EntityType>
+        <EntityType Name="rcontractor_info">
+          <Key>
+            <PropertyRef Name="PK_ID" />
+          </Key>
+          <Property Name="PK_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NAME" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SURNAME" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MIDDLE_NAME" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NAME_COMPANY" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LEGAL_ADDRESS" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MAIL_ADDRESS" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PHONE" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FAX" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="INN" Type="Int32" Nullable="false" />
+          <Property Name="KPP" Type="Int32" Nullable="false" />
+          <Property Name="CHECKING_ACCOUNT" Type="Int32" Nullable="false" />
+          <Property Name="BANK" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CORRESPONDENT_ACCOUNT" Type="Int32" Nullable="false" />
+          <Property Name="BIK" Type="Int32" Nullable="false" />
+          <Property Name="CITY_NAME" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FK_USER" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="rcontract" Relationship="Self.CONTRACT_CONTRACTOR_FK" FromRole="rcontractor_info" ToRole="rcontract" />
+          <NavigationProperty Name="ruser" Relationship="Self.CONTRACTOR_INFO_USER_FK" FromRole="rcontractor_info" ToRole="ruser" />
+        </EntityType>
+        <EntityType Name="rnews">
+          <Key>
+            <PropertyRef Name="PK_ID" />
+          </Key>
+          <Property Name="PK_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NAME" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TEXT" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DATE" Type="DateTime" Nullable="false" />
+          <Property Name="IMAGE_PATH" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="rorder">
+          <Key>
+            <PropertyRef Name="PK_ID" />
+          </Key>
+          <Property Name="PK_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="QANTITY" Type="Int32" Nullable="false" />
+          <Property Name="FK_ID_CONTRACT" Type="Int32" Nullable="false" />
+          <Property Name="FK_ID_STOCK" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="rcontract" Relationship="Self.ORDER_CONTRACT_FK" FromRole="rorder" ToRole="rcontract" />
+          <NavigationProperty Name="rstock" Relationship="Self.ORDER_STOCK_FK" FromRole="rorder" ToRole="rstock" />
+        </EntityType>
+        <EntityType Name="rstock">
+          <Key>
+            <PropertyRef Name="PK_ID" />
+          </Key>
+          <Property Name="PK_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NAME" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="QANTITY" Type="Int32" Nullable="false" />
+          <Property Name="STEP" Type="Int32" Nullable="false" />
+          <Property Name="PRICE_ONE" Type="Decimal" Nullable="false" />
+          <Property Name="INFO" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IMAGE_PATH" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IS_ACTIVE" Type="Int32" Nullable="false" />
+          <Property Name="FK_ID_CATEGORY" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ccategory" Relationship="Self.STOCK_CATEGORY_FK" FromRole="rstock" ToRole="ccategory" />
+          <NavigationProperty Name="rbasket" Relationship="Self.BASKET_STOCK_FK" FromRole="rstock" ToRole="rbasket" />
+          <NavigationProperty Name="rorder" Relationship="Self.ORDER_STOCK_FK" FromRole="rstock" ToRole="rorder" />
+        </EntityType>
+        <EntityType Name="ruser">
+          <Key>
+            <PropertyRef Name="PK_ID" />
+          </Key>
+          <Property Name="PK_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NAME" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SURNAME" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MIDDLE_NAME" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NAME_COMPANY" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LEGAL_ADDRESS" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MAIL_ADDRESS" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PHONE" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FAX" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="INN" Type="Int32" Nullable="false" />
+          <Property Name="KPP" Type="Int32" Nullable="false" />
+          <Property Name="CHECKING_ACCOUNT" Type="Int32" Nullable="false" />
+          <Property Name="BANK" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CORRESPONDENT_ACCOUNT" Type="Int32" Nullable="false" />
+          <Property Name="BIK" Type="Int32" Nullable="false" />
+          <Property Name="LOGIN" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PASSWORD" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FK_ID_STREET" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="rbasket" Relationship="Self.BASKET_USER_FK" FromRole="ruser" ToRole="rbasket" />
+          <NavigationProperty Name="rcontractor_info" Relationship="Self.CONTRACTOR_INFO_USER_FK" FromRole="ruser" ToRole="rcontractor_info" />
+          <NavigationProperty Name="ruser_info" Relationship="Self.USER_INFO_USER_FK" FromRole="ruser" ToRole="ruser_info" />
+          <NavigationProperty Name="sstreet" Relationship="Self.USER_STREET_FK" FromRole="ruser" ToRole="sstreet" />
+        </EntityType>
+        <EntityType Name="ruser_info">
+          <Key>
+            <PropertyRef Name="PK_ID" />
+          </Key>
+          <Property Name="PK_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NAME" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SURNAME" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MIDDLE_NAME" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NAME_COMPANY" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LEGAL_ADDRESS" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MAIL_ADDRESS" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PHONE" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FAX" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="INN" Type="Int32" Nullable="false" />
+          <Property Name="KPP" Type="Int32" Nullable="false" />
+          <Property Name="CHECKING_ACCOUNT" Type="Int32" Nullable="false" />
+          <Property Name="BANK" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CORRESPONDENT_ACCOUNT" Type="Int32" Nullable="false" />
+          <Property Name="BIK" Type="Int32" Nullable="false" />
+          <Property Name="CITY_NAME" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FK_USER" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="rcontract" Relationship="Self.CONTRACT_USER_FK" FromRole="ruser_info" ToRole="rcontract" />
+          <NavigationProperty Name="ruser" Relationship="Self.USER_INFO_USER_FK" FromRole="ruser_info" ToRole="ruser" />
+        </EntityType>
+        <EntityType Name="scity">
+          <Key>
+            <PropertyRef Name="PK_ID" />
+          </Key>
+          <Property Name="PK_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NAME" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="sstreet" Relationship="Self.STREET_CITY_FK" FromRole="scity" ToRole="sstreet" />
+        </EntityType>
+        <EntityType Name="sstreet">
+          <Key>
+            <PropertyRef Name="PK_ID" />
+          </Key>
+          <Property Name="PK_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NAME" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FK_ID_CITY" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ruser" Relationship="Self.USER_STREET_FK" FromRole="sstreet" ToRole="ruser" />
+          <NavigationProperty Name="scity" Relationship="Self.STREET_CITY_FK" FromRole="sstreet" ToRole="scity" />
+        </EntityType>
+        <Association Name="STOCK_CATEGORY_FK">
+          <End Role="ccategory" Type="Self.ccategory" Multiplicity="1" />
+          <End Role="rstock" Type="Self.rstock" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ccategory">
+              <PropertyRef Name="PK_ID" />
+            </Principal>
+            <Dependent Role="rstock">
+              <PropertyRef Name="FK_ID_CATEGORY" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="BASKET_STOCK_FK">
+          <End Role="rstock" Type="Self.rstock" Multiplicity="1" />
+          <End Role="rbasket" Type="Self.rbasket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="rstock">
+              <PropertyRef Name="PK_ID" />
+            </Principal>
+            <Dependent Role="rbasket">
+              <PropertyRef Name="FK_ID_STOCK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="BASKET_USER_FK">
+          <End Role="ruser" Type="Self.ruser" Multiplicity="1" />
+          <End Role="rbasket" Type="Self.rbasket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ruser">
+              <PropertyRef Name="PK_ID" />
+            </Principal>
+            <Dependent Role="rbasket">
+              <PropertyRef Name="FK_ID_USER" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="CONTRACT_CONTRACTOR_FK">
+          <End Role="rcontractor_info" Type="Self.rcontractor_info" Multiplicity="1" />
+          <End Role="rcontract" Type="Self.rcontract" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="rcontractor_info">
+              <PropertyRef Name="PK_ID" />
+            </Principal>
+            <Dependent Role="rcontract">
+              <PropertyRef Name="FK_ID_CONTRACT_CONTRACTOR" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="CONTRACT_USER_FK">
+          <End Role="ruser_info" Type="Self.ruser_info" Multiplicity="1" />
+          <End Role="rcontract" Type="Self.rcontract" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ruser_info">
+              <PropertyRef Name="PK_ID" />
+            </Principal>
+            <Dependent Role="rcontract">
+              <PropertyRef Name="FK_ID_CONTRACT_USER" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ORDER_CONTRACT_FK">
+          <End Role="rcontract" Type="Self.rcontract" Multiplicity="1" />
+          <End Role="rorder" Type="Self.rorder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="rcontract">
+              <PropertyRef Name="PK_ID" />
+            </Principal>
+            <Dependent Role="rorder">
+              <PropertyRef Name="FK_ID_CONTRACT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="CONTRACTOR_INFO_USER_FK">
+          <End Role="ruser" Type="Self.ruser" Multiplicity="1" />
+          <End Role="rcontractor_info" Type="Self.rcontractor_info" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ruser">
+              <PropertyRef Name="PK_ID" />
+            </Principal>
+            <Dependent Role="rcontractor_info">
+              <PropertyRef Name="FK_USER" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ORDER_STOCK_FK">
+          <End Role="rstock" Type="Self.rstock" Multiplicity="1" />
+          <End Role="rorder" Type="Self.rorder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="rstock">
+              <PropertyRef Name="PK_ID" />
+            </Principal>
+            <Dependent Role="rorder">
+              <PropertyRef Name="FK_ID_STOCK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="USER_INFO_USER_FK">
+          <End Role="ruser" Type="Self.ruser" Multiplicity="1" />
+          <End Role="ruser_info" Type="Self.ruser_info" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ruser">
+              <PropertyRef Name="PK_ID" />
+            </Principal>
+            <Dependent Role="ruser_info">
+              <PropertyRef Name="FK_USER" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="USER_STREET_FK">
+          <End Role="sstreet" Type="Self.sstreet" Multiplicity="1" />
+          <End Role="ruser" Type="Self.ruser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sstreet">
+              <PropertyRef Name="PK_ID" />
+            </Principal>
+            <Dependent Role="ruser">
+              <PropertyRef Name="FK_ID_STREET" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="STREET_CITY_FK">
+          <End Role="scity" Type="Self.scity" Multiplicity="1" />
+          <End Role="sstreet" Type="Self.sstreet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="scity">
+              <PropertyRef Name="PK_ID" />
+            </Principal>
+            <Dependent Role="sstreet">
+              <PropertyRef Name="FK_ID_CITY" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="agro_mydbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ccategory" EntityType="Self.ccategory" />
+          <EntitySet Name="rbasket" EntityType="Self.rbasket" />
+          <EntitySet Name="rcontract" EntityType="Self.rcontract" />
+          <EntitySet Name="rcontractor_info" EntityType="Self.rcontractor_info" />
+          <EntitySet Name="rnews" EntityType="Self.rnews" />
+          <EntitySet Name="rorder" EntityType="Self.rorder" />
+          <EntitySet Name="rstock" EntityType="Self.rstock" />
+          <EntitySet Name="ruser" EntityType="Self.ruser" />
+          <EntitySet Name="ruser_info" EntityType="Self.ruser_info" />
+          <EntitySet Name="scity" EntityType="Self.scity" />
+          <EntitySet Name="sstreet" EntityType="Self.sstreet" />
+          <AssociationSet Name="STOCK_CATEGORY_FK" Association="Self.STOCK_CATEGORY_FK">
+            <End Role="ccategory" EntitySet="ccategory" />
+            <End Role="rstock" EntitySet="rstock" />
+          </AssociationSet>
+          <AssociationSet Name="BASKET_STOCK_FK" Association="Self.BASKET_STOCK_FK">
+            <End Role="rstock" EntitySet="rstock" />
+            <End Role="rbasket" EntitySet="rbasket" />
+          </AssociationSet>
+          <AssociationSet Name="BASKET_USER_FK" Association="Self.BASKET_USER_FK">
+            <End Role="ruser" EntitySet="ruser" />
+            <End Role="rbasket" EntitySet="rbasket" />
+          </AssociationSet>
+          <AssociationSet Name="CONTRACT_CONTRACTOR_FK" Association="Self.CONTRACT_CONTRACTOR_FK">
+            <End Role="rcontractor_info" EntitySet="rcontractor_info" />
+            <End Role="rcontract" EntitySet="rcontract" />
+          </AssociationSet>
+          <AssociationSet Name="CONTRACT_USER_FK" Association="Self.CONTRACT_USER_FK">
+            <End Role="ruser_info" EntitySet="ruser_info" />
+            <End Role="rcontract" EntitySet="rcontract" />
+          </AssociationSet>
+          <AssociationSet Name="ORDER_CONTRACT_FK" Association="Self.ORDER_CONTRACT_FK">
+            <End Role="rcontract" EntitySet="rcontract" />
+            <End Role="rorder" EntitySet="rorder" />
+          </AssociationSet>
+          <AssociationSet Name="CONTRACTOR_INFO_USER_FK" Association="Self.CONTRACTOR_INFO_USER_FK">
+            <End Role="ruser" EntitySet="ruser" />
+            <End Role="rcontractor_info" EntitySet="rcontractor_info" />
+          </AssociationSet>
+          <AssociationSet Name="ORDER_STOCK_FK" Association="Self.ORDER_STOCK_FK">
+            <End Role="rstock" EntitySet="rstock" />
+            <End Role="rorder" EntitySet="rorder" />
+          </AssociationSet>
+          <AssociationSet Name="USER_INFO_USER_FK" Association="Self.USER_INFO_USER_FK">
+            <End Role="ruser" EntitySet="ruser" />
+            <End Role="ruser_info" EntitySet="ruser_info" />
+          </AssociationSet>
+          <AssociationSet Name="USER_STREET_FK" Association="Self.USER_STREET_FK">
+            <End Role="sstreet" EntitySet="sstreet" />
+            <End Role="ruser" EntitySet="ruser" />
+          </AssociationSet>
+          <AssociationSet Name="STREET_CITY_FK" Association="Self.STREET_CITY_FK">
+            <End Role="scity" EntitySet="scity" />
+            <End Role="sstreet" EntitySet="sstreet" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="agro_mydbModelStoreContainer" CdmEntityContainer="agro_mydbEntities">
+          <EntitySetMapping Name="ccategory">
+            <EntityTypeMapping TypeName="agro_mydbModel.ccategory">
+              <MappingFragment StoreEntitySet="ccategory">
+                <ScalarProperty Name="PK_ID" ColumnName="PK_ID" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="IS_ACTIVE" ColumnName="IS_ACTIVE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="rbasket">
+            <EntityTypeMapping TypeName="agro_mydbModel.rbasket">
+              <MappingFragment StoreEntitySet="rbasket">
+                <ScalarProperty Name="PK_ID" ColumnName="PK_ID" />
+                <ScalarProperty Name="QANTITY" ColumnName="QANTITY" />
+                <ScalarProperty Name="DATE_ADD_PRODUCT" ColumnName="DATE_ADD_PRODUCT" />
+                <ScalarProperty Name="FK_ID_STOCK" ColumnName="FK_ID_STOCK" />
+                <ScalarProperty Name="FK_ID_USER" ColumnName="FK_ID_USER" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="rcontract">
+            <EntityTypeMapping TypeName="agro_mydbModel.rcontract">
+              <MappingFragment StoreEntitySet="rcontract">
+                <ScalarProperty Name="PK_ID" ColumnName="PK_ID" />
+                <ScalarProperty Name="FLAG_SIGNATURE" ColumnName="FLAG_SIGNATURE" />
+                <ScalarProperty Name="FLAG_PAYMENT" ColumnName="FLAG_PAYMENT" />
+                <ScalarProperty Name="DATE" ColumnName="DATE" />
+                <ScalarProperty Name="DATE_SIGNATURE" ColumnName="DATE_SIGNATURE" />
+                <ScalarProperty Name="IS_ACTIVE" ColumnName="IS_ACTIVE" />
+                <ScalarProperty Name="IS_READY" ColumnName="IS_READY" />
+                <ScalarProperty Name="FK_ID_CONTRACT_CONTRACTOR" ColumnName="FK_ID_CONTRACT_CONTRACTOR" />
+                <ScalarProperty Name="FK_ID_CONTRACT_USER" ColumnName="FK_ID_CONTRACT_USER" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="rcontractor_info">
+            <EntityTypeMapping TypeName="agro_mydbModel.rcontractor_info">
+              <MappingFragment StoreEntitySet="rcontractor_info">
+                <ScalarProperty Name="PK_ID" ColumnName="PK_ID" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="SURNAME" ColumnName="SURNAME" />
+                <ScalarProperty Name="MIDDLE_NAME" ColumnName="MIDDLE_NAME" />
+                <ScalarProperty Name="NAME_COMPANY" ColumnName="NAME_COMPANY" />
+                <ScalarProperty Name="LEGAL_ADDRESS" ColumnName="LEGAL_ADDRESS" />
+                <ScalarProperty Name="MAIL_ADDRESS" ColumnName="MAIL_ADDRESS" />
+                <ScalarProperty Name="PHONE" ColumnName="PHONE" />
+                <ScalarProperty Name="FAX" ColumnName="FAX" />
+                <ScalarProperty Name="INN" ColumnName="INN" />
+                <ScalarProperty Name="KPP" ColumnName="KPP" />
+                <ScalarProperty Name="CHECKING_ACCOUNT" ColumnName="CHECKING_ACCOUNT" />
+                <ScalarProperty Name="BANK" ColumnName="BANK" />
+                <ScalarProperty Name="CORRESPONDENT_ACCOUNT" ColumnName="CORRESPONDENT_ACCOUNT" />
+                <ScalarProperty Name="BIK" ColumnName="BIK" />
+                <ScalarProperty Name="CITY_NAME" ColumnName="CITY_NAME" />
+                <ScalarProperty Name="FK_USER" ColumnName="FK_USER" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="rnews">
+            <EntityTypeMapping TypeName="agro_mydbModel.rnews">
+              <MappingFragment StoreEntitySet="rnews">
+                <ScalarProperty Name="PK_ID" ColumnName="PK_ID" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="TEXT" ColumnName="TEXT" />
+                <ScalarProperty Name="DATE" ColumnName="DATE" />
+                <ScalarProperty Name="IMAGE_PATH" ColumnName="IMAGE_PATH" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="rorder">
+            <EntityTypeMapping TypeName="agro_mydbModel.rorder">
+              <MappingFragment StoreEntitySet="rorder">
+                <ScalarProperty Name="PK_ID" ColumnName="PK_ID" />
+                <ScalarProperty Name="QANTITY" ColumnName="QANTITY" />
+                <ScalarProperty Name="FK_ID_CONTRACT" ColumnName="FK_ID_CONTRACT" />
+                <ScalarProperty Name="FK_ID_STOCK" ColumnName="FK_ID_STOCK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="rstock">
+            <EntityTypeMapping TypeName="agro_mydbModel.rstock">
+              <MappingFragment StoreEntitySet="rstock">
+                <ScalarProperty Name="PK_ID" ColumnName="PK_ID" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="QANTITY" ColumnName="QANTITY" />
+                <ScalarProperty Name="STEP" ColumnName="STEP" />
+                <ScalarProperty Name="PRICE_ONE" ColumnName="PRICE_ONE" />
+                <ScalarProperty Name="INFO" ColumnName="INFO" />
+                <ScalarProperty Name="IMAGE_PATH" ColumnName="IMAGE_PATH" />
+                <ScalarProperty Name="IS_ACTIVE" ColumnName="IS_ACTIVE" />
+                <ScalarProperty Name="FK_ID_CATEGORY" ColumnName="FK_ID_CATEGORY" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ruser">
+            <EntityTypeMapping TypeName="agro_mydbModel.ruser">
+              <MappingFragment StoreEntitySet="ruser">
+                <ScalarProperty Name="PK_ID" ColumnName="PK_ID" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="SURNAME" ColumnName="SURNAME" />
+                <ScalarProperty Name="MIDDLE_NAME" ColumnName="MIDDLE_NAME" />
+                <ScalarProperty Name="NAME_COMPANY" ColumnName="NAME_COMPANY" />
+                <ScalarProperty Name="LEGAL_ADDRESS" ColumnName="LEGAL_ADDRESS" />
+                <ScalarProperty Name="MAIL_ADDRESS" ColumnName="MAIL_ADDRESS" />
+                <ScalarProperty Name="PHONE" ColumnName="PHONE" />
+                <ScalarProperty Name="FAX" ColumnName="FAX" />
+                <ScalarProperty Name="INN" ColumnName="INN" />
+                <ScalarProperty Name="KPP" ColumnName="KPP" />
+                <ScalarProperty Name="CHECKING_ACCOUNT" ColumnName="CHECKING_ACCOUNT" />
+                <ScalarProperty Name="BANK" ColumnName="BANK" />
+                <ScalarProperty Name="CORRESPONDENT_ACCOUNT" ColumnName="CORRESPONDENT_ACCOUNT" />
+                <ScalarProperty Name="BIK" ColumnName="BIK" />
+                <ScalarProperty Name="LOGIN" ColumnName="LOGIN" />
+                <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
+                <ScalarProperty Name="FK_ID_STREET" ColumnName="FK_ID_STREET" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ruser_info">
+            <EntityTypeMapping TypeName="agro_mydbModel.ruser_info">
+              <MappingFragment StoreEntitySet="ruser_info">
+                <ScalarProperty Name="PK_ID" ColumnName="PK_ID" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="SURNAME" ColumnName="SURNAME" />
+                <ScalarProperty Name="MIDDLE_NAME" ColumnName="MIDDLE_NAME" />
+                <ScalarProperty Name="NAME_COMPANY" ColumnName="NAME_COMPANY" />
+                <ScalarProperty Name="LEGAL_ADDRESS" ColumnName="LEGAL_ADDRESS" />
+                <ScalarProperty Name="MAIL_ADDRESS" ColumnName="MAIL_ADDRESS" />
+                <ScalarProperty Name="PHONE" ColumnName="PHONE" />
+                <ScalarProperty Name="FAX" ColumnName="FAX" />
+                <ScalarProperty Name="INN" ColumnName="INN" />
+                <ScalarProperty Name="KPP" ColumnName="KPP" />
+                <ScalarProperty Name="CHECKING_ACCOUNT" ColumnName="CHECKING_ACCOUNT" />
+                <ScalarProperty Name="BANK" ColumnName="BANK" />
+                <ScalarProperty Name="CORRESPONDENT_ACCOUNT" ColumnName="CORRESPONDENT_ACCOUNT" />
+                <ScalarProperty Name="BIK" ColumnName="BIK" />
+                <ScalarProperty Name="CITY_NAME" ColumnName="CITY_NAME" />
+                <ScalarProperty Name="FK_USER" ColumnName="FK_USER" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="scity">
+            <EntityTypeMapping TypeName="agro_mydbModel.scity">
+              <MappingFragment StoreEntitySet="scity">
+                <ScalarProperty Name="PK_ID" ColumnName="PK_ID" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sstreet">
+            <EntityTypeMapping TypeName="agro_mydbModel.sstreet">
+              <MappingFragment StoreEntitySet="sstreet">
+                <ScalarProperty Name="PK_ID" ColumnName="PK_ID" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="FK_ID_CITY" ColumnName="FK_ID_CITY" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
