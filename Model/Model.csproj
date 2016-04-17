@@ -56,7 +56,60 @@
     <Compile Include="ccategory.cs">
       <DependentUpon>ModelEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Class1.cs" />
+    <Compile Include="Engine\Engine.cs" />
+    <Compile Include="Engine\IEngine.cs" />
+    <Compile Include="Engine\Repository\CRUDRepository.cs" />
+    <Compile Include="Engine\Repository\Entity\CCategoryRepository.cs" />
+    <Compile Include="Engine\Repository\Entity\RBasketRepository.cs" />
+    <Compile Include="Engine\Repository\Entity\RContractor_infoRepository.cs" />
+    <Compile Include="Engine\Repository\Entity\RContractRepository.cs" />
+    <Compile Include="Engine\Repository\Entity\RNewsRepository.cs" />
+    <Compile Include="Engine\Repository\Entity\ROrderRepository.cs" />
+    <Compile Include="Engine\Repository\Entity\RStockRepository.cs" />
+    <Compile Include="Engine\Repository\Entity\RUserRepository.cs" />
+    <Compile Include="Engine\Repository\Entity\RUser_infoRepository.cs" />
+    <Compile Include="Engine\Repository\Entity\SCityRepository.cs" />
+    <Compile Include="Engine\Repository\Entity\SStreetRepository.cs" />
+    <Compile Include="Engine\Repository\Interface\ICCategoryRepository.cs" />
+    <Compile Include="Engine\Repository\Interface\ICRUDRepository.cs" />
+    <Compile Include="Engine\Repository\Interface\IRBasketRepository.cs" />
+    <Compile Include="Engine\Repository\Interface\IRContractor_infoRepository.cs" />
+    <Compile Include="Engine\Repository\Interface\IRNewsRepository.cs" />
+    <Compile Include="Engine\Repository\Interface\IROrderRepository.cs" />
+    <Compile Include="Engine\Repository\Interface\IRStockRepository.cs" />
+    <Compile Include="Engine\Repository\Interface\IRUserRepository.cs" />
+    <Compile Include="Engine\Repository\Interface\IRUser_infoRepository.cs" />
+    <Compile Include="Engine\Repository\Interface\ISCityRepository.cs" />
+    <Compile Include="Engine\Repository\Interface\ISStreetRepository.cs" />
+    <Compile Include="Engine\Repository\Interface\IUnitOfWork.cs" />
+    <Compile Include="Engine\Repository\Interface\IRContractRepository.cs" />
+    <Compile Include="Engine\Repository\UnitOfWork.cs" />
+    <Compile Include="Engine\Service\Interface\IBaseService.cs" />
+    <Compile Include="Engine\Service\Interface\ICCategoryService.cs" />
+    <Compile Include="Engine\Service\Interface\IRBasketService.cs" />
+    <Compile Include="Engine\Service\Interface\IRContractor_infoService.cs" />
+    <Compile Include="Engine\Service\Interface\IRContractService.cs" />
+    <Compile Include="Engine\Service\Interface\IRNewsService.cs" />
+    <Compile Include="Engine\Service\Interface\IROrderService.cs" />
+    <Compile Include="Engine\Service\Interface\IRStockService.cs" />
+    <Compile Include="Engine\Service\Interface\IRUserService.cs" />
+    <Compile Include="Engine\Service\Interface\IRUser_infoService.cs" />
+    <Compile Include="Engine\Service\Interface\ISCityService.cs" />
+    <Compile Include="Engine\Service\Interface\ISStreetService.cs" />
+    <Compile Include="Engine\Service\IServiceLayer.cs" />
+    <Compile Include="Engine\Service\Logic\BaseService.cs" />
+    <Compile Include="Engine\Service\Logic\CCategoryService.cs" />
+    <Compile Include="Engine\Service\Logic\RBasketService.cs" />
+    <Compile Include="Engine\Service\Logic\RContractor_infoService.cs" />
+    <Compile Include="Engine\Service\Logic\RContractService.cs" />
+    <Compile Include="Engine\Service\Logic\RNewsService.cs" />
+    <Compile Include="Engine\Service\Logic\ROrderService.cs" />
+    <Compile Include="Engine\Service\Logic\RStockService.cs" />
+    <Compile Include="Engine\Service\Logic\RUserService.cs" />
+    <Compile Include="Engine\Service\Logic\RUser_infoService.cs" />
+    <Compile Include="Engine\Service\Logic\SCityService.cs" />
+    <Compile Include="Engine\Service\Logic\SStreetService.cs" />
+    <Compile Include="Engine\Service\ServiceLayer.cs" />
     <Compile Include="ModelEntities.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -130,6 +183,7 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
