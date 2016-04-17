@@ -1,6 +1,8 @@
-﻿namespace Model.Engine.Service.Interface
+﻿using Model.Engine.Repository.Interface;
+
+namespace Model.Engine.Service.Interface
 {
-    public interface IRStockService : IBaseService
+    public interface IRStockService : IBaseService<IRStockRepository>
     {
          
     }

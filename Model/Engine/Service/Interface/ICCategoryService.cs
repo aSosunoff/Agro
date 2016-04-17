@@ -1,6 +1,8 @@
-﻿namespace Model.Engine.Service.Interface
+﻿using Model.Engine.Repository.Interface;
+
+namespace Model.Engine.Service.Interface
 {
-    public interface ICCategoryService : IBaseService
+    public interface ICCategoryService : IBaseService<ICCategoryRepository>
     {
          
     }
