@@ -231,9 +231,3 @@ _Pvt_Extensions
 
 # FAKE - F# Make
 .fake/
-
-Robot_D/bin/Debug/*
-Robot_D/obj/*
-Robot_D/obj/*/*.*
-UnitTestHome/bin/Debug/*.*
-UnitTestHome/obj/Debug/*.*
