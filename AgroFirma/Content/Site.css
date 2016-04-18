@@ -2,10 +2,22 @@
     border-radius: 0px;
 }
 
+/***/
+.user-meny {
+    border-right: 1px solid #C3C3C3;
+}
+.user-container {
+    box-shadow: 0px 0px 5px #C3C3C3;
+}
+.user-navbar {
+    margin: 0px 0px 0px 0px;
+}
+/***/
 
 
 
 
+/***/
 .downSubItem + ul li, .downSubItem + ul li a {
     position: relative;
 }
@@ -22,3 +34,4 @@
 .downSubItem + ul:hover {
     display: block;
 }
+/***/

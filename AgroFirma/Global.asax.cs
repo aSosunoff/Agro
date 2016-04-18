@@ -6,6 +6,8 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using Model;
+using Model.Infrastructure;
 
 namespace AgroFirma
 {
@@ -23,6 +25,8 @@ namespace AgroFirma
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             AuthConfig.RegisterAuth();
+
+            ModelBinders.Binders.Add(typeof(rstock), new StockModelBinder());
         }
     }
 }

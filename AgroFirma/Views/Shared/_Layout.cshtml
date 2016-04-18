@@ -1,5 +1,5 @@
 ﻿@using AgroFirma.Component.Helpers
-@model Model.Infrastructure.PageModel
+@*@model Model.Infrastructure.PageModel*@
 
 <!DOCTYPE html>
 <html lang="en">
@@ -13,7 +13,7 @@
     </head>
 <body>
 
-    <nav class="navbar navbar-inverse" role="navigation">
+    <nav class="navbar navbar-inverse user-navbar" role="navigation">
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
@@ -23,11 +23,25 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Fresh", "Index", null, new { @class = "navbar-brand" })
+                @Html.ActionLink("Fresh", "Index", "Home", null, new { @class = "navbar-brand" })
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Администрирование<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Добавить продукт на склад", "AddProductInStock", "Administration")</li>
+                            <li><a href="#">Другое действие</a></li>
+                            <li><a href="#">Что-то еще</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#">Отдельная ссылка</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#">Еще одна отдельная ссылка</a></li>
+                        </ul>
+                    </li>
+                </ul>
                 @*<ul class="nav navbar-nav">
                         <li class="active"><a href="#">Ссылка</a></li>
                         <li><a href="#">Ссылка</a></li>
@@ -51,23 +65,12 @@
                         <button type="submit" class="btn btn-default">Отправить</button>
                     </form>*@
                 <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <a href="#">
-                            <span class="glyphicon glyphicon-list-alt">
-                                <span class="badge">@Model.CountElementToContract</span>
-                            </span>
-                        </a>
+                    @*<li>
+                        @Html.ActionLinkContractCount("List", "Contract", @Model.CountElementToContract)
                     </li>
                     <li>
-                        <a href="#">
-                            <span class="glyphicon glyphicon-shopping-cart">
-                                <span class="badge">@Model.CountElementToBasket</span>
-                            </span>
-                        </a>
-                    </li>
-
-                    @Html.ActionLink("Заказы", "OrderList", null, new { @class = "btn btn-primary" })
-                    @Html.ActionLink("В корзине", "Basket", null, new { @class = "btn btn-primary" })
+                        @Html.ActionLinkBasketCount("List", "Basket", @Model.CountElementToBasket)
+                    </li>*@
 
                     @*<li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
@@ -84,105 +87,31 @@
         </div><!-- /.container-fluid -->
     </nav>
 
-<div class="container">
+<div class="container user-container">
+    @if (@ViewBag.Title != null)
+    {
+        <div class="row">
+            <div class="col-lg-offset-3 col-lg-9">
+                <h3>@ViewBag.Title</h3>
+            </div>
+        </div>
+    }
 
     <div class="row">
-        <div class="col-lg-3">
+        <div class="col-lg-3 user-meny">
             @Html.DisplayCatalogList("List", "Catalog")
         </div>
         <div class="col-lg-9">
-            @if (@Model.ErrorMessage != null)
+            @if (ViewBag.ErrorMessage != null)
             {
-                <div class="alert alert-danger" role="alert">@Model.ErrorMessage</div>
+                <div class="alert alert-danger" role="alert">@ViewBag.ErrorMessage</div>
             }
-            <div class="row">
-                @RenderBody()
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-            <!-- Indicators -->
-            <ol class="carousel-indicators">
-                <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-                <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-                <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-            </ol>
 
-            <!-- Wrapper for slides -->
-            <div class="carousel-inner">
-                <div class="item active">
-                    <img src="../../Content/image/fon1.jpg" alt="...">
-                    @*<div class="carousel-caption">
-                        ...
-                    </div>*@
-                </div>
-                <div class="item">
-                    <img src="../../Content/image/fon2.jpeg" alt="...">
-                    @*<div class="carousel-caption">
-                        ...
-                    </div>*@
-                </div>
-                <div class="item">
-                    <img src="../../Content/image/fon3.jpg" alt="...">
-                    @*<div class="carousel-caption">
-                        ...
-                    </div>*@
-                </div>
-            </div>
+            @RenderBody()
 
-            <!-- Controls -->
-            <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
-                <span class="glyphicon glyphicon-chevron-left"></span>
-            </a>
-            <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
-                <span class="glyphicon glyphicon-chevron-right"></span>
-            </a>
         </div>
     </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-@*<header>
-            <div class="content-wrapper">
-                <div class="float-left">
-                    <p class="site-title">@Html.ActionLink("your logo here", "Index", "Home")</p>
-                </div>
-                <div class="float-right">
-                    <section id="login">
-                        @Html.Partial("_LoginPartial")
-                    </section>
-                    <nav>
-                        <ul id="menu">
-                            <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                            <li>@Html.ActionLink("About", "About", "Home")</li>
-                            <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                        </ul>
-                    </nav>
-                </div>
-            </div>
-        </header>
-        <div id="body">
-            @RenderSection("featured", required: false)
-            <section class="content-wrapper main-content clear-fix">
-                @RenderBody()
-            </section>
-        </div>
-        <footer>
-            <div class="content-wrapper">
-                <div class="float-left">
-                    <p>&copy; @DateTime.Now.Year - My ASP.NET MVC Application</p>
-                </div>
-            </div>
-        </footer>*@
 
 @Scripts.Render("~/bundles/jquery")
 @Scripts.Render("~/bundles/bootstrap")

@@ -14,6 +14,12 @@ namespace Model.Infrastructure
         public IEnumerable<rstock> Rstocks { get; set; } 
     }
 
+    public class AdministrationModel
+    {
+        public rstock Rstock { get; set; }
+    }
+
+
     public class PageModel
     {
         private IServiceLayer _serviceLayer { get; set; }
@@ -100,6 +106,7 @@ namespace Model.Infrastructure
 
         public CatalogModel CatalogModel;
 
+        public AdministrationModel AdministrationModel;
 
 
 
