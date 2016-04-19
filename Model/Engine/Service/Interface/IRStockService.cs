@@ -4,6 +4,6 @@ namespace Model.Engine.Service.Interface
 {
     public interface IRStockService : IBaseService<IRStockRepository>
     {
-         
+        void Create(rstock item);
     }
 }

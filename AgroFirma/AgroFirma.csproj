@@ -204,6 +204,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Component\Helpers\ActionLinkUser.cs" />
     <Compile Include="Component\Helpers\CatalogHelper.cs" />
+    <Compile Include="Component\JazzClass.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdministrationController.cs" />
     <Compile Include="Controllers\CatalogController.cs" />

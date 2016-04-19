@@ -90,6 +90,7 @@
           <Property Name="PRICE_ONE" Type="decimal" Precision="50" Scale="10" Nullable="false" />
           <Property Name="INFO" Type="varchar" MaxLength="45" Nullable="false" />
           <Property Name="IMAGE_PATH" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="DATE_ADDED" Type="datetime" Precision="0" Nullable="false" />
           <Property Name="IS_ACTIVE" Type="int" Nullable="false" />
           <Property Name="FK_ID_CATEGORY" Type="int" Nullable="false" />
         </EntityType>
@@ -446,6 +447,7 @@
           <NavigationProperty Name="ccategory" Relationship="Self.STOCK_CATEGORY_FK" FromRole="rstock" ToRole="ccategory" />
           <NavigationProperty Name="rbasket" Relationship="Self.BASKET_STOCK_FK" FromRole="rstock" ToRole="rbasket" />
           <NavigationProperty Name="rorder" Relationship="Self.ORDER_STOCK_FK" FromRole="rstock" ToRole="rorder" />
+          <Property Name="DATE_ADDED" Type="DateTime" Nullable="false" />
         </EntityType>
         <EntityType Name="ruser">
           <Key>
@@ -794,6 +796,7 @@
           <EntitySetMapping Name="rstock">
             <EntityTypeMapping TypeName="agro_mydbModel.rstock">
               <MappingFragment StoreEntitySet="rstock">
+                <ScalarProperty Name="DATE_ADDED" ColumnName="DATE_ADDED" />
                 <ScalarProperty Name="PK_ID" ColumnName="PK_ID" />
                 <ScalarProperty Name="NAME" ColumnName="NAME" />
                 <ScalarProperty Name="QANTITY" ColumnName="QANTITY" />

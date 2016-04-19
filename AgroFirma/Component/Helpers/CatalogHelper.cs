@@ -50,10 +50,6 @@ namespace AgroFirma.Component.Helpers
                 }
                 resLine += li.ToString();
             }
-            //foreach (var item in items)
-            //{
-                
-            //}
             return resLine;
         }
 

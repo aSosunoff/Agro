@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using AgroFirma.Component;
 using Model.Engine.Service;
+using Model.Engine.Service.Interface;
 using Model.Infrastructure;
 
 namespace AgroFirma.Controllers
@@ -23,6 +25,15 @@ namespace AgroFirma.Controllers
 
         public ActionResult Index()
         {
+            
+
+
+            var c = _ServiceLayer.Get<ICCategoryService>()
+                ._Repository.GetAllList()
+                .ToList()
+                .ConnectByPrior("PK_ID", "PARENT_ID", 5);
+
+
             return View();
         }
 

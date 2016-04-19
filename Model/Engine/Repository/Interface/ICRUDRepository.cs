@@ -10,6 +10,7 @@ namespace Model.Engine.Repository.Interface
         void Create(T item);
         void Update(T item);
         void Delete(T item);
+        //Type GetType();
         IQueryable<T> GetSortList(Expression<Func<T, bool>> predicate);
         //http://oxozle.com/2015/04/01/kollekcii-v-net-ienumerable-iqueryable-icollection-ilist
         //http://metanit.com/sharp/entityframework/1.4.php

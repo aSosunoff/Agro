@@ -30,6 +30,7 @@ namespace Model
         public string IMAGE_PATH { get; set; }
         public int IS_ACTIVE { get; set; }
         public int FK_ID_CATEGORY { get; set; }
+        public System.DateTime DATE_ADDED { get; set; }
     
         public virtual ccategory ccategory { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

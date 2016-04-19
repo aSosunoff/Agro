@@ -46,6 +46,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -111,6 +112,7 @@
     <Compile Include="Engine\Service\Logic\SCityService.cs" />
     <Compile Include="Engine\Service\Logic\SStreetService.cs" />
     <Compile Include="Engine\Service\ServiceLayer.cs" />
+    <Compile Include="Infrastructure\FileOfWork.cs" />
     <Compile Include="Infrastructure\PageModel.cs" />
     <Compile Include="Infrastructure\StockModelBinder.cs" />
     <Compile Include="ModelEntities.Context.cs">
