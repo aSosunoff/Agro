@@ -6,13 +6,50 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using Model.Engine.Repository;
+using Model.Engine.Service;
+using Model.Engine.Service.Interface;
+using Model.Infrastructure;
 
 namespace Model
 {
     [MetadataType(typeof(stock))]
     public partial class rstock
     {
-        public IEnumerable<SelectListItem> STEP_OBJECT
+        private IServiceLayer _ServiceLayer { get; set; }
+        public IEnumerable<SelectListItem> CATEGORY_SelectList
+        {
+            get
+            {
+                IServiceLayer serviceLayer = new ServiceLayer(new UnitOfWork());
+
+                _ServiceLayer = ServiceLayer.Instance(serviceLayer);
+
+                ConnectByPriorInModel model = new ConnectByPriorInModel()
+                {
+                    StartWith = new StartWith()
+                    {
+                        ColummName = "PK_ID",
+                        ColummValue = 0
+                    },
+                    ConnectByPrior = new ConnectByPrior()
+                    {
+                        Left = "PK_ID",
+                        Right = "PARENT_ID"
+                    }
+                };
+
+
+                return _ServiceLayer.Get<ICCategoryService>()
+                    ._Repository.GetAllList()
+                    .ConnectByPriorAllElement(model).Where(e => e.FLAG_TREE && e.ITEM.IS_ACTIVE == 1)
+                    .PackSelectListItem("PK_ID", "TEXT")
+                    .OrderBy(e => e.Text);
+
+            }
+        }
+
+        public IEnumerable<SelectListItem> STEP_SelectList
         {
             get
             {

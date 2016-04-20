@@ -55,6 +55,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Partial_CATEGORY.cs" />
     <Compile Include="ccategory.cs">
       <DependentUpon>ModelEntities.tt</DependentUpon>
     </Compile>
@@ -112,7 +113,9 @@
     <Compile Include="Engine\Service\Logic\SCityService.cs" />
     <Compile Include="Engine\Service\Logic\SStreetService.cs" />
     <Compile Include="Engine\Service\ServiceLayer.cs" />
+    <Compile Include="Infrastructure\CategoryModalBinder.cs" />
     <Compile Include="Infrastructure\FileOfWork.cs" />
+    <Compile Include="Infrastructure\JazzClass.cs" />
     <Compile Include="Infrastructure\PageModel.cs" />
     <Compile Include="Infrastructure\StockModelBinder.cs" />
     <Compile Include="ModelEntities.Context.cs">
@@ -149,7 +152,7 @@
     <Compile Include="rstock.cs">
       <DependentUpon>ModelEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="RSTOCK_Partial.cs" />
+    <Compile Include="Partial_STOCK.cs" />
     <Compile Include="ruser.cs">
       <DependentUpon>ModelEntities.tt</DependentUpon>
     </Compile>

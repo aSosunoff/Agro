@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using AgroFirma.Component;
 using Model;
 using Model.Engine.Service;
 using Model.Engine.Service.Interface;
@@ -23,10 +24,8 @@ namespace AgroFirma.Controllers
         public ActionResult AddProductInStock()
         {
             //Создаём тут что бы наше свойство с шагом(измерение единици товара) активировалось
-            rstock rstock = new rstock();
-            //Выбираем только те категории которые не имеют дочерние элементы
-            //var t = _ServiceLayer.Get<ICCategoryService>()._Repository.GetSortList()
-            return View(rstock);
+            
+            return View(new rstock());
         }
 
         [HttpPost, ActionName("AddProductInStock")]
@@ -35,9 +34,28 @@ namespace AgroFirma.Controllers
             if (ModelState.IsValid)
             {
                 _ServiceLayer.Get<IRStockService>().Create(rstock);
-                return View();
+
+                return View(new rstock());
             }
             return View(rstock);
+        }
+
+        public ActionResult AddCategory()
+        {
+            //Создаём тут что бы наше свойство с выбором родителя активировалось
+            return View(new ccategory());
+        }
+
+        [HttpPost, ActionName("AddCategory")]
+        public ActionResult AddCategory([Bind(Exclude = "IS_ACTIVE")] ccategory ccategory)
+        {
+            if (ModelState.IsValid)
+            {
+                _ServiceLayer.Get<ICCategoryService>().Create(ccategory);
+
+                return View(new ccategory());
+            }
+            return View(ccategory);
         }
 
     }

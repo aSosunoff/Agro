@@ -33,12 +33,8 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Администрирование<b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li>@Html.ActionLink("Добавить продукт на склад", "AddProductInStock", "Administration")</li>
-                            <li><a href="#">Другое действие</a></li>
-                            <li><a href="#">Что-то еще</a></li>
                             <li class="divider"></li>
-                            <li><a href="#">Отдельная ссылка</a></li>
-                            <li class="divider"></li>
-                            <li><a href="#">Еще одна отдельная ссылка</a></li>
+                            <li>@Html.ActionLink("Добавить категорию продуктов", "AddCategory", "Administration")</li>
                         </ul>
                     </li>
                 </ul>
@@ -99,7 +95,7 @@
 
     <div class="row">
         <div class="col-lg-3 user-meny">
-            @Html.DisplayCatalogList("List", "Catalog")
+            @Html.DisplayCatalogListXXXXX("List", "Catalog")
         </div>
         <div class="col-lg-9">
             @if (ViewBag.ErrorMessage != null)

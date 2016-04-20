@@ -27,6 +27,7 @@ namespace AgroFirma
             AuthConfig.RegisterAuth();
 
             ModelBinders.Binders.Add(typeof(rstock), new StockModelBinder());
+            ModelBinders.Binders.Add(typeof(ccategory), new CategoryModalBinder());
         }
     }
 }

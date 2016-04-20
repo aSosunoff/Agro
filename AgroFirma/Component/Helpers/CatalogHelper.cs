@@ -8,6 +8,8 @@ using Model;
 using Model.Engine.Repository;
 using Model.Engine.Service;
 using Model.Engine.Service.Interface;
+using Model.Infrastructure;
+using Model.Infrastructure.JazzClass;
 
 namespace AgroFirma.Component.Helpers
 {
@@ -29,7 +31,7 @@ namespace AgroFirma.Component.Helpers
 
                 TagBuilder a = new TagBuilder("a");
                 a.MergeAttribute("href", Path.Combine(String.Format("/{0}/{1}/?id={2}", controllerName, actionName, items[i].PK_ID)));
-                a.SetInnerText(items[i].NAME);
+                a.SetInnerText(items[i].TEXT);
 
                 var iID = items[i].PK_ID;
 
@@ -61,6 +63,50 @@ namespace AgroFirma.Component.Helpers
             ul.InnerHtml += SubCatalog(actionName, controllerName);
 
             return new MvcHtmlString(ul.ToString() == String.Empty ? "": ul.ToString());
+        }
+
+
+        public static MvcHtmlString DisplayCatalogListXXXXX(this HtmlHelper helper, string actionName, string controllerName)
+        {
+            ConnectByPriorInModel model = new ConnectByPriorInModel()
+            {
+                StartWith = new StartWith()
+                {
+                    ColummName = "PK_ID",
+                    ColummValue = 0
+                },
+                ConnectByPrior = new ConnectByPrior()
+                {
+                    Left = "PK_ID",
+                    Right = "PARENT_ID"
+                }
+            };
+
+            string li = _ServiceLayer.Get<ICCategoryService>()
+                ._Repository.GetAllList()
+                .ConnectByPriorAllElement(model)
+                .Where(e => e.ITEM.IS_ACTIVE == 1)
+                .DisplayCatalogListLoop(0);
+                
+
+            //TagBuilder ul = new TagBuilder("ul");
+            //ul.AddCssClass("nav nav-pills nav-stacked");
+
+            //ul.InnerHtml += SubCatalog(actionName, controllerName);
+
+            return new MvcHtmlString(li);
+        }
+
+        private static string DisplayCatalogListLoop<T>(this IEnumerable<WrapModel<T>> wrapModels, int index)
+        {
+            var listHeahItem = wrapModels.Where(e => (int)e.ITEM.GetType().GetProperty("PARENT_ID").GetValue(e.ITEM, null) == index).ToList();
+
+            foreach (var eelement in listHeahItem)
+            {
+                
+            }
+
+            return null;
         }
     }
 }

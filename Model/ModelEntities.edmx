@@ -11,7 +11,8 @@
           </Key>
           <Property Name="PK_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="PARENT_ID" Type="int" Nullable="false" />
-          <Property Name="NAME" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="IMAGE_PATH" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="TEXT" Type="varchar" MaxLength="45" Nullable="false" />
           <Property Name="IS_ACTIVE" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="rbasket">
@@ -352,10 +353,11 @@
             <PropertyRef Name="PK_ID" />
           </Key>
           <Property Name="PK_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="NAME" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="IS_ACTIVE" Type="Int32" Nullable="false" />
           <NavigationProperty Name="rstock" Relationship="Self.STOCK_CATEGORY_FK" FromRole="ccategory" ToRole="rstock" />
           <Property Name="PARENT_ID" Type="Int32" Nullable="false" />
+          <Property Name="TEXT" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="IMAGE_PATH" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="rbasket">
           <Key>
@@ -716,9 +718,10 @@
           <EntitySetMapping Name="ccategory">
             <EntityTypeMapping TypeName="agro_mydbModel.ccategory">
               <MappingFragment StoreEntitySet="ccategory">
+                <ScalarProperty Name="IMAGE_PATH" ColumnName="IMAGE_PATH" />
+                <ScalarProperty Name="TEXT" ColumnName="TEXT" />
                 <ScalarProperty Name="PARENT_ID" ColumnName="PARENT_ID" />
                 <ScalarProperty Name="PK_ID" ColumnName="PK_ID" />
-                <ScalarProperty Name="NAME" ColumnName="NAME" />
                 <ScalarProperty Name="IS_ACTIVE" ColumnName="IS_ACTIVE" />
               </MappingFragment>
             </EntityTypeMapping>

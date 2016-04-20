@@ -25,14 +25,6 @@ namespace AgroFirma.Controllers
 
         public ActionResult Index()
         {
-            
-
-
-            var c = _ServiceLayer.Get<ICCategoryService>()
-                ._Repository.GetAllList()
-                .ToList()
-                .ConnectByPrior("PK_ID", "PARENT_ID", 5);
-
 
             return View();
         }

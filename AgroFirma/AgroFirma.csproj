@@ -204,7 +204,6 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Component\Helpers\ActionLinkUser.cs" />
     <Compile Include="Component\Helpers\CatalogHelper.cs" />
-    <Compile Include="Component\JazzClass.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdministrationController.cs" />
     <Compile Include="Controllers\CatalogController.cs" />
@@ -314,6 +313,7 @@
     <Content Include="Views\Catalog\List.cshtml" />
     <Content Include="Views\Administration\come_back.cshtml" />
     <Content Include="Views\Administration\AddProductInStock.cshtml" />
+    <Content Include="Views\Administration\AddCategory.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
