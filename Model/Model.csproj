@@ -55,6 +55,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Infrastructure\CategoryModel.cs" />
+    <Compile Include="Infrastructure\NewsModelBinder.cs" />
     <Compile Include="Partial_CATEGORY.cs" />
     <Compile Include="ccategory.cs">
       <DependentUpon>ModelEntities.tt</DependentUpon>
@@ -133,6 +135,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ModelEntities.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Partial_NEWS.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="rbasket.cs">
       <DependentUpon>ModelEntities.tt</DependentUpon>

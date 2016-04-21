@@ -1,0 +1,64 @@
+﻿@model Model.rstock
+@{
+    ViewBag.Title = "Добавление товара на склад";
+}
+
+@using (Html.BeginForm("Add", "Stock", null, FormMethod.Post, new { enctype = "multipart/form-data", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <div class="col-lg-offset-2 col-lg-4">
+        <div class="form-group">
+            @Html.LabelFor(model => model.IMAGE_PATH, new { @class = "control-label" })
+            @Html.TextBoxFor(model => model.IMAGE_PATH, new { @class = "form-control", type = "file" })
+            @Html.ValidationMessageFor(model => model.IMAGE_PATH, "", new { @class = "text-danger" })
+        </div>
+
+    </div>
+    <div class="col-lg-4">
+        <div class="form-group">
+            @Html.LabelFor(model => model.NAME, htmlAttributes: new { @class = "control-label" })
+            @Html.TextBoxFor(model => model.NAME, new { @class = "form-control", placeholder = "Название продукта" })
+            @Html.ValidationMessageFor(model => model.NAME, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.QANTITY, htmlAttributes: new { @class = "control-label" })
+            @Html.TextBoxFor(model => model.QANTITY, new { @class = "form-control", placeholder = "Количество", @type = "number" })
+            @Html.ValidationMessageFor(model => model.QANTITY, "", new { @class = "text-danger" })
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.STEP, htmlAttributes: new { @class = "control-label" })
+            @Html.DropDownListFor(model => model.STEP, Model.STEP_SelectList, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.STEP, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PRICE_ONE, htmlAttributes: new { @class = "control-label" })
+            @Html.TextBoxFor(model => model.PRICE_ONE, new { @class = "form-control", placeholder = "Стоимость за единицу" })
+            @Html.ValidationMessageFor(model => model.PRICE_ONE, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.INFO, htmlAttributes: new { @class = "control-label" })
+            @Html.TextBoxFor(model => model.INFO, new { @class = "form-control", placeholder = "Информация" })
+            @Html.ValidationMessageFor(model => model.INFO, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.FK_ID_CATEGORY, htmlAttributes: new { @class = "control-label" })
+            @Html.DropDownListFor(model => model.FK_ID_CATEGORY, Model.CATEGORY_SelectList, new { @class = "form-control user-autocomplete" })
+            @Html.ValidationMessageFor(model => model.FK_ID_CATEGORY, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            <input type="submit" value="Сохранить" class="btn btn-primary" />
+        </div>
+    </div>
+}
+
+@*@section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }*@

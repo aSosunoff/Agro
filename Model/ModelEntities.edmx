@@ -70,6 +70,7 @@
           <Property Name="TEXT" Type="varchar" MaxLength="500" Nullable="false" />
           <Property Name="DATE" Type="datetime" Precision="0" Nullable="false" />
           <Property Name="IMAGE_PATH" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="IS_ACTIVE" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="rorder">
           <Key>
@@ -421,6 +422,7 @@
           <Property Name="TEXT" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="DATE" Type="DateTime" Nullable="false" />
           <Property Name="IMAGE_PATH" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IS_ACTIVE" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="rorder">
           <Key>
@@ -778,6 +780,7 @@
           <EntitySetMapping Name="rnews">
             <EntityTypeMapping TypeName="agro_mydbModel.rnews">
               <MappingFragment StoreEntitySet="rnews">
+                <ScalarProperty Name="IS_ACTIVE" ColumnName="IS_ACTIVE" />
                 <ScalarProperty Name="PK_ID" ColumnName="PK_ID" />
                 <ScalarProperty Name="NAME" ColumnName="NAME" />
                 <ScalarProperty Name="TEXT" ColumnName="TEXT" />

@@ -17,8 +17,6 @@ namespace Model.Infrastructure
             switch (propertyDescriptor.Name)
             {
                 case "IMAGE_PATH":
-                    //http://stackoverflow.com/questions/2083645/how-can-i-use-a-modelbinder-to-correct-values-that-will-then-be-visible-to-the-u
-                    //Формируем путь до файла и сохраняем
 
                     FileOfWork.FileBase = (HttpPostedFileBase)bindingContext.ValueProvider.GetValue(propertyDescriptor.Name).ConvertTo(typeof(HttpPostedFileBase));
 
@@ -37,7 +35,7 @@ namespace Model.Infrastructure
                     
                     
                     decimal price;
-                    //todo: Поменять на проверку без использования out параметра
+
                     if (!(decimal.TryParse(priceValue, out price)) //Прверяем ввели число или нет
                         &&
                         !(String.IsNullOrEmpty(priceValue))) //Исключаем пустую строку. Так как проверку на пустоту осуществляет DefaultModelBinder

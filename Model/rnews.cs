@@ -19,5 +19,6 @@ namespace Model
         public string TEXT { get; set; }
         public System.DateTime DATE { get; set; }
         public string IMAGE_PATH { get; set; }
+        public int IS_ACTIVE { get; set; }
     }
 }

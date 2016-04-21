@@ -37,10 +37,38 @@ namespace Model.Infrastructure
         public string Right { get; set; }
     }
 
+
     public static class JazzClass
-    {
-        public static IEnumerable<SelectListItem> AddedFirstItem(this IEnumerable<SelectListItem> selectListItems, string value, string text)
+    {           
+        
+        /////////////////////////////////////////////////////////////////////////////////////////
+        public static string GetValueString<T>(this T item, string colName)
         {
+            return (string)item.GetType().GetProperty(colName).GetValue(item, null);
+        }
+        public static int GetValueInt<T>(this T item, string colName)
+        {
+            return (int)item.GetType().GetProperty(colName).GetValue(item, null);
+        }
+        public static decimal GetValueDecimal<T>(this T item, string colName)
+        {
+            return (decimal)item.GetType().GetProperty(colName).GetValue(item, null);
+        }
+
+        public static IEnumerable<T> RemoveWrapModel<T>(this IEnumerable<WrapModel<T>> wrapModels)
+        {
+            List<T> list = new List<T>();
+
+            foreach (var element in wrapModels)
+            {
+                list.Add(element.ITEM);
+            }
+            return list;
+        }
+        /////////////////////////////////////////////////////////////////////////////////////////
+        public static IEnumerable<SelectListItem> SelectListItemsAddedFirstItem(this IEnumerable<SelectListItem> selectListItems, string value, string text)
+        {
+
             List<SelectListItem> listItems = new List<SelectListItem>();
 
             listItems.Add(new SelectListItem()
@@ -68,8 +96,8 @@ namespace Model.Infrastructure
             {
                 listItems.Add(new SelectListItem()
                 {
-                    Text = (string)el.ITEM.GetType().GetProperty(textColName).GetValue(el.ITEM, null),
-                    Value = Convert.ToString((int)el.ITEM.GetType().GetProperty(valueColName).GetValue(el.ITEM, null))
+                    Text = el.ITEM.GetValueString(textColName),
+                    Value = Convert.ToString(el.ITEM.GetValueInt(valueColName))
                 });
             }
             return listItems;
@@ -81,15 +109,16 @@ namespace Model.Infrastructure
             Start = 1
         }
 
+
         public static List<WrapModel<T>> ConnectByPriorAllElement<T>(this IEnumerable<T> list, ConnectByPriorInModel model)
         {
-            var parentList = list.Where(e => (int)e.GetType().GetProperty(model.ConnectByPrior.Right).GetValue(e, null) == model.StartWith.ColummValue).ToList();
+            var parentList = list.Where(e => e.GetValueInt(model.ConnectByPrior.Right) == model.StartWith.ColummValue).ToList();
 
             List<WrapModel<T>> priorModels = new List<WrapModel<T>>();
 
             foreach (var element in parentList)
             {
-                model.StartWith.ColummValue = (int)element.GetType().GetProperty(model.ConnectByPrior.Left).GetValue(element, null);
+                model.StartWith.ColummValue = element.GetValueInt(model.ConnectByPrior.Left);
 
                 priorModels = list.ConnectByPrior(model, priorModels);
             }
@@ -101,7 +130,7 @@ namespace Model.Infrastructure
             if (priorModels == null)
                 priorModels = new List<WrapModel<T>>();
 
-            var currentElement = list.SingleOrDefault(e => (int)e.GetType().GetProperty(inModel.StartWith.ColummName).GetValue(e, null) == inModel.StartWith.ColummValue);
+            var currentElement = list.SingleOrDefault(e => e.GetValueInt(inModel.StartWith.ColummName) == inModel.StartWith.ColummValue);
             //Выбираем корневой элемент
             if (currentElement != null)
             {
@@ -121,9 +150,9 @@ namespace Model.Infrastructure
                     //Флаг является ли элемент последним в цепочке
                 });
 
-                inModel.StartWith.ColummValue = (int)currentElement.GetType().GetProperty(inModel.ConnectByPrior.Left).GetValue(currentElement, null);
+                inModel.StartWith.ColummValue = currentElement.GetValueInt(inModel.ConnectByPrior.Left);
 
-                if (list.Any(e => (int)e.GetType().GetProperty(inModel.ConnectByPrior.Right).GetValue(e, null) == inModel.StartWith.ColummValue))
+                if (list.Any(e => e.GetValueInt(inModel.ConnectByPrior.Right) == inModel.StartWith.ColummValue))
                 {
                     priorModels[priorModels.Count - 1].FLAG_TREE = false;
                     lvl++;
@@ -137,7 +166,7 @@ namespace Model.Infrastructure
 
         private static List<WrapModel<T>> ConnectByPriorLoop<T>(IEnumerable<T> list, ConnectByPriorInModel inModel, List<WrapModel<T>> PriorModels, int LEVEL)
         {
-            var elements = list.Where(e => (int)e.GetType().GetProperty(inModel.ConnectByPrior.Right).GetValue(e, null) == inModel.StartWith.ColummValue).ToList();
+            var elements = list.Where(e => e.GetValueInt(inModel.ConnectByPrior.Right) == inModel.StartWith.ColummValue).ToList();
 
             for (int i = 0; i < elements.Count(); i++)
             {
@@ -150,9 +179,9 @@ namespace Model.Infrastructure
                     FLAG_TREE = false
                 });
 
-                inModel.StartWith.ColummValue = (int)elements[i].GetType().GetProperty(inModel.ConnectByPrior.Left).GetValue(elements[i], null);
+                inModel.StartWith.ColummValue = elements[i].GetValueInt(inModel.ConnectByPrior.Left);
 
-                if (list.Any(e => (int)e.GetType().GetProperty(inModel.ConnectByPrior.Right).GetValue(e, null) == inModel.StartWith.ColummValue))
+                if (list.Any(e => e.GetValueInt(inModel.ConnectByPrior.Right) == inModel.StartWith.ColummValue))
                 {
                     LEVEL += 1;
                     PriorModels = ConnectByPriorLoop(list, inModel, PriorModels, LEVEL);

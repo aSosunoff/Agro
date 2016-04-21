@@ -28,6 +28,8 @@ namespace AgroFirma
 
             ModelBinders.Binders.Add(typeof(rstock), new StockModelBinder());
             ModelBinders.Binders.Add(typeof(ccategory), new CategoryModalBinder());
+            ModelBinders.Binders.Add(typeof(rnews), new NewsModelBinder());
+            
         }
     }
 }

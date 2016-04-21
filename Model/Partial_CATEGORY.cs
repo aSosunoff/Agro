@@ -45,7 +45,7 @@ namespace Model
                     .Where(e => e.ITEM.IS_ACTIVE == 1)
                     .PackSelectListItem("PK_ID", "TEXT")
                     .OrderBy(e => e.Text)
-                    .AddedFirstItem("0", "Верхний уровень");
+                    .SelectListItemsAddedFirstItem("0", "Верхний уровень");
             }
         }
     }

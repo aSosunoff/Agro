@@ -1,20 +1,81 @@
-﻿@model Model.Infrastructure.PageModel
+﻿@using AgroFirma.Component.Helpers
+@model Model.Infrastructure.CategoryModel
 @{
-    ViewBag.Title = "List";
+    ViewBag.Title = ViewBag.CategoryTitle;
 }
 
-<h2>List</h2>
+@if (Model.Ccategories.Any())
+{
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Подкатегории</div>
+                <div class="panel-body">
+                    @foreach (var element in Model.Ccategories)
+                {
+                        <div class="col-lg-3">
+                            <div class="thumbnail">
 
-<div class="col-lg-12">
-    @foreach (var item in Model.CatalogModel.Ccategories)
-    {
-        
-    }
-</div>
+                                <div class="caption">
+                                    <h7>@element.TEXT</h7>
+                                    @Html.DisplayActionLincImage("List", "Catalog", element.PK_ID, new { src = element.IMAGE_PATH, @class = "img-thumbnail img-responsive center-block", alt = "Responsive image" })
+                                    @*@Html.DisplayImage(new { src = element.IMAGE_PATH, @class = "img-thumbnail img-responsive center-block", alt = "Responsive image" })*@
+                                    @*<p>
+                                            @Html.ActionLink(element.TEXT, "List", "Catalog", new { id = element.PK_ID }, new { @class = "btn btn-primary btn-xs btn-block", role = "button" })
+                                        </p>*@
+                                </div>
+                            </div>
+                        </div>
 
-<div class="col-lg-12">
-    @foreach (var item in Model.CatalogModel.Rstocks)
-    {
+                        @*<div class="col-lg-2">
+                                @Html.DisplayImage(new { src = element.IMAGE_PATH, @class = "img-thumbnail img-responsive center-block", alt = "Responsive image" })
+                                @Html.ActionLink(element.TEXT, "List", "Catalog", new { id = element.PK_ID }, null)
+                            </div>*@
+                }
+                </div>
+            </div>
+        </div>
+    </div>
+}
 
-    }
-</div>
+
+
+@*<div class="row">
+    <div class="col-lg-12">
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#">Товары</a></li>
+        </ul>
+
+        @foreach (var element in Model.Rstocks)
+        {
+            <div class="col-lg-4">
+                <div class="row">
+                    <div class="col-lg-12">
+                        @Html.ActionLink(element.NAME, "Details", new { id = element.ID })
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="col-lg-5">
+                            @Html.LabelFor(modeItem => element.QUNTITY)
+                        </div>
+                        <div class="col-lg-7">
+                            @Html.DisplayFor(modeItem => element.QUNTITY)
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="col-lg-5">
+                            @Html.LabelFor(modeItem => element.PRICE_ONE)
+                        </div>
+                        <div class="col-lg-7">
+                            @Html.DisplayFor(modeItem => element.PRICE_ONE)
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        @Html.ActionLink("В корзину", "AddedToBasket", new { id = element.ID }, new { @class = "btn btn-primary btn-xs" })
+                    </div>
+                </div>
+
+
+            </div>
+        }
+    </div>
+</div>*@

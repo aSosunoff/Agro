@@ -203,13 +203,16 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Component\Helpers\ActionLinkUser.cs" />
-    <Compile Include="Component\Helpers\CatalogHelper.cs" />
+    <Compile Include="Component\Helpers\ImageHelper.cs" />
+    <Compile Include="Component\Helpers\MenuHelper.cs" />
+    <Compile Include="Component\Helpers\NewsHelper.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdministrationController.cs" />
     <Compile Include="Controllers\CatalogController.cs" />
     <Compile Include="Controllers\ContractController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\NewsController.cs" />
+    <Compile Include="Controllers\StockController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -309,11 +312,11 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Web.config" />
-    <Content Include="Views\Product\Index.cshtml" />
+    <Content Include="Views\Stock\Add.cshtml" />
     <Content Include="Views\Catalog\List.cshtml" />
     <Content Include="Views\Administration\come_back.cshtml" />
-    <Content Include="Views\Administration\AddProductInStock.cshtml" />
-    <Content Include="Views\Administration\AddCategory.cshtml" />
+    <Content Include="Views\Catalog\Add.cshtml" />
+    <Content Include="Views\News\Add.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -8,11 +8,11 @@ using Model.Engine.Service.Interface;
 
 namespace Model.Infrastructure
 {
-    public class CatalogModel
-    {
-        public IEnumerable<ccategory> Ccategories { get; set; }
-        public IEnumerable<rstock> Rstocks { get; set; } 
-    }
+    //public class CatalogModel
+    //{
+    //    public IEnumerable<ccategory> Ccategories { get; set; }
+    //    public IEnumerable<rstock> Rstocks { get; set; } 
+    //}
 
     public class AdministrationModel
     {
@@ -104,7 +104,7 @@ namespace Model.Infrastructure
         public string ErrorMessage { get; set; }
 
 
-        public CatalogModel CatalogModel;
+        //public CatalogModel CatalogModel;
 
         public AdministrationModel AdministrationModel;
 

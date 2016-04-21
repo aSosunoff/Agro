@@ -32,9 +32,11 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Администрирование<b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li>@Html.ActionLink("Добавить продукт на склад", "AddProductInStock", "Administration")</li>
+                            <li>@Html.ActionLink("Добавить продукт на склад", "Add", "Stock")</li>
                             <li class="divider"></li>
-                            <li>@Html.ActionLink("Добавить категорию продуктов", "AddCategory", "Administration")</li>
+                            <li>@Html.ActionLink("Добавить категорию продуктов", "Add", "Catalog")</li>
+                            <li class="divider"></li>
+                            <li>@Html.ActionLink("Добавить новость", "Add", "News")</li>
                         </ul>
                     </li>
                 </ul>
@@ -95,7 +97,19 @@
 
     <div class="row">
         <div class="col-lg-3 user-meny">
-            @Html.DisplayCatalogListXXXXX("List", "Catalog")
+            <div class="panel panel-primary">
+                <div class="panel-heading">Меню</div>
+                <div class="panel-body">
+                    @Html.Menu("List", "Catalog")
+                </div>
+            </div>
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">Новости</div>
+                <div class="panel-body">
+                    @*@Html.Menu("List", "Catalog")*@
+                </div>
+            </div>
         </div>
         <div class="col-lg-9">
             @if (ViewBag.ErrorMessage != null)
@@ -104,8 +118,8 @@
             }
 
             @RenderBody()
-
         </div>
+        
     </div>
 </div>
 
