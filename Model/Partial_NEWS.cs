@@ -10,6 +10,17 @@ namespace Model
     [MetadataType(typeof(news))]
     public partial class rnews
     {
+        //public bool IS_ACTIVE_BOOL
+        //{
+        //    get { return IS_ACTIVE == 1 ? true : false ; }
+        //    set
+        //    {
+        //        if (value)
+        //            IS_ACTIVE = 1;
+        //        else
+        //            IS_ACTIVE = 0;
+        //    }
+        //}
     }
 
 
@@ -26,5 +37,11 @@ namespace Model
         [Required(ErrorMessage = "Необходимо выбрать картинку")]
         [Display(Name = "Картинка")]
         public string IMAGE_PATH { get; set; }
+
+        [Display(Name = "Дата добавления")]
+        public System.DateTime DATE { get; set; }
+
+        [Display(Name = "Статус")]
+        public int IS_ACTIVE { get; set; }
     }
 }

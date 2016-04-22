@@ -1,0 +1,88 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using Model;
+using Model.Engine.Service;
+using Model.Engine.Service.Interface;
+using Model.Infrastructure;
+
+namespace AgroFirma.Component
+{
+    public class ViewBagMain
+    {
+        public IServiceLayer _serviceLayer { get; set; }
+        public ViewBagMain(IServiceLayer serviceLayer)
+        {
+            _serviceLayer = ServiceLayer.Instance(serviceLayer);
+
+            CountElementToBasket = _serviceLayer.Get<IRBasketService>().Count();
+            CountElementToContract = _serviceLayer.Get<IRContractService>().Count();
+
+            ConnectByPriorInModel model = new ConnectByPriorInModel()
+            {
+                StartWith = new StartWith()
+                {
+                    ColummName = "PK_ID",
+                    ColummValue = 0
+                },
+                ConnectByPrior = new ConnectByPrior()
+                {
+                    Left = "PK_ID",
+                    Right = "PARENT_ID"
+                }
+            };
+
+            var wrapModelList = _serviceLayer.Get<ICCategoryService>()._Repository.GetAllList().ConnectByPriorAllElement(model);
+            WrapModels = wrapModelList.Count > 0 ? wrapModelList : null;
+
+            //TODO: Предусмотреть настройку в админке сколько новостей выводить сейчас 3 Take(3)
+            //TODO: Предусмотреть настройку в админке в какой последовательности выводить сейчас последние добавленные по дате OrderByDescending(e => e.DATE)
+            var newsList = _serviceLayer.Get<IRNewsService>()._Repository.GetSortList(e => e.IS_ACTIVE == 1).Take(3);
+            NewsList = newsList.Count() > 0 ? newsList.OrderByDescending(e => e.DATE) : null;
+
+        }
+
+        public IEnumerable<rnews> NewsList{ get; set; }
+
+        public List<WrapModel<ccategory>> WrapModels { get; set; }
+
+        /// <summary>
+        /// Колличество продуктов в корзине
+        /// </summary>
+        public int CountElementToBasket { get; set; }
+        /// <summary>
+        /// Колличество оформленных заказов
+        /// </summary>
+        public int CountElementToContract { get; set; }
+        public void IsProductsToBascet()
+        {
+            try
+            {
+                string errorMessage;
+                if (IsNullQantityProduct(out errorMessage))
+                    throw new Exception(errorMessage);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        private bool IsNullQantityProduct(out string errorMessage)
+        {
+            bool errorFlag = false;
+            errorMessage = String.Empty;
+
+            foreach (var element in _serviceLayer.Get<IRBasketService>()._Repository.GetAllList())
+            {
+                if (_serviceLayer.Get<IRStockService>().GetItemToId(element.PK_ID).QANTITY < element.QANTITY)
+                {
+                    errorFlag = true;
+                    errorMessage += String.Format("Продукта \"{0}\" нет на складе\n", element.rstock.NAME);
+                }
+
+            }
+            return errorFlag;
+        }
+    }
+}

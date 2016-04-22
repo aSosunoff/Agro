@@ -10,37 +10,14 @@ using Model.Infrastructure;
 
 namespace AgroFirma.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : ControllerInitializer
     {
-        private IServiceLayer _ServiceLayer { get; set; }
-
-        private PageModel PageModels { get; set; }
-
-        public HomeController(IServiceLayer serviceLayer)
-        {
-            _ServiceLayer = ServiceLayer.Instance(serviceLayer);
-
-            PageModels = new PageModel(serviceLayer);
-        }   
+        public HomeController(IServiceLayer serviceLayer) : base(serviceLayer){}
 
         public ActionResult Index()
         {
 
             return View();
         }
-
-        //public ActionResult About()
-        //{
-        //    ViewBag.Message = "Your app description page.";
-
-        //    return View();
-        //}
-
-        //public ActionResult Contact()
-        //{
-        //    ViewBag.Message = "Your contact page.";
-
-        //    return View();
-        //}
     }
 }

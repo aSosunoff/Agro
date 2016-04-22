@@ -19,5 +19,10 @@ namespace Model.Engine.Service.Logic
             //TODO: зафиксировать кто добавил
             _Repository.Create(item);
         }
+
+        public rstock GetItemToId(decimal id)
+        {
+            return _Repository.GetItem(e => e.PK_ID == id);
+        }
     }
 }

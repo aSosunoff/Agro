@@ -202,10 +202,12 @@
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Component\ControllerInitializer.cs" />
     <Compile Include="Component\Helpers\ActionLinkUser.cs" />
     <Compile Include="Component\Helpers\ImageHelper.cs" />
     <Compile Include="Component\Helpers\MenuHelper.cs" />
     <Compile Include="Component\Helpers\NewsHelper.cs" />
+    <Compile Include="Component\ViewBagMain.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdministrationController.cs" />
     <Compile Include="Controllers\CatalogController.cs" />
@@ -317,6 +319,10 @@
     <Content Include="Views\Administration\come_back.cshtml" />
     <Content Include="Views\Catalog\Add.cshtml" />
     <Content Include="Views\News\Add.cshtml" />
+    <Content Include="Views\News\List.cshtml" />
+    <Content Include="Views\News\Details.cshtml" />
+    <Content Include="Views\News\Delete.cshtml" />
+    <Content Include="Views\News\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

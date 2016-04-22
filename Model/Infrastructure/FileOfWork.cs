@@ -29,13 +29,13 @@ namespace AgroFirma.Component
         {
             string fileName = "default.png";//Вставляем своё изображение если пользователь не выбрал изображение сам
 
+            string absolutePathToFile = Path.Combine(HttpContext.Current.Server.MapPath(relativePath));
+
+            if (!Directory.Exists(absolutePathToFile))
+                Directory.CreateDirectory(absolutePathToFile);
+
             if (FileBase != null && FileBase.ContentLength > 0)
             {
-                string absolutePathToFile = Path.Combine(HttpContext.Current.Server.MapPath(relativePath));
-
-                if (!Directory.Exists(absolutePathToFile))
-                    Directory.CreateDirectory(absolutePathToFile);
-
                 fileName = Path.GetFileName(FileBase.FileName);
 
                 if (File.Exists(Path.Combine(absolutePathToFile, fileName)))

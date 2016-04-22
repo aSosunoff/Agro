@@ -3,20 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using AgroFirma.Component;
 using Model;
 using Model.Engine.Service;
 using Model.Engine.Service.Interface;
 
 namespace AgroFirma.Controllers
 {
-    public class StockController : Controller
+    public class StockController : ControllerInitializer
     {
-        private IServiceLayer _ServiceLayer { get; set; }
-
-        public StockController(IServiceLayer serviceLayer)
-        {
-            _ServiceLayer = ServiceLayer.Instance(serviceLayer);
-        }
+        public StockController(IServiceLayer serviceLayer) : base(serviceLayer){}
 
         public ActionResult Add()
         {
@@ -28,12 +24,13 @@ namespace AgroFirma.Controllers
         {
             if (ModelState.IsValid)
             {
-                _ServiceLayer.Get<IRStockService>().Create(rstock);
+                _serviceLayer.Get<IRStockService>().Create(rstock);
 
                 return View(new rstock());
             }
             return View(rstock);
         }
+
 
     }
 }

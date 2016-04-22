@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using AgroFirma.Component;
 using Model;
 using Model.Engine.Service;
 using Model.Engine.Service.Interface;
@@ -10,18 +11,13 @@ using Model.Infrastructure;
 
 namespace AgroFirma.Controllers
 {
-    public class CatalogController : Controller
+    public class CatalogController : ControllerInitializer
     {
-        private IServiceLayer _ServiceLayer { get; set; }
-
-        public CatalogController(IServiceLayer serviceLayer)
-        {
-            _ServiceLayer = ServiceLayer.Instance(serviceLayer);
-        }
+        public CatalogController(IServiceLayer serviceLayer) : base(serviceLayer){}
 
         public ActionResult List(int id)
         {
-            ViewBag.CategoryTitle = _ServiceLayer.Get<ICCategoryService>()._Repository.GetItem(e => e.PK_ID == id).TEXT;
+            ViewBag.CategoryTitle = _serviceLayer.Get<ICCategoryService>()._Repository.GetItem(e => e.PK_ID == id).TEXT;
 
             ConnectByPriorInModel model = new ConnectByPriorInModel()
             {
@@ -40,7 +36,7 @@ namespace AgroFirma.Controllers
 
             CategoryModel categoryModel = new CategoryModel();
 
-            categoryModel.Ccategories = _ServiceLayer
+            categoryModel.Ccategories = _serviceLayer
                 .Get<ICCategoryService>()
                 ._Repository
                 .GetAllList()
@@ -63,7 +59,7 @@ namespace AgroFirma.Controllers
             };
 
 
-            int[] arrayIdCategory = _ServiceLayer
+            int[] arrayIdCategory = _serviceLayer
                 .Get<ICCategoryService>()
                 ._Repository
                 .GetAllList()
@@ -72,7 +68,7 @@ namespace AgroFirma.Controllers
                 .RemoveWrapModel().Select(e => e.PK_ID)
                 .ToArray();
 
-            categoryModel.Rstocks = _ServiceLayer
+            categoryModel.Rstocks = _serviceLayer
                 .Get<IRStockService>()
                 ._Repository
                 .GetSortList(e => arrayIdCategory
@@ -93,11 +89,13 @@ namespace AgroFirma.Controllers
         {
             if (ModelState.IsValid)
             {
-                _ServiceLayer.Get<ICCategoryService>().Create(ccategory);
+                _serviceLayer.Get<ICCategoryService>().Create(ccategory);
 
                 return View(new ccategory());
             }
             return View(ccategory);
         }
+
+
     }
 }

@@ -1,4 +1,6 @@
 ﻿@using AgroFirma.Component.Helpers
+@using Model
+@using Model.Infrastructure
 @*@model Model.Infrastructure.PageModel*@
 
 <!DOCTYPE html>
@@ -13,8 +15,8 @@
     </head>
 <body>
 
-    <nav class="navbar navbar-inverse user-navbar" role="navigation">
-        <div class="container-fluid">
+    <nav class="navbar navbar-default user-navbar" role="navigation">
+        <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -63,6 +65,18 @@
                         <button type="submit" class="btn btn-default">Отправить</button>
                     </form>*@
                 <ul class="nav navbar-nav navbar-right">
+                    @if (@ViewBag.CountElementToContract != null)
+                    {
+                        <li>
+                            @Html.ActionLinkContractCount(String.Empty, "List", "Contract", (int)@ViewBag.CountElementToContract)
+                        </li>
+                    }
+                    @if (@ViewBag.CountElementToBasket != null)
+                    {
+                        <li>
+                            @Html.ActionLinkBasketCount(String.Empty, "Basket", "Product", (int)@ViewBag.CountElementToBasket)
+                        </li>
+                    }
                     @*<li>
                         @Html.ActionLinkContractCount("List", "Contract", @Model.CountElementToContract)
                     </li>
@@ -85,32 +99,48 @@
         </div><!-- /.container-fluid -->
     </nav>
 
+
 <div class="container user-container">
     @if (@ViewBag.Title != null)
     {
         <div class="row">
-            <div class="col-lg-offset-3 col-lg-9">
-                <h3>@ViewBag.Title</h3>
+            <div class="col-lg-12">
+                <div class="page-header">
+                    <h3>@ViewBag.Title</h3>
+                </div>
             </div>
         </div>
     }
-
+    
     <div class="row">
         <div class="col-lg-3 user-meny">
-            <div class="panel panel-primary">
-                <div class="panel-heading">Меню</div>
-                <div class="panel-body">
-                    @Html.Menu("List", "Catalog")
+            @if (@ViewBag.WrapModels != null)
+            {
+                <div class="list-group list-cust">
+                    <h5 class="list-group-item active">Меню</h5>
+                    @Html.Menu("List", "Catalog", (IEnumerable<WrapModel<ccategory>>) @ViewBag.WrapModels)
                 </div>
-            </div>
+            }
 
-            <div class="panel panel-primary">
-                <div class="panel-heading">Новости</div>
-                <div class="panel-body">
-                    @*@Html.Menu("List", "Catalog")*@
+
+            @if(@ViewBag.NewsList != null)
+            {
+                <div class="list-group list-cust">
+                    @Html.ActionLink("Новости", "List", "News", null, new { @class = "list-group-item active" })
+                    @foreach (rnews item in @ViewBag.NewsList)
+                    {
+                        <div class="list-group-item">
+                            @Html.ActionLink(@item.NAME, "Details", "News", new { id = item.PK_ID }, new { @class = "text-primary" })
+                            <p class="list-group-item-text">@item.TEXT</p>
+                            <h5 class="list-group-item-text">@item.DATE.Date.ToString("D")</h5>
+                        </div>
+                    }
                 </div>
-            </div>
+            }
+            
         </div>
+
+
         <div class="col-lg-9">
             @if (ViewBag.ErrorMessage != null)
             {
@@ -119,7 +149,7 @@
 
             @RenderBody()
         </div>
-        
+
     </div>
 </div>
 

@@ -1,0 +1,30 @@
+﻿@using AgroFirma.Component.Helpers
+@model IEnumerable<Model.rnews>
+@{
+    ViewBag.Title = "Новости";
+}
+
+<div class="list-group list-cust card-head">
+    <h5 class="list-group-item active">Список новостей</h5>
+    <div class="col-lg-12 card-body">
+        <table class="table ">
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayActionLincImage("Details", "News", item.PK_ID, new { src = item.IMAGE_PATH, @class = "img-thumbnail img-responsive center-block", alt = "Responsive image" })
+                    </td>
+                    <td>
+                        <h5>@Html.ActionLink(@item.NAME, "Details", "News", new { id = item.PK_ID }, null)</h5>
+
+                        @Html.DisplayFor(e => item.TEXT)
+                        <h5 class="pull-right">@Html.DisplayFor(e => item.DATE)</h5>
+                    </td>
+                    <td></td>
+                </tr>
+            }
+
+        </table>
+
+    </div>
+</div>

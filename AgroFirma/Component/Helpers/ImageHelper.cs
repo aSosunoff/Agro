@@ -31,8 +31,6 @@ namespace AgroFirma.Component.Helpers
 
             return new MvcHtmlString(a.ToString());
         }
-
-
         
         public static MvcHtmlString DisplayImage(this HtmlHelper html, object routeValueDictionary)
         {
