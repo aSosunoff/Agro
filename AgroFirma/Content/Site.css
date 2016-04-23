@@ -38,7 +38,7 @@
 
 
 /*****************/
-.list-cust .list-group-item:first-child {
+/*.list-cust .list-group-item:first-child {
     border-top-right-radius: 0px;
     border-top-left-radius: 0px;
 }
@@ -54,17 +54,84 @@
 .list-group :not(:first-child) {
     background-color: #EEE;
         
-}
+}*/
 /*****************/
 
 
 
 
 /*****************/
-.list-group.card-head :not(:first-child) {
+/*.list-group.card-head :not(:first-child) {
     background-color: white;     
 }
 .card-head .card-body {
     border: 1px solid #C3C3C3;
-}
+}*/
 /*****************/
+
+
+
+
+
+.list-group-custom.list-group{
+    
+}
+
+.list-group-custom.list-group :not(:first-child input){
+    background-color: white;
+}
+
+.list-group-custom .list-group-item:first-child{
+    border-radius: 0px 0px 0px 0px;
+}
+
+.list-group-custom .list-group-item:not(:first-child){
+    border-left: 1px solid #C3C3C3;
+    border-right: 1px solid #C3C3C3;
+    background-color: white;
+}
+
+.list-group-custom .list-group-item:last-child {
+    border-radius: 0px 0px 0px 0px;
+    border-bottom: 1px solid #C3C3C3;
+}
+
+.list-group-custom.list-group .list-group-item input:not([type="submit"]) {
+    border-radius: 0px;
+}
+
+.list-group-custom.list-group .list-group-item select {
+    border-radius: 0px;
+}
+
+
+
+
+
+
+.list-group-custom-gray.list-group :not(:first-child input){
+    background-color: #EEE;
+}
+
+.list-group-custom-gray .list-group-item:first-child{
+    border-radius: 0px 0px 0px 0px;
+}
+
+.list-group-custom-gray .list-group-item:not(:first-child){
+    border-left: 1px solid #C3C3C3;
+    border-right: 1px solid #C3C3C3;
+    background-color: #EEE;
+}
+
+.list-group-custom-gray .list-group-item:last-child {
+    border-radius: 0px 0px 0px 0px;
+    border-bottom: 1px solid #C3C3C3;
+}
+
+.list-group-custom-gray.list-group .list-group-item input:not([type="submit"]) {
+    border-radius: 0px;
+}
+
+.list-group-custom-gray.list-group .list-group-item select {
+    border-radius: 0px;
+}

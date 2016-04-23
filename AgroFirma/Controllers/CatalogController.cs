@@ -79,20 +79,36 @@ namespace AgroFirma.Controllers
         }
 
         public ActionResult Add()
-        {
+        {//TODO:СДЕЛАТЬ Только для АДМИНИСТРАТОРОВ
+            
+            ViewBag.SuccessMessage = ViewBagMain.MessageSuccess.Look();
+
             //Создаём тут что бы наше свойство с выбором родителя активировалось
             return View(new ccategory());
         }
 
         [HttpPost, ActionName("Add")]
         public ActionResult AddCategory([Bind(Exclude = "IS_ACTIVE")] ccategory ccategory)
-        {
+        {//TODO:СДЕЛАТЬ Только для АДМИНИСТРАТОРОВ
             if (ModelState.IsValid)
             {
-                _serviceLayer.Get<ICCategoryService>().Create(ccategory);
+                try
+                {
+                    _serviceLayer.Get<ICCategoryService>().Create(ccategory);
 
-                return RedirectToAction("Add");
+                    ViewBagMain.MessageSuccess.Init("Категория добавлена");
+
+                    return RedirectToAction("Add");
+                }
+                catch (Exception)
+                {
+                    //TODO: Записать в таблицу ошибку для дальнейшего исправления
+                    ViewBag.ErrorMessage = "Не предвиденная ошибка";
+                }    
             }
+
+            ViewBag.ErrorMessage = "Ошибка ввида";
+
             return View(ccategory);
         }
 

@@ -34,11 +34,17 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Администрирование<b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li>@Html.ActionLink("Добавить продукт на склад", "Create", "Stock")</li>
-                            <li class="divider"></li>
-                            <li>@Html.ActionLink("Добавить категорию продуктов", "Add", "Catalog")</li>
-                            <li class="divider"></li>
-                            <li>@Html.ActionLink("Добавить новость", "Add", "News")</li>
+                            <li role="presentation" class="dropdown-header">Склад</li>
+                            <li role ="presentation">@Html.ActionLink("Добавить", "Create", "Stock")</li>
+                            <li role="presentation" class="divider"></li>
+
+                            <li role="presentation" class="dropdown-header">Категория</li>
+                            <li role="presentation">@Html.ActionLink("Добавить", "Add", "Catalog")</li>
+                            <li role="presentation" class="divider"></li>
+
+                            <li role="presentation" class="dropdown-header">Новости</li>
+                            <li role="presentation">@Html.ActionLink("Добавить", "Add", "News")</li>
+                            <li role="presentation">@Html.ActionLink("Редактировать", "ListAdmin", "News")</li>
                         </ul>
                     </li>
                 </ul>
@@ -116,28 +122,37 @@
         <div class="col-lg-3 user-meny">
             @if (@ViewBag.WrapModels != null)
             {
-                <div class="list-group list-cust">
-                    <h5 class="list-group-item active">Меню</h5>
-                    @Html.Menu("List", "Catalog", (IEnumerable<WrapModel<ccategory>>) @ViewBag.WrapModels)
+                <div class="list-group list-group-custom-gray">
+                    <div class="list-group-item active">Меню</div>
+                    <div class="list-group-item">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                @Html.Menu("List", "Catalog", (IEnumerable<WrapModel<ccategory>>)@ViewBag.WrapModels)
+                            </div>
+                        </div>
+                    </div> 
                 </div>
             }
 
 
-            @if(@ViewBag.NewsList != null)
+            @if (@ViewBag.NewsList != null)
             {
-                <div class="list-group list-cust">
+                <div class="list-group list-group-custom-gray">
                     @Html.ActionLink("Новости", "List", "News", null, new { @class = "list-group-item active" })
                     @foreach (rnews item in @ViewBag.NewsList)
                     {
                         <div class="list-group-item">
-                            @Html.ActionLink(@item.NAME, "Details", "News", new { id = item.PK_ID }, new { @class = "text-primary" })
-                            <p class="list-group-item-text">@item.TEXT</p>
-                            <h5 class="list-group-item-text">@item.DATE.Date.ToString("D")</h5>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    @Html.ActionLink(@item.NAME, "Details", "News", new { id = item.PK_ID }, new { @class = "text-primary" })
+                                    <p class="list-group-item-text">@item.TEXT</p>
+                                    <h5 class="list-group-item-text">@item.DATE.Date.ToString("D")</h5>
+                                </div>
+                            </div>
                         </div>
                     }
                 </div>
             }
-            
         </div>
 
 
@@ -146,15 +161,27 @@
             {
                 <div class="alert alert-danger" role="alert">@ViewBag.ErrorMessage</div>
             }
-            
+
             @if (@ViewBag.SuccessMessage != null)
             {
                 <div class="alert alert-success" role="alert">@ViewBag.SuccessMessage</div>
             }
 
-            @RenderBody()
-        </div>
+            @if (@ViewBag.ListGroupTitle != null)
+            {
+                <div class="list-group list-group-custom">
+                    <div class="list-group-item active">@ViewBag.ListGroupTitle</div>
 
+                    <div class="list-group-item">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                @RenderBody()
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
     </div>
 </div>
 

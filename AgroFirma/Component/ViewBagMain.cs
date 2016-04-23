@@ -11,6 +11,69 @@ namespace AgroFirma.Component
 {
     public class ViewBagMain
     {
+        public static class MessageError
+        {
+            private static bool flag = false;
+            private static string message = null;
+
+            public static void Init(string mess)
+            {
+                flag = true;
+                message = mess;
+            }
+
+            public static string Look()
+            {
+                if (flag)
+                {
+                    string mess = message;
+                    Reset();
+                    return mess;
+                }
+                else
+                    return null;
+            }
+
+            private static void Reset()
+            {
+                flag = false;
+                message = null;
+            }
+
+        };
+
+        public static class MessageSuccess
+        {
+            private static bool flag = false;
+            private static string message = null;
+
+            public static void Init(string mess)
+            {
+                flag = true;
+                message = mess;
+            }
+
+            public static string Look()
+            {
+                if (flag)
+                {
+                    string mess = message;
+                    Reset();
+                    return mess;
+                }
+                else
+                    return null;
+            }
+
+            private static void Reset()
+            {
+                flag = false;
+                message = null;
+            }
+
+        };
+
+
         public IServiceLayer _serviceLayer { get; set; }
         public ViewBagMain(IServiceLayer serviceLayer)
         {

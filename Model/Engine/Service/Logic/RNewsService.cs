@@ -26,10 +26,28 @@ namespace Model.Engine.Service.Logic
             _Repository.Update(item);
         }
 
-        public void DeleteVirtual(rnews item)
+        public void DeleteVirtual(int id)
         {
-            item.IS_ACTIVE = 0;
-            Update(item);
+            rnews item = _Repository.GetItem(e => e.PK_ID == id && e.IS_ACTIVE == 1);
+
+            if (item != null)
+            {
+                item.IS_ACTIVE = 0;
+
+                Update(item);
+            }
+        }
+
+        public void RecoverVirtual(int id)
+        {
+            rnews item = _Repository.GetItem(e => e.PK_ID == id && e.IS_ACTIVE == 0);
+
+            if (item != null)
+            {
+                item.IS_ACTIVE = 1;
+
+                Update(item);
+            }
         }
     }
 }

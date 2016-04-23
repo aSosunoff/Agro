@@ -56,19 +56,26 @@ namespace AgroFirma.Controllers
 
         //CREATE
         public ActionResult Create()
-        {
+        {//TODO: Только для администраторов
+            ViewBag.SuccessMessage = ViewBagMain.MessageSuccess.Look();
+
             return View(new rstock());
         }
 
         [HttpPost, ActionName("Create")]
         public ActionResult CreateStock([Bind(Exclude = "IS_ACTIVE, DATE_ADDED")] rstock rstock)
-        {
+        {//TODO: Только для администраторов
             if (ModelState.IsValid)
             {
                 _serviceLayer.Get<IRStockService>().Create(rstock);
 
+                ViewBagMain.MessageSuccess.Init("Товар добавлен на склад");
+
                 return RedirectToAction("Create");
             }
+
+            ViewBag.ErrorMessage = "Ошибка ввида";
+
             return View(rstock);
         }
 
