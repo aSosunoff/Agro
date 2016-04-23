@@ -46,13 +46,16 @@ namespace AgroFirma.Controllers
         {
             //TODO: Пофиксить виртуальное удаление. Не получилось удалить по пришедшей модели. И поэтомк удаление происходит через поиск элемента в базе. НЕХОРОШО
             _serviceLayer.Get<IRNewsService>().DeleteVirtual(_serviceLayer.Get<IRNewsService>()._Repository.GetItem(e => e.PK_ID == item.PK_ID));
+            //ViewBag.ErrorMessage = String.Format("Вы удалили новость {0}", item.NAME);
+            //TODO: Не выводиться ViewBag.ErrorMessage
             return RedirectToAction("List");
         }
 
         //DETAILS
         public ActionResult Details(int id)
         {
-            return View(_serviceLayer.Get<IRNewsService>()._Repository.GetItem(e => e.PK_ID == id));
+            //TODO: везде IS_ACTIVE поменять на тип перечисление. Не понятно что за магическая единица
+            return View(_serviceLayer.Get<IRNewsService>()._Repository.GetItem(e => e.PK_ID == id && e.IS_ACTIVE == 1));
         }
 
         //LIST

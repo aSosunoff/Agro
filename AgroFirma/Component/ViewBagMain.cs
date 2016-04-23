@@ -41,6 +41,7 @@ namespace AgroFirma.Component
             var newsList = _serviceLayer.Get<IRNewsService>()._Repository.GetSortList(e => e.IS_ACTIVE == 1).Take(3);
             NewsList = newsList.Count() > 0 ? newsList.OrderByDescending(e => e.DATE) : null;
 
+
         }
 
         public IEnumerable<rnews> NewsList{ get; set; }

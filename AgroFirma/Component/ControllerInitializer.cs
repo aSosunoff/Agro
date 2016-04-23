@@ -22,7 +22,6 @@ namespace AgroFirma.Component
             ViewBag.CountElementToContract = ViewBagMain.CountElementToContract;
             ViewBag.WrapModels = ViewBagMain.WrapModels;
             ViewBag.NewsList = ViewBagMain.NewsList;
-
         }
     }
 }

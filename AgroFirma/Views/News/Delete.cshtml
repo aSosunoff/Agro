@@ -11,34 +11,12 @@
             @Html.AntiForgeryToken()
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             @Html.HiddenFor(e => e.PK_ID)
+            @Html.HiddenFor(e => e.NAME)
 
             <div class="alert alert-danger">Вы уверены в удалении новости - @Model.NAME</div>
-            @*<div class="col-lg-offset-2 col-lg-4">
-                <div class="form-group">
-                    @Html.LabelFor(model => model.IMAGE_PATH, new { @class = "control-label" })
-                    @Html.TextBoxFor(model => model.IMAGE_PATH, new { @class = "form-control", type = "file" })
-                    @Html.ValidationMessageFor(model => model.IMAGE_PATH, "", new { @class = "text-danger" })
-                </div>
-            </div>*@
-
-            @*<div class="col-lg-4">*@
-                @*<div class="form-group">
-                    @Html.LabelFor(model => model.NAME, htmlAttributes: new { @class = "control-label" })
-                    @Html.TextBoxFor(model => model.NAME, new { @class = "form-control", placeholder = "Наименование" })
-                    @Html.ValidationMessageFor(model => model.NAME, "", new { @class = "text-danger" })
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.TEXT, htmlAttributes: new { @class = "control-label" })
-                    @Html.TextBoxFor(model => model.TEXT, new { @class = "form-control", placeholder = "Содержание" })
-                    @Html.ValidationMessageFor(model => model.TEXT, "", new { @class = "text-danger" })
-                </div>*@
-
-
-                <div class="form-group">
-                    <input type="submit" value="Да" class="btn btn-danger" />
-                </div>
-            @*</div>*@
+            <div class="form-group">
+                <input type="submit" value="Да" class="btn btn-danger" />
+            </div>
         }
     </div>
 </div>
