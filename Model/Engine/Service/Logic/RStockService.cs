@@ -22,10 +22,10 @@ namespace Model.Engine.Service.Logic
             //id товара которое кладут в корзину
             var idProductToBasket = rstock.PK_ID;
 
-            rstock agroProduct = _Repository.GetItem(e => e.PK_ID == idProductToBasket);
+            rstock = _Repository.GetItem(e => e.PK_ID == idProductToBasket);
 
             //проверяем какое колличество добавил пользователь в корзину. Если оно привышает колличество доступное на складе, то выводим сообщение
-            if (qantity > agroProduct.QANTITY)
+            if (qantity > rstock.QANTITY)
                 throw new Exception("Нельзя добавить такое колличество товара");
 
             //проверяем есть ли такой товар в корзине
@@ -55,14 +55,14 @@ namespace Model.Engine.Service.Logic
 
                 //проверяем колличество товара которое должно оказаться в корзине после суммирования 
                 //с доступным на складе
-                if (sumQantity > agroProduct.QANTITY)
+                if (sumQantity > rstock.QANTITY)
                 {
                     throw new Exception(String.Format(@"Вы не можете добавить {0} единиц товара ""{1}"" в корзину.
                                                         Так как после добавления колличество товара привысит допустимое, которое имеется на складе.
                                                         Вы можете максимально ещё добавить {2} единиц этого товара",
                                                                                                                     qantity,
                                                                                                                     prod.rstock.NAME,
-                                                                                                                    agroProduct.QANTITY - prod.QANTITY));
+                                                                                                                    rstock.QANTITY - prod.QANTITY));
                 }
 
 

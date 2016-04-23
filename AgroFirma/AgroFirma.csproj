@@ -314,7 +314,7 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Web.config" />
-    <Content Include="Views\Stock\Add.cshtml" />
+    <Content Include="Views\Stock\Create.cshtml" />
     <Content Include="Views\Catalog\List.cshtml" />
     <Content Include="Views\Administration\come_back.cshtml" />
     <Content Include="Views\Catalog\Add.cshtml" />
@@ -324,7 +324,6 @@
     <Content Include="Views\News\Delete.cshtml" />
     <Content Include="Views\News\Edit.cshtml" />
     <Content Include="Views\Stock\Details.cshtml" />
-    <Content Include="Views\Stock\AddedToBasket.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

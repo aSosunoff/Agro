@@ -47,9 +47,9 @@
                                     <h7>@element.NAME</h7>
                                     @Html.DisplayActionLincImage("Details", "Stock", element.PK_ID, new { src = element.IMAGE_PATH, @class = "img-thumbnail img-responsive center-block", alt = "Responsive image" })
                                     <h7>@element.PRICE_ONE_Round руб.</h7>
-                                    <h7>
+                                    @*<h7>
                                         @Html.ActionLink("В корзину", "AddedToBasket", "Stock", new { id = element.PK_ID }, new { @class = "btn btn-primary btn-xs" })
-                                    </h7>
+                                    </h7>*@
                                 </div>
                             </div>
                         </div>
