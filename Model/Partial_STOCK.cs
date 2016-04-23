@@ -68,6 +68,16 @@ namespace Model
                     };
             }
         }
+
+        public string STEP_GetValue
+        {
+            get { return STEP == 0 ? "кг" : "шт"; }
+        }
+
+        public decimal PRICE_ONE_Round
+        {
+            get { return Decimal.Round(PRICE_ONE, 2); }
+        }
     }
 
     public class stock
@@ -87,7 +97,7 @@ namespace Model
 
         [Required(ErrorMessage = "Заполните стоимость")]
         [Display(Name = "Стоимость")]
-        public decimal PRICE_ONE { get; set; }
+        public decimal PRICE_ONE{ get; set; }
 
         [Required(ErrorMessage = "Заполните информацию о продукте")]
         [Display(Name = "Информация")]

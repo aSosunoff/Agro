@@ -6,5 +6,6 @@ namespace Model.Engine.Service.Interface
     {
         void Create(rstock item);
         rstock GetItemToId(decimal id);
+        void AddedProductToBasket(rstock productToBasket);
     }
 }

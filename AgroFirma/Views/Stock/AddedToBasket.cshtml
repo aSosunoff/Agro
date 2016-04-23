@@ -1,0 +1,100 @@
+﻿@using AgroFirma.Component.Helpers
+@model Model.rstock
+@{
+    ViewBag.Title = "Корзина";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="list-group list-cust card-head">
+    <h5 class="list-group-item active">Добавление в корзину</h5>
+    <div class="col-lg-12 card-body">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+            
+            @Html.HiddenFor(e => e.PK_ID)
+            @Html.HiddenFor(e => e.NAME)
+            
+            
+
+            <div class="col-lg-4">
+                @Html.DisplayImage(new { src = Model.IMAGE_PATH, @class = "img-thumbnail img-responsive center-block", alt = "Responsive image" })
+            </div>
+            <div class="col-lg-8">
+                <table class="table">
+                    <tr>
+                        <td>@Html.DisplayNameFor(e => e.NAME)</td>
+                        <td>@Model.NAME</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.DisplayNameFor(e => e.INFO)</td>
+                        <td>@Model.INFO</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.DisplayNameFor(e => e.QANTITY)</td>
+                        <td>@Model.QANTITY @Model.STEP_GetValue</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.DisplayNameFor(e => e.PRICE_ONE)</td>
+                        <td>@Model.PRICE_ONE_Round руб.</td>
+                        @* TODO: подумать над валютой сейчас жёстко всё в рублях *@
+                    </tr>
+                    <tr>
+                        <td>Сколько вы хотите добавить</td>
+                        <td>
+                            @Html.TextBoxFor(model => model.QANTITY, new {@class = "form-control"})
+                            @Html.ValidationMessageFor(model => model.QANTITY, "", new {@class = "text-danger"})
+                        </td>
+                        @* TODO: подумать над валютой сейчас жёстко всё в рублях *@
+                    </tr>
+                </table>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Добавить в корзину" class="btn btn-primary" />
+            </div>
+
+        }
+
+        @*@using (Html.BeginForm("Add", "News", null, FormMethod.Post, new { enctype = "multipart/form-data", role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="col-lg-offset-2 col-lg-4">
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.IMAGE_PATH, new { @class = "control-label" })
+                    @Html.TextBoxFor(model => model.IMAGE_PATH, new { @class = "form-control", type = "file" })
+                    @Html.ValidationMessageFor(model => model.IMAGE_PATH, "", new { @class = "text-danger" })
+                </div>
+
+            </div>
+            <div class="col-lg-4">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.NAME, htmlAttributes: new { @class = "control-label" })
+                    @Html.TextBoxFor(model => model.NAME, new { @class = "form-control", placeholder = "Наименование" })
+                    @Html.ValidationMessageFor(model => model.NAME, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.TEXT, htmlAttributes: new { @class = "control-label" })
+                    @Html.TextBoxFor(model => model.TEXT, new { @class = "form-control", placeholder = "Содержание" })
+                    @Html.ValidationMessageFor(model => model.TEXT, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" value="Сохранить" class="btn btn-primary" />
+                </div>
+            </div>
+        }*@
+    </div>
+</div>
+
+@*@section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }*@
+
+
+

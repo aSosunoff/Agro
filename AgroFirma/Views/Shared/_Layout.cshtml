@@ -146,6 +146,11 @@
             {
                 <div class="alert alert-danger" role="alert">@ViewBag.ErrorMessage</div>
             }
+            
+            @if (@ViewBag.SuccessMessage != null)
+            {
+                <div class="alert alert-success" role="alert">@ViewBag.SuccessMessage</div>
+            }
 
             @RenderBody()
         </div>

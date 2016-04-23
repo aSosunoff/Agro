@@ -91,7 +91,7 @@ namespace AgroFirma.Controllers
             {
                 _serviceLayer.Get<ICCategoryService>().Create(ccategory);
 
-                return View(new ccategory());
+                return RedirectToAction("Add");
             }
             return View(ccategory);
         }
