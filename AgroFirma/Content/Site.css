@@ -37,45 +37,7 @@
 /***/
 
 
-/*****************/
-/*.list-cust .list-group-item:first-child {
-    border-top-right-radius: 0px;
-    border-top-left-radius: 0px;
-}
 
-.list-cust .list-group-item:last-child {
-    border-bottom-right-radius: 0px;
-    border-bottom-left-radius: 0px;
-}
-.list-cust .list-group-item {
-    border-right:0px;
-    border-left:0px;
-}
-.list-group :not(:first-child) {
-    background-color: #EEE;
-        
-}*/
-/*****************/
-
-
-
-
-/*****************/
-/*.list-group.card-head :not(:first-child) {
-    background-color: white;     
-}
-.card-head .card-body {
-    border: 1px solid #C3C3C3;
-}*/
-/*****************/
-
-
-
-
-
-.list-group-custom.list-group{
-    
-}
 
 .list-group-custom.list-group :not(:first-child input){
     background-color: white;
@@ -107,8 +69,6 @@
 
 
 
-
-
 .list-group-custom-gray.list-group :not(:first-child input){
     background-color: #EEE;
 }
@@ -134,4 +94,25 @@
 
 .list-group-custom-gray.list-group .list-group-item select {
     border-radius: 0px;
+}
+
+
+
+
+
+.thumbnail-castom {
+    padding: 0px;
+    border-radius: 0px 0px 0px 0px;
+}
+.thumbnail-castom .thumbnail-castom-head {
+    text-align: center;
+    font-size: 12px;
+    height: 35px;
+    margin: 5px;
+}
+.thumbnail-castom .thumbnail-castom-text-right {
+    text-align: right;
+}
+.thumbnail-castom .thumbnail-castom-text-left {
+    text-align: left;
 }
