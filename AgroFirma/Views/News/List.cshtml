@@ -15,12 +15,16 @@
                     @Html.DisplayActionLincImage("Details", "News", item.PK_ID, new {src = item.IMAGE_PATH, @class = "img-thumbnail img-responsive center-block", alt = "Responsive image"})
                 </td>
                 <td>
-                    <h5>@Html.ActionLink(@item.NAME, "Details", "News", new {id = item.PK_ID}, null)</h5>
-
-                    @Html.DisplayFor(e => item.TEXT)
-                    <h5 class="pull-right">@Html.DisplayFor(e => item.DATE)</h5>
+                    <div class="col-lg-12">
+                        @Html.ActionLink(@item.NAME, "Details", "News", new {id = item.PK_ID}, null)
+                    </div>
+                    <div class="col-lg-12">
+                        @Html.DisplayFor(e => item.TEXT)
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="pull-right">@item.DATE.Date.ToString("D")</div>
+                    </div>
                 </td>
-                <td></td>
             </tr>
         }
     </table>

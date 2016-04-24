@@ -1,0 +1,81 @@
+﻿@using AgroFirma.Component.Helpers
+@model IEnumerable<Model.rbasket>
+@{
+    ViewBag.Title = "Корзина";
+    ViewBag.ListGroupTitle = "Товары в корзине";
+}
+
+@if (Model.Count() > 0)
+{
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(modelItem => modelItem.rstock.IMAGE_PATH)
+            </th>
+            <th>
+                @Html.DisplayNameFor(modelItem => modelItem.rstock.NAME)
+            </th>
+            <th>
+                @Html.DisplayNameFor(modelItem => modelItem.rstock.INFO)
+            </th>
+            <th>
+                @Html.DisplayNameFor(modelItem => modelItem.QANTITY)
+            </th>
+            <th>
+                Стоимость
+            </th>
+            <th>
+                @Html.DisplayNameFor(modelItem => modelItem.DATE_ADD_PRODUCT)
+            </th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayActionLincImage("Details", "Stock", item.FK_ID_STOCK, new {src = item.rstock.IMAGE_PATH, @class = "img-thumbnail img-responsive center-block", alt = "Responsive image"})
+                </td>
+
+                <td>
+                    <div class="col-lg-12">
+                        @Html.ActionLink(@item.rstock.NAME, "Details", "Stock", new {id = item.FK_ID_STOCK}, null)
+                    </div>
+                </td>
+                <td>
+                    <div class="col-lg-12">
+                        @Html.DisplayFor(e => item.rstock.INFO)
+                    </div>
+                </td>
+                <td>
+                    <div class="col-lg-12">
+                        @Html.DisplayFor(e => item.QANTITY)
+                    </div>
+                </td>
+                <td>
+                    <div class="col-lg-12">
+                        @{ decimal resSum = item.QANTITY * item.rstock.PRICE_ONE; }
+                        @Decimal.Round(resSum, 2) руб.
+                    </div>
+                </td>
+                <td>
+                    <div class="col-lg-12">
+                        <div class="pull-right">@item.DATE_ADD_PRODUCT.Date.ToString("D")</div>
+                    </div>
+                </td>
+
+
+            </tr>
+        }
+        <tr>
+            <td>Итого:</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>@Model.Sum(x => x.QANTITY * x.rstock.PRICE_ONE).ToString("F") руб.</td>
+            <td></td>
+        </tr>
+    </table>
+}
+else
+{
+    <h3 class="text-center">Продуктов в корзине нет</h3>
+}

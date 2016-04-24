@@ -99,7 +99,7 @@
 
 
 
-
+/*Стили для нормального отображения плитки товаров и категорий*/
 .thumbnail-castom {
     padding: 0px;
     border-radius: 0px 0px 0px 0px;
@@ -115,4 +115,11 @@
 }
 .thumbnail-castom .thumbnail-castom-text-left {
     text-align: left;
+}
+
+
+
+/*Фиксированный размер для изображений в списках*/
+.img-thumbnail {
+    max-width: 150px;
 }

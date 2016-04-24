@@ -57,6 +57,7 @@
   <ItemGroup>
     <Compile Include="Infrastructure\CategoryModel.cs" />
     <Compile Include="Infrastructure\NewsModelBinder.cs" />
+    <Compile Include="Partial_BASKET.cs" />
     <Compile Include="Partial_CATEGORY.cs" />
     <Compile Include="ccategory.cs">
       <DependentUpon>ModelEntities.tt</DependentUpon>
