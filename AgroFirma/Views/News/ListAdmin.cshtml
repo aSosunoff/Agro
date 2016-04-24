@@ -24,11 +24,11 @@
                 <td>
                     @if (item.IS_ACTIVE == 0)
                     {
-                        @Html.DisplayImage( new { src = item.IMAGE_PATH, @class = "img-thumbnail img-responsive center-block", alt = "Responsive image" })
+                        @Html.DisplayImage(new { src = item.IMAGE_PATH, @class = "img-thumbnail img-thumbnail-custom img-responsive center-block", alt = "Responsive image" })
                     }
                     else
                     {
-                        @Html.DisplayActionLincImage("Details", "News", item.PK_ID, new { src = item.IMAGE_PATH, @class = "img-thumbnail img-responsive center-block", alt = "Responsive image" })
+                        @Html.DisplayActionLincImage("Details", "News", item.PK_ID, new { src = item.IMAGE_PATH, @class = "img-thumbnail img-thumbnail-custom img-responsive center-block", alt = "Responsive image" })
                     }
                 </td>
 

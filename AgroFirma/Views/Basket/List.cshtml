@@ -32,7 +32,7 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayActionLincImage("Details", "Stock", item.FK_ID_STOCK, new {src = item.rstock.IMAGE_PATH, @class = "img-thumbnail img-responsive center-block", alt = "Responsive image"})
+                    @Html.DisplayActionLincImage("Details", "Stock", item.FK_ID_STOCK, new { src = item.rstock.IMAGE_PATH, @class = "img-thumbnail img-thumbnail-custom img-responsive center-block", alt = "Responsive image" })
                 </td>
 
                 <td>
@@ -71,7 +71,9 @@
             <td></td>
             <td></td>
             <td>@Model.Sum(x => x.QANTITY * x.rstock.PRICE_ONE).ToString("F") руб.</td>
-            <td></td>
+            <td>
+                @Html.ActionLink("Оформить заказ", "OrderToPrepare", null, new { @class = "btn btn-primary" })
+            </td>
         </tr>
     </table>
 }

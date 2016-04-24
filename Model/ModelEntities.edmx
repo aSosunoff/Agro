@@ -33,7 +33,7 @@
           <Property Name="FLAG_SIGNATURE" Type="int" Nullable="false" />
           <Property Name="FLAG_PAYMENT" Type="int" Nullable="false" />
           <Property Name="DATE" Type="datetime" Precision="0" Nullable="false" />
-          <Property Name="DATE_SIGNATURE" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="DATE_SIGNATURE" Type="datetime" Precision="0" />
           <Property Name="IS_ACTIVE" Type="int" Nullable="false" />
           <Property Name="IS_READY" Type="int" Nullable="false" />
           <Property Name="FK_ID_CONTRACT_CONTRACTOR" Type="int" Nullable="false" />

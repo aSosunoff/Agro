@@ -120,6 +120,6 @@
 
 
 /*Фиксированный размер для изображений в списках*/
-.img-thumbnail {
+.img-thumbnail-custom.img-thumbnail{
     max-width: 150px;
 }
