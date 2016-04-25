@@ -326,13 +326,14 @@
     <Content Include="Views\Stock\Details.cshtml" />
     <Content Include="Views\News\ListAdmin.cshtml" />
     <Content Include="Views\Basket\List.cshtml" />
+    <Content Include="Views\Contract\List.cshtml" />
+    <Content Include="Views\Contract\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\themes\base\images\" />
     <Folder Include="Content\themes\base\minified\images\" />
     <Folder Include="Images\" />
-    <Folder Include="Views\Contract\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">

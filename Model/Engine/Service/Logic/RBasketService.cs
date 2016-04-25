@@ -14,12 +14,12 @@ namespace Model.Engine.Service.Logic
             return _Repository.GetAllList().Count();
         }
 
-        private bool IsNullQantityProduct(out string errorMessage)
+        public bool IsNullQantityProduct(out string errorMessage)
         {
             bool errorFlag = false;
             errorMessage = String.Empty;
 
-            foreach (var element in _Repository.GetAllList())
+            foreach (var element in _Repository.GetAllList().ToList())
             {
                 if (RootServiceLayer.Get<IRStockService>().GetItemToId(element.FK_ID_STOCK).QANTITY < element.QANTITY)
                 {
@@ -35,9 +35,9 @@ namespace Model.Engine.Service.Logic
         {
             //проверяем есть ли добавленый ранее товар в корзине на складе
             //если нет то выводим предупреждающее сообщение
-            ////string errorMessage;
-            ////if(IsNullQantityProduct(out errorMessage))
-            ////    throw new Exception(errorMessage);
+            string errorMessage;
+            if (IsNullQantityProduct(out errorMessage))
+                throw new Exception(errorMessage);
             //создаём контракт который прикрепим к заказу
             //добавляем информацию о клиенте и о поставщике
             //TODO: продумать индификатор поставщика

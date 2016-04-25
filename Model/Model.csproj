@@ -136,6 +136,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ModelEntities.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Partial_CONTRACT.cs" />
     <Compile Include="Partial_NEWS.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="rbasket.cs">

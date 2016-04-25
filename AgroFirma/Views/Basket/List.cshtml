@@ -32,34 +32,23 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayActionLincImage("Details", "Stock", item.FK_ID_STOCK, new { src = item.rstock.IMAGE_PATH, @class = "img-thumbnail img-thumbnail-custom img-responsive center-block", alt = "Responsive image" })
-                </td>
-
-                <td>
-                    <div class="col-lg-12">
-                        @Html.ActionLink(@item.rstock.NAME, "Details", "Stock", new {id = item.FK_ID_STOCK}, null)
-                    </div>
+                    @Html.DisplayActionLincImage("Details", "Stock", item.FK_ID_STOCK, new { src = item.rstock.IMAGE_PATH, @class = "img-thumbnail img-thumbnail-custom img-responsive center-block", alt = "Responsive image" })    
                 </td>
                 <td>
-                    <div class="col-lg-12">
-                        @Html.DisplayFor(e => item.rstock.INFO)
-                    </div>
+                    @Html.ActionLink(@item.rstock.NAME, "Details", "Stock", new {id = item.FK_ID_STOCK}, null)
                 </td>
                 <td>
-                    <div class="col-lg-12">
-                        @Html.DisplayFor(e => item.QANTITY)
-                    </div>
+                    @Html.DisplayFor(e => item.rstock.INFO)
                 </td>
                 <td>
-                    <div class="col-lg-12">
-                        @{ decimal resSum = item.QANTITY * item.rstock.PRICE_ONE; }
-                        @Decimal.Round(resSum, 2) руб.
-                    </div>
+                    @Html.DisplayFor(e => item.QANTITY)
                 </td>
                 <td>
-                    <div class="col-lg-12">
-                        <div class="pull-right">@item.DATE_ADD_PRODUCT.Date.ToString("D")</div>
-                    </div>
+                    @{ decimal resSum = item.QANTITY * item.rstock.PRICE_ONE; }
+                    @Decimal.Round(resSum, 2) руб.
+                </td>
+                <td>
+                    <div class="pull-right">@item.DATE_ADD_PRODUCT.Date.ToString("D")</div>
                 </td>
 
 

@@ -56,5 +56,14 @@ namespace Model.Engine.Service.Logic
 
             _Repository.Create(item);
         }
+
+        public void Pay(int id)
+        {
+            rcontract item = _Repository.GetItem(e => e.PK_ID == id);
+
+            item.FLAG_PAYMENT = 1;
+
+            _Repository.Update(item);
+        }
     }
 }
