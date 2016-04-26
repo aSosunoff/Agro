@@ -88,7 +88,8 @@ namespace Model
 
         [Required(ErrorMessage = "Заполните количество")]
         [Display(Name = "Количество")]
-        [RegularExpression("([1-9][0-9]*)", ErrorMessage = "Только числа больше 0")]
+        [RegularExpression("([0-9]*)", ErrorMessage = "Только числа")]
+        //TODO: Сделать проверку на ноль в контроллере. Так как при вычитании из склада начинает ругаться если на складе остаётся 0 товаров
         public int QANTITY { get; set; }
 
         [Required(ErrorMessage = "Выбирете единицу")]

@@ -66,12 +66,14 @@ namespace Model.Engine.Service.Logic
                 //вычитаем из склада
                 //TODO: предусмотреть проверку на остаток на складе
                 //TODO: недопустить что бы на складе вышло колличество в минус
-                RootServiceLayer.Get<IRStockService>()
-                    .GetItemToId(element.FK_ID_STOCK).QANTITY -= element.QANTITY;
+                rstock stockItem = RootServiceLayer.Get<IRStockService>()
+                    .GetItemToId(element.FK_ID_STOCK);
+
+                stockItem.QANTITY -= element.QANTITY;
 
                 RootServiceLayer.Get<IRStockService>()
                     ._Repository
-                    .Update(RootServiceLayer.Get<IRStockService>().GetItemToId(element.FK_ID_STOCK));
+                    .Update(stockItem);
 
                 //удаляем из корзины
                 _Repository.Delete(element);

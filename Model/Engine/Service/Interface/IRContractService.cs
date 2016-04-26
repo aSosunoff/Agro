@@ -7,5 +7,6 @@ namespace Model.Engine.Service.Interface
         int Count();
         void Create(rcontract rcontract);
         void Pay(int id);
+        void RefuseContract(int id);
     }
 }

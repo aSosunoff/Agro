@@ -7,9 +7,7 @@ namespace Model.Engine.Service.Logic
 {
     public class RContractService : BaseService<IRContractRepository>, IRContractService
     {
-        public RContractService(IUnitOfWork unitOfWork) : base(unitOfWork)
-        {
-        }
+        public RContractService(IUnitOfWork unitOfWork) : base(unitOfWork){}
 
         public int Count()
         {
@@ -64,6 +62,36 @@ namespace Model.Engine.Service.Logic
             item.FLAG_PAYMENT = 1;
 
             _Repository.Update(item);
+        }
+
+        public void RefuseContract(int id)
+        {//TODO: Привязаться к пользователю кто вызвал метод
+            //Находим контракт который пользователь хочет вернуть
+            rcontract item = _Repository.GetItem(e => e.PK_ID == id);
+            if (item != null)
+            {
+                foreach (var element in RootServiceLayer.Get<IROrderService>()._Repository.GetSortList(e => e.FK_ID_CONTRACT == item.PK_ID).ToList())
+                {
+                    rstock stockItem = RootServiceLayer.Get<IRStockService>()._Repository.GetItem(e => e.PK_ID == element.FK_ID_STOCK);
+
+                    stockItem.QANTITY += element.QANTITY;
+
+                    RootServiceLayer.Get<IROrderService>()._Repository.Delete(element);
+                }
+
+                ruser_info userInfo = RootServiceLayer.Get<IRUser_infoService>()._Repository.GetItem(e => e.PK_ID == item.FK_ID_CONTRACT_USER);
+
+                rcontractor_info contractorInfo = RootServiceLayer.Get<IRContractor_infoService>()._Repository.GetItem(e => e.PK_ID == item.FK_ID_CONTRACT_CONTRACTOR);
+
+                _Repository.Delete(item);
+
+                RootServiceLayer.Get<IRUser_infoService>()._Repository.Delete(userInfo);
+
+                RootServiceLayer.Get<IRContractor_infoService>()._Repository.Delete(contractorInfo);
+            }
+            else 
+                throw new Exception("Такого договора нет");
+            
         }
     }
 }

@@ -1,0 +1,96 @@
+﻿@model IEnumerable<Model.rcontract>
+@{
+    ViewBag.Title = "Контракты";
+    ViewBag.ListGroupTitle = "Контракты в системе";
+}
+
+@if (Model.Any())
+{
+    <table class="table">
+        <tr>
+            <th>
+                №
+            </th>
+            <th></th>
+            <th>
+                Пользователь
+            </th>
+            <th>
+                Колличество товаров
+            </th>
+            <th>
+                @Html.DisplayNameFor(modelItem => modelItem.DATE)
+            </th>
+            <th>
+                @Html.DisplayNameFor(modelItem => modelItem.IS_READY)
+            </th>
+            <th>
+                статус
+            </th><th></th>
+        </tr>
+        @{ var j = 1; }
+        @foreach (var element in Model)
+        {
+            string is_ready;
+            if (element.FLAG_PAYMENT == 1)
+            {
+                is_ready = "class=alert-success";
+            }
+            else
+            {
+                is_ready = String.Empty;
+            }
+            <tr @is_ready>
+                <td>
+                    @j
+                    @{ j += 1; }
+                </td>
+
+                <td>
+                    @Html.ActionLink("Договор", "DetailsAdmin", new {id = element.PK_ID}, null)
+                </td>
+                <td>
+                    <p>@element.ruser_info.SURNAME</p>
+                    <p>@element.ruser_info.NAME</p>
+                    <p>@element.ruser_info.MIDDLE_NAME</p>
+                </td>
+                <td>
+                    @element.rorder.Count()
+                </td>
+                <td>
+                    @element.DATE.Date.ToString("D")
+                </td>
+                <td>
+                    @if (element.IS_READY == 0)
+                    {
+                        <div>В обработке</div>
+                    }
+                    else
+                    {
+                        <div>Готов</div>
+                    }
+                </td>
+                <td>
+                    @if (element.FLAG_PAYMENT == 0)
+                    {
+                        <div>Клиент пока не оплатил</div>
+                    }
+                    else
+                    {
+                        <div>Оплачено</div>
+                    }
+                </td>
+                <td>
+                    @if (element.FLAG_PAYMENT == 1)
+                    {
+                        @Html.ActionLink(" ", "RefuseContract", new { id = element.PK_ID }, new { @class = "glyphicon glyphicon-print pull-right" })
+                    }
+                </td>
+            </tr>
+        }
+    </table>
+}
+else
+{
+    <h3 class="text-center">У вас нет оформленных контрактов</h3>
+}
