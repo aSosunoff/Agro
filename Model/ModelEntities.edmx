@@ -90,7 +90,7 @@
           <Property Name="QANTITY" Type="int" Nullable="false" />
           <Property Name="STEP" Type="int" Nullable="false" />
           <Property Name="PRICE_ONE" Type="decimal" Precision="50" Scale="10" Nullable="false" />
-          <Property Name="INFO" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="INFO" Type="longtext" Nullable="false" />
           <Property Name="IMAGE_PATH" Type="varchar" MaxLength="45" Nullable="false" />
           <Property Name="DATE_ADDED" Type="datetime" Precision="0" Nullable="false" />
           <Property Name="IS_ACTIVE" Type="int" Nullable="false" />
@@ -276,18 +276,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="USER_STREET_FK">
-          <End Role="sstreet" Type="Self.sstreet" Multiplicity="1" />
-          <End Role="ruser" Type="Self.ruser" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="sstreet">
-              <PropertyRef Name="PK_ID" />
-            </Principal>
-            <Dependent Role="ruser">
-              <PropertyRef Name="FK_ID_STREET" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="agro_mydbModelStoreContainer">
           <EntitySet Name="ccategory" EntityType="Self.ccategory" Schema="agro_mydb" store:Type="Tables" />
           <EntitySet Name="rbasket" EntityType="Self.rbasket" Schema="agro_mydb" store:Type="Tables" />
@@ -339,10 +327,6 @@
           <AssociationSet Name="USER_INFO_USER_FK" Association="Self.USER_INFO_USER_FK">
             <End Role="ruser" EntitySet="ruser" />
             <End Role="ruser_info" EntitySet="ruser_info" />
-          </AssociationSet>
-          <AssociationSet Name="USER_STREET_FK" Association="Self.USER_STREET_FK">
-            <End Role="sstreet" EntitySet="sstreet" />
-            <End Role="ruser" EntitySet="ruser" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -418,8 +402,8 @@
             <PropertyRef Name="PK_ID" />
           </Key>
           <Property Name="PK_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="NAME" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="TEXT" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NAME" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TEXT" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="DATE" Type="DateTime" Nullable="false" />
           <Property Name="IMAGE_PATH" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="IS_ACTIVE" Type="Int32" Nullable="false" />
@@ -440,11 +424,11 @@
             <PropertyRef Name="PK_ID" />
           </Key>
           <Property Name="PK_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="NAME" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NAME" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="QANTITY" Type="Int32" Nullable="false" />
           <Property Name="STEP" Type="Int32" Nullable="false" />
           <Property Name="PRICE_ONE" Type="Decimal" Nullable="false" />
-          <Property Name="INFO" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="INFO" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="IMAGE_PATH" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="IS_ACTIVE" Type="Int32" Nullable="false" />
           <Property Name="FK_ID_CATEGORY" Type="Int32" Nullable="false" />

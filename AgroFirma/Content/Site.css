@@ -107,9 +107,14 @@
 .thumbnail-castom .thumbnail-castom-head {
     text-align: center;
     font-size: 12px;
-    height: 35px;
+    height: 70px;
     margin: 5px;
 }
+
+.thumbnail-castom .thumbnail-castom-body {
+    height: 120px;
+}
+
 .thumbnail-castom .thumbnail-castom-text-right {
     text-align: right;
 }

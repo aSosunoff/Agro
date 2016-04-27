@@ -202,6 +202,7 @@
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Component\CategoryModel.cs" />
     <Compile Include="Component\ControllerInitializer.cs" />
     <Compile Include="Component\Helpers\ActionLinkUser.cs" />
     <Compile Include="Component\Helpers\ImageHelper.cs" />
@@ -330,12 +331,14 @@
     <Content Include="Views\Contract\Details.cshtml" />
     <Content Include="Views\Contract\ListAdmin.cshtml" />
     <Content Include="Views\Contract\DetailsAdmin.cshtml" />
+    <Content Include="Template\Dogovor_Postavki_Tovara.doc" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\themes\base\images\" />
     <Folder Include="Content\themes\base\minified\images\" />
     <Folder Include="Images\" />
+    <Folder Include="Template\Success\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">

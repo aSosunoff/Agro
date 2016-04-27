@@ -83,5 +83,14 @@ namespace AgroFirma.Controllers
             }
             return View(_serviceLayer.Get<IROrderService>()._Repository.GetSortList(e => e.FK_ID_CONTRACT == id).ToList());
         }
+
+        public FileResult PrintDog(int id)
+        {
+            string fileName = "Dogovor_Postavki_Tovara.doc";
+
+            string filePath = _serviceLayer.Get<IRContractService>().PrintDog(id, fileName);
+
+            return File(filePath, "application/doc", fileName);
+        }
     }
 }

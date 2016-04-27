@@ -1,5 +1,5 @@
 ﻿@using AgroFirma.Component.Helpers
-@model Model.Infrastructure.CategoryModel
+@model AgroFirma.Component.CategoryModel
 @{
     ViewBag.Title = "Категория";
     ViewBag.ListGroupTitle = ViewBag.CategoryTitle;
@@ -19,7 +19,7 @@
                             <div class="thumbnail thumbnail-castom">
                                 <div class="caption">
                                     <p class="thumbnail-castom-head">@element.TEXT</p>
-                                    <p>
+                                    <p class="thumbnail-castom-body">
                                         @Html.DisplayActionLincImage("List", "Catalog", element.PK_ID, new { src = element.IMAGE_PATH, @class = "img-thumbnail img-responsive center-block", alt = "Responsive image" })
                                     </p>
                                 </div>

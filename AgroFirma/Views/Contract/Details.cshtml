@@ -7,90 +7,65 @@
 
 @if (Model.Any())
 {
+
     <table class="table">
-        <tr>
-            <th>
-                <div class="col-lg-12">
-                    @Html.DisplayNameFor(modelItem => modelItem.rstock.IMAGE_PATH)
-                </div>
-            </th>
-            <th>
-                <div class="col-lg-12">
-                    @Html.DisplayNameFor(modelItem => modelItem.rstock.NAME)
-                </div>
-            </th>
-            <th>
-                <div class="col-lg-12">
-                    @Html.DisplayNameFor(modelItem => modelItem.rstock.INFO)
-                </div>
-            </th>
-            <th>
-                <div class="col-lg-12">
-                    @Html.DisplayNameFor(modelItem => modelItem.QANTITY)
-                </div>
-            </th>
-            <th>
-                <div class="col-lg-12">
-                    Стоимость
-                </div>
-            </th>
-        </tr>
         @foreach (var item in Model)
         {
             <tr>
                 <td>
-                    <div class="col-lg-12">
-                        @Html.DisplayActionLincImage("Details", "Stock", item.FK_ID_STOCK, new { src = item.rstock.IMAGE_PATH, @class = "img-thumbnail img-thumbnail-custom img-responsive center-block", alt = "Responsive image" })
+                    <div class="row">
+                        <div class="col-lg-12">
+                            @Html.ActionLink(@item.rstock.NAME, "Details", "Stock", new { id = item.FK_ID_STOCK }, null)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-3">
+                            @Html.DisplayActionLincImage("Details", "Stock", item.FK_ID_STOCK, new { src = item.rstock.IMAGE_PATH, @class = "img-thumbnail img-thumbnail-custom img-responsive center-block", alt = "Responsive image" })
+                        </div>
+                        <div class="col-lg-9">
+                            @Html.DisplayFor(e => item.rstock.INFO)
+                        </div>
                     </div>
                 </td>
+            </tr>
+            <tr>
                 <td>
-                    <div class="col-lg-12">
-                        @Html.ActionLink(@item.rstock.NAME, "Details", "Stock", new { id = item.FK_ID_STOCK }, null)
+                    <div class="row">
+                        <div class="col-lg-offset-3 col-lg-6">
+                            @Html.DisplayNameFor(modelItem => modelItem.QANTITY)
+                        </div>
+                        <div class="col-lg-3">
+                            @Html.DisplayFor(e => item.QANTITY)
+                        </div>
                     </div>
-                </td>
-                <td>
-                    <div class="col-lg-12">
-                        @Html.DisplayFor(e => item.rstock.INFO)
-                    </div>
-                </td>
-                <td>
-                    <div class="col-lg-12">
-                        @Html.DisplayFor(e => item.QANTITY)
-                    </div>
-                </td>
-                <td>
-                    <div class="col-lg-12">
-                        @{ decimal resSum = item.QANTITY * item.rstock.PRICE_ONE; }
-                        @Decimal.Round(resSum, 2) руб.
+                    <div class="row">
+                        <div class="col-lg-offset-3 col-lg-6">
+                            Стоимость
+                        </div>
+                        <div class="col-lg-3">
+                            @{ decimal resSum = item.QANTITY * item.rstock.PRICE_ONE; }
+                            @Decimal.Round(resSum, 2) руб.
+                        </div>
                     </div>
                 </td>
             </tr>
         }
         <tr>
             <td>
-                <div class="col-lg-12">
+                <div class="col-lg-offset-3 col-lg-6">
                     Итого:
                 </div>
-            </td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td>
-                <div class="col-lg-12">
-                    @Model.Sum(x => x.QANTITY*x.rstock.PRICE_ONE).ToString("F") руб.
+                <div class="col-lg-3">
+                    @Model.Sum(x => x.QANTITY * x.rstock.PRICE_ONE).ToString("F") руб.
                 </div>
             </td>
         </tr>
         @if (Model.ToList()[0].rcontract.FLAG_PAYMENT == 0)
         {
             <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
                 <td>
-                    <div class="col-lg-12">
-                        @Html.ActionLink("Оплатить", "Pay", new {id = Model.ToList()[0].FK_ID_CONTRACT}, new {@class = "btn btn-primary"})
+                    <div class="col-lg-offset-10 col-lg-2">
+                        @Html.ActionLink("Оплатить", "Pay", new { id = Model.ToList()[0].FK_ID_CONTRACT }, new { @class = "btn btn-primary" })
                     </div>
                 </td>
             </tr>
