@@ -17,65 +17,70 @@ namespace AgroFirma.Controllers
 
         public ActionResult List(int id)
         {
-            ViewBag.CategoryTitle = _serviceLayer.Get<ICCategoryService>()._Repository.GetItem(e => e.PK_ID == id).TEXT;
-
-            ConnectByPriorInModel model = new ConnectByPriorInModel()
+            ccategory item = _serviceLayer.Get<ICCategoryService>()._Repository.GetItem(e => e.PK_ID == id);
+            if (item != null)
             {
-                StartWith = new StartWith()
+                ViewBag.CategoryTitle = item.TEXT;
+
+                ConnectByPriorInModel model = new ConnectByPriorInModel()
                 {
-                    ColummName = "PK_ID",
-                    ColummValue = id
-                },
-                ConnectByPrior = new ConnectByPrior()
+                    StartWith = new StartWith()
+                    {
+                        ColummName = "PK_ID",
+                        ColummValue = id
+                    },
+                    ConnectByPrior = new ConnectByPrior()
+                    {
+                        Left = "PK_ID",
+                        Right = "PARENT_ID"
+                    }
+                };
+                //TODO: Сделать Reset модели 
+
+                CategoryModel categoryModel = new CategoryModel();
+
+                categoryModel.Ccategories = _serviceLayer
+                    .Get<ICCategoryService>()
+                    ._Repository
+                    .GetAllList()
+                    .ConnectByPrior(model)
+                    .Where(e => e.LEVEL == 2)
+                    .RemoveWrapModel();
+
+                model = new ConnectByPriorInModel()
                 {
-                    Left = "PK_ID",
-                    Right = "PARENT_ID"
-                }
-            };
-            //TODO: Сделать Reset модели 
-
-            CategoryModel categoryModel = new CategoryModel();
-
-            categoryModel.Ccategories = _serviceLayer
-                .Get<ICCategoryService>()
-                ._Repository
-                .GetAllList()
-                .ConnectByPrior(model)
-                .Where(e => e.LEVEL == 2)
-                .RemoveWrapModel();
-
-            model = new ConnectByPriorInModel()
-            {
-                StartWith = new StartWith()
-                {
-                    ColummName = "PK_ID",
-                    ColummValue = id
-                },
-                ConnectByPrior = new ConnectByPrior()
-                {
-                    Left = "PK_ID",
-                    Right = "PARENT_ID"
-                }
-            };
+                    StartWith = new StartWith()
+                    {
+                        ColummName = "PK_ID",
+                        ColummValue = id
+                    },
+                    ConnectByPrior = new ConnectByPrior()
+                    {
+                        Left = "PK_ID",
+                        Right = "PARENT_ID"
+                    }
+                };
 
 
-            int[] arrayIdCategory = _serviceLayer
-                .Get<ICCategoryService>()
-                ._Repository
-                .GetAllList()
-                .ConnectByPrior(model)
-                .Where(e => e.FLAG_TREE)
-                .RemoveWrapModel().Select(e => e.PK_ID)
-                .ToArray();
+                int[] arrayIdCategory = _serviceLayer
+                    .Get<ICCategoryService>()
+                    ._Repository
+                    .GetAllList()
+                    .ConnectByPrior(model)
+                    .Where(e => e.FLAG_TREE)
+                    .RemoveWrapModel().Select(e => e.PK_ID)
+                    .ToArray();
 
-            categoryModel.Rstocks = _serviceLayer
-                .Get<IRStockService>()
-                ._Repository
-                .GetSortList(e => arrayIdCategory
-                    .Contains(e.FK_ID_CATEGORY))
-                .ToList();
+                categoryModel.Rstocks = _serviceLayer
+                    .Get<IRStockService>()
+                    ._Repository
+                    .GetSortList(e => arrayIdCategory
+                        .Contains(e.FK_ID_CATEGORY))
+                    .ToList();
 
-            return View(categoryModel);
+                return View(categoryModel);
+            }
+            return RedirectToAction("Index", "Home");
         }
 
         public ActionResult Add()

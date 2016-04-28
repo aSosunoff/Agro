@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="04/28/2016 20:26:43" ReportInfo.Modified="04/28/2016 23:49:42" ReportInfo.CreatorVersion="2013.4.1.0">
+  <Dictionary>
+    <XmlDataConnection Name="Connection" ConnectionString="rijcmlqZdU0EYI0kStOMroaY/RtnUrx4kHt4AgOVijA/Pe3AZ8XPFdoRmc7IYHVGBkLRwck2JIidivqT29wHg7WQbJGtQDF9xHE+EQEpeHG2FqU5Xog0PtOD2wJDPtRYVDIenv3QnHMqhIFD3kp8p28bJAq+M1Nu6vOQo3uUghSf1SYVbd6kX8JaINKLgPxyt3pRTPC3MqMlw87CetXX8mOCxl4GtvsQpCbSR7cisE2D08X02X89BQU8mxp1IJgmb/gwIEFdMQ8hTEUzIoyrif9tiUntD5/jHgtjyWD/UHooxVOWyiDdkO3ACvRaMFSN9nuFKqn">
+      <TableDataSource Name="INFO_CONTRACT" DataType="System.Int32" Enabled="true" TableName="INFO_CONTRACT">
+        <Column Name="NUMBER_CONTRACT" DataType="System.Int32"/>
+        <Column Name="DATE" DataType="System.DateTime"/>
+      </TableDataSource>
+      <TableDataSource Name="INFO_COMPANY" DataType="System.Int32" Enabled="true" TableName="INFO_COMPANY">
+        <Column Name="NAME_COMPANY" DataType="System.String"/>
+        <Column Name="CITY" DataType="System.String"/>
+        <Column Name="ADDRESS" DataType="System.String"/>
+        <Column Name="PHONE" DataType="System.String"/>
+      </TableDataSource>
+      <TableDataSource Name="ORDER" DataType="System.Int32" Enabled="true" TableName="ORDER">
+        <Column Name="QANTITY" DataType="System.Int32"/>
+        <Column Name="NAME_PRODUCT" DataType="System.String"/>
+      </TableDataSource>
+    </XmlDataConnection>
+  </Dictionary>
+  <ReportPage Name="Page1" Guides="9.45,555.85,708.75,708.75,708.75,708.75">
+    <ReportTitleBand Name="ReportTitle1" Width="718.2" Height="283.5">
+      <TextObject Name="Text1" Left="481.95" Width="217.35" Height="18.9" Text="Унифицированная форма № ТОРГ-10" Font="Arial, 8.25pt"/>
+      <TextObject Name="Text2" Left="481.95" Top="18.9" Width="236.25" Height="18.9" Text="Утверждена постановлением Госкомстата" Font="Arial, 8.25pt"/>
+      <TextObject Name="Text3" Left="481.95" Top="37.8" Width="236.25" Height="18.9" Text="России от 25.12.98 г. № 132" Font="Arial, 8.25pt"/>
+      <TableObject Name="Table1" Left="556.15" Top="56.3" Width="161.6" Height="132.3">
+        <TableColumn Name="Column1" Width="161.6"/>
+        <TableRow Name="Row1" Height="22.05">
+          <TableCell Name="Cell1" Border.Lines="All" Text="Код" HorzAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row2" Height="22.05">
+          <TableCell Name="Cell26" Border.Lines="All" Text="0330210" HorzAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row3" Height="22.05">
+          <TableCell Name="Cell31" Border.Lines="All"/>
+        </TableRow>
+        <TableRow Name="Row4" Height="22.05">
+          <TableCell Name="Cell36" Border.Lines="All">
+            <LineObject Name="Line1" Top="18.9" Width="-546.1" Diagonal="true"/>
+          </TableCell>
+        </TableRow>
+        <TableRow Name="Row5" Height="22.05">
+          <TableCell Name="Cell41" Border.Lines="All"/>
+        </TableRow>
+        <TableRow Name="Row6" Height="22.05">
+          <TableCell Name="Cell46" Border.Lines="All"/>
+        </TableRow>
+      </TableObject>
+      <TextObject Name="Text4" Left="440" Top="76.55" Width="113.4" Height="18.9" Text="Форма по ОКУД" HorzAlign="Right" Font="Arial, 8pt"/>
+      <TextObject Name="Text5" Left="440.1" Top="102" Width="113.4" Height="18.9" Text="по ОКПО" HorzAlign="Right" Font="Arial, 8pt"/>
+      <TextObject Name="Text6" Left="363.5" Top="145" Width="189" Height="18.9" Text="Вид деятельности по ОКДП" HorzAlign="Right" Font="Arial, 8pt"/>
+      <TextObject Name="Text7" Left="419.7" Top="167" Width="132.3" Height="18.9" Text="Вид операции" HorzAlign="Right" Font="Arial, 8pt"/>
+      <LineObject Name="Line2" Left="434.7" Top="122.85" Width="-425.25" Diagonal="true"/>
+      <TextObject Name="Text8" Left="9.45" Top="103.95" Width="85.05" Height="18.9" Text="[INFO_COMPANY.NAME_COMPANY]" Font="Arial, 8pt"/>
+      <TextObject Name="Text9" Left="94.5" Top="103.95" Width="66.15" Height="18.9" Text="[INFO_COMPANY.CITY]" Font="Arial, 8pt"/>
+      <TextObject Name="Text10" Left="160.65" Top="103.95" Width="198.45" Height="18.9" Text="[INFO_COMPANY.ADDRESS]" Font="Arial, 8pt"/>
+      <TextObject Name="Text11" Left="359.1" Top="103.95" Width="85.05" Height="18.9" Text="[INFO_COMPANY.PHONE]" Font="Arial, 8pt"/>
+      <TextObject Name="Text12" Left="179.55" Top="122.85" Width="94.5" Height="18.9" Text="Склад №1" Font="Arial, 8pt"/>
+      <TextObject Name="Text13" Left="311.85" Top="236.25" Width="160.65" Height="28.35" Text="Спецификация" Font="Arial, 15pt"/>
+      <TableObject Name="Table2" Left="490.4" Top="207.9" Width="228.58" Height="56.69">
+        <TableColumn Name="Column2" Width="65.92"/>
+        <TableColumn Name="Column3" Width="162.66"/>
+        <TableRow Name="Row7" Height="33.07">
+          <TableCell Name="Cell47" Border.Lines="All" Text="Номер документа" HorzAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell48" Border.Lines="All" Text="Дата составления" HorzAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+        <TableRow Name="Row8" Height="23.62">
+          <TableCell Name="Cell52" Border.Lines="All" Text="[INFO_CONTRACT.NUMBER_CONTRACT]" HorzAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell53" Border.Lines="All" Text="[INFO_CONTRACT.DATE]" Format="Date" Format.Format="D" HorzAlign="Center" Font="Arial, 8pt"/>
+        </TableRow>
+      </TableObject>
+    </ReportTitleBand>
+    <PageHeaderBand Name="PageHeader1" Top="285.79" Width="718.2" Height="66.15">
+      <TableObject Name="Table3" Left="9.45" Width="708.75" Height="66.15" Border.Lines="All">
+        <TableColumn Name="Column4"/>
+        <TableColumn Name="Column5" Width="283.5"/>
+        <TableColumn Name="Column6" Width="122.85"/>
+        <TableColumn Name="Column7" Width="122.85"/>
+        <TableColumn Name="Column8" Width="113.4"/>
+        <TableRow Name="Row9" Height="47.25">
+          <TableCell Name="Cell54" Border.Lines="All" Text="Номер места" HorzAlign="Center"/>
+          <TableCell Name="Cell55" Border.Lines="All" Text="Наименование группы товара, сорт" HorzAlign="Center"/>
+          <TableCell Name="Cell56" Border.Lines="All" Text="Номер упаковочного ярлыка" HorzAlign="Center"/>
+          <TableCell Name="Cell57" Border.Lines="All" Text="Вид упаковки" HorzAlign="Center"/>
+          <TableCell Name="Cell58" Border.Lines="All" Text="Количество мест" HorzAlign="Center"/>
+        </TableRow>
+        <TableRow Name="Row10">
+          <TableCell Name="Cell59" Border.Lines="All" Text="1" HorzAlign="Center"/>
+          <TableCell Name="Cell60" Border.Lines="All" Text="2" HorzAlign="Center"/>
+          <TableCell Name="Cell61" Border.Lines="All" Text="3" HorzAlign="Center"/>
+          <TableCell Name="Cell62" Border.Lines="All" Text="4" HorzAlign="Center"/>
+          <TableCell Name="Cell63" Border.Lines="All" Text="5" HorzAlign="Center"/>
+        </TableRow>
+      </TableObject>
+    </PageHeaderBand>
+    <DataBand Name="Data1" Top="354.22" Width="718.2" Height="37.8" Guides="0">
+      <TableObject Name="Table4" Left="9.45" Width="708.75" Height="37.8" Border.Lines="All">
+        <TableColumn Name="Column9"/>
+        <TableColumn Name="Column10" Width="283.5"/>
+        <TableColumn Name="Column11" Width="122.85"/>
+        <TableColumn Name="Column12" Width="122.85"/>
+        <TableColumn Name="Column13" Width="113.4"/>
+        <TableRow Name="Row11" Height="37.8">
+          <TableCell Name="Cell64" Border.Lines="All" Text="[Row#]" HorzAlign="Center" VertAlign="Center"/>
+          <TableCell Name="Cell65" Border.Lines="All" Text="[ORDER.NAME_PRODUCT]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+          <TableCell Name="Cell66" Border.Lines="All" HorzAlign="Center" VertAlign="Center"/>
+          <TableCell Name="Cell67" Border.Lines="All" Text="Коробка" HorzAlign="Center" VertAlign="Center"/>
+          <TableCell Name="Cell68" Border.Lines="All" HorzAlign="Center">
+            <TextObject Name="Text14" Width="113.4" Height="37.8" Text="[ORDER.QANTITY]" HorzAlign="Center" VertAlign="Center"/>
+          </TableCell>
+        </TableRow>
+      </TableObject>
+    </DataBand>
+    <PageFooterBand Name="PageFooter1" Top="394.31" Width="718.2" Height="207.9"/>
+  </ReportPage>
+</Report>

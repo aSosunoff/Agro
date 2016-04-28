@@ -38,11 +38,6 @@ namespace Model.Engine.Repository
             Db.SaveChanges();
         }
 
-        //public Type GetTypeObject()
-        //{
-        //    return typeof (T);
-        //}
-
         public IQueryable<T> GetSortList(Expression<Func<T, bool>> predicate)
         {
             return Db.Set<T>().Where(predicate);

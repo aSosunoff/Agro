@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -6,6 +7,7 @@ using AgroFirma.Component;
 using Microsoft.Office.Interop.Word;
 using Model.Engine.Repository.Interface;
 using Model.Engine.Service.Interface;
+using DataTable = System.Data.DataTable;
 
 namespace Model.Engine.Service.Logic
 {
@@ -242,6 +244,14 @@ namespace Model.Engine.Service.Logic
 
             return File(filePath, "application/doc", "tmpGood.doc");
              */
+        }
+
+        public DataSet GetSpecification(int id)
+        {
+            
+
+
+            return null;
         }
     }
 }

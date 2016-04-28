@@ -66,8 +66,8 @@
             <PropertyRef Name="PK_ID" />
           </Key>
           <Property Name="PK_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="NAME" Type="varchar" MaxLength="45" Nullable="false" />
-          <Property Name="TEXT" Type="mediumtext" Nullable="false" />
+          <Property Name="NAME" Type="longtext" Nullable="false" />
+          <Property Name="TEXT" Type="longtext" Nullable="false" />
           <Property Name="DATE" Type="datetime" Precision="0" Nullable="false" />
           <Property Name="IMAGE_PATH" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="IS_ACTIVE" Type="int" Nullable="false" />
@@ -86,7 +86,7 @@
             <PropertyRef Name="PK_ID" />
           </Key>
           <Property Name="PK_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="NAME" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="NAME" Type="longtext" Nullable="false" />
           <Property Name="QANTITY" Type="int" Nullable="false" />
           <Property Name="STEP" Type="int" Nullable="false" />
           <Property Name="PRICE_ONE" Type="decimal" Precision="50" Scale="10" Nullable="false" />

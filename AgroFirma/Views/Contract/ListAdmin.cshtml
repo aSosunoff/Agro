@@ -83,7 +83,13 @@
                 <td>
                     @if (element.FLAG_PAYMENT == 1)
                     {
-                        @Html.ActionLink(" ", "PrintDog", new { id = element.PK_ID }, new { @class = "glyphicon glyphicon-print pull-right" })
+                        @Html.ActionLink(" ", "PrintDog", new {id = element.PK_ID}, new {@class = "glyphicon glyphicon-print pull-right"})
+                    }
+                </td>
+                <td>
+                    @if (element.FLAG_PAYMENT == 1)
+                    {
+                        @Html.ActionLink(" ", "SpecificationToPDF", new { id = element.PK_ID }, new { @class = "glyphicon glyphicon-list pull-right", target = "_blank" })
                     }
                 </td>
             </tr>
