@@ -142,14 +142,15 @@
             @if (@ViewBag.NewsList != null)
             {
                 <div class="list-group list-group-custom-gray">
-                    @Html.ActionLink("Новости", "List", "News", null, new { @class = "list-group-item active" })
+                    @* TODO: Добавить колличество новостей в кружочке *@
+                    @Html.ActionLink("Новости", "List", "News", null, new {@class = "list-group-item active"})
                     @foreach (rnews item in @ViewBag.NewsList)
                     {
                         <div class="list-group-item">
                             <div class="row">
                                 <div class="col-lg-12">
-                                    @Html.ActionLink(@item.NAME, "Details", "News", new { id = item.PK_ID }, new { @class = "text-primary" })
-                                    <p class="list-group-item-text">@item.TEXT</p>
+                                    @Html.ActionLink(@item.NAME, "Details", "News", new {id = item.PK_ID}, new {@class = "text-primary"})
+                                    @*<p class="list-group-item-text">@item.TEXT</p>*@
                                     <h5 class="list-group-item-text">@item.DATE.Date.ToString("D")</h5>
                                 </div>
                             </div>
