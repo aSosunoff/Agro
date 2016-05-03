@@ -26,6 +26,18 @@
             <xs:sequence>
               <xs:element name="QANTITY" type="xs:int" minOccurs="0" />
               <xs:element name="NAME_PRODUCT" type="xs:string" minOccurs="0" />
+              <xs:element name="NUMBER_LABLE" type="xs:int" minOccurs="0" />
+              <xs:element name="BRUTTO" type="xs:int" minOccurs="0" />
+              <xs:element name="TARA" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ORDER_SUM">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="SUM_QANTITY" type="xs:int" minOccurs="0" />
+              <xs:element name="SUM_BRUTTO" type="xs:int" minOccurs="0" />
+              <xs:element name="SUM_TARA" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

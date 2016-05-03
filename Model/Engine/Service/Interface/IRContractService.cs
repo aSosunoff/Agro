@@ -10,6 +10,5 @@ namespace Model.Engine.Service.Interface
         void Pay(int id);
         void RefuseContract(int id);
         string PrintDog(int id, string fileName);
-        DataSet GetSpecification(int id);
     }
 }

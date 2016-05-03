@@ -101,57 +101,80 @@ namespace AgroFirma.Controllers
 
         public FileResult SpecificationToPDF(int id)
         {
-            //TODO:  Возможно вынести в отдельный класс
-            Report report = new Report();
-
             rcontract rcontractItem = _serviceLayer.Get<IRContractService>()._Repository.GetItem(e => e.PK_ID == id);
 
-            DataTable dt0 = _serviceLayer.Get<IRContractService>()
+            DataTable dt0 = Components.Convert.ConvertToDataTable("INFO_CONTRACT", 
+                new
+                {
+                    NUMBER_CONTRACT = rcontractItem.PK_ID, 
+                    DATE = rcontractItem .DATE
+                });
+
+            rcontractor_info rcontractorInfoItem = _serviceLayer.Get<IRContractor_infoService>()
                 ._Repository
-                .GetSortList(e => e.PK_ID == id)
-                .Select( e => 
-                    new
-                    {
-                        NUMBER_CONTRACT = e.PK_ID,
-                        DATE = e.DATE
-                    })
-                .ConvertToDataTable("INFO_CONTRACT");
+                .GetItem(e => e.PK_ID == rcontractItem.FK_ID_CONTRACT_CONTRACTOR);
 
+            DataTable dt1 = Components.Convert.ConvertToDataTable("INFO_COMPANY",
+                new
+                {
+                    NAME_COMPANY = rcontractorInfoItem.NAME_COMPANY,
+                    CITY = rcontractorInfoItem.CITY_NAME,
+                    ADDRESS = rcontractorInfoItem.LEGAL_ADDRESS,
+                    PHONE = rcontractorInfoItem.PHONE
+                });
 
-            DataTable dt1 = _serviceLayer.Get<IRContractor_infoService>()
-                ._Repository
-                .GetSortList( e => e.PK_ID == rcontractItem.FK_ID_CONTRACT_CONTRACTOR)
-                .Select(r => 
-                    new 
-                    {
-                        NAME_COMPANY = r.NAME_COMPANY, 
-                        CITY = r.CITY_NAME, 
-                        ADDRESS = r.LEGAL_ADDRESS, 
-                        PHONE = r.PHONE
-                    })
-                    .ConvertToDataTable("INFO_COMPANY");
-
-            DataTable dt2 = _serviceLayer.Get<IROrderService>()
+            IEnumerable<rorder> rorderList = _serviceLayer.Get<IROrderService>()
                 ._Repository
                 .GetSortList(e => e.FK_ID_CONTRACT == id)
-                .Select(r => 
-                    new
-                    {
-                        QANTITY = r.QANTITY, 
-                        NAME_PRODUCT = r.rstock.NAME
-                    })
-                    .ConvertToDataTables("ORDER");
+                .ToList();
+
+            //TODO: NUMBER_LABLE Номер упаковочного ярлыка задан рамдомно
+            //TODO: BRUTTO брутто задано рамдомно
+            //TODO: TARA Тара задано рамдомно
+            Random random = new Random();
+            var r = rorderList
+                    .Select(e =>
+                        new
+                        {
+                            QANTITY = e.QANTITY,
+                            NAME_PRODUCT = e.rstock.NAME,
+                            NUMBER_LABLE = random.Next(0, 100),
+                            BRUTTO = random.Next(0, 100),
+                            TARA = random.Next(0, 100)
+                        })
+                        .ToList();
+
+            DataTable dt2 = Components.Convert.ConvertToDataTable("ORDER", r.Select(e => 
+                new
+                {
+                    e.QANTITY,
+                    e.NAME_PRODUCT,
+                    e.NUMBER_LABLE,
+                    e.BRUTTO,
+                    e.TARA
+                }));
+
+            DataTable dt3 = Components.Convert.ConvertToDataTable("ORDER_SUM",
+                new
+                {
+                    SUM_QANTITY = r.Sum(e => e.QANTITY),
+                    SUM_BRUTTO = r.Sum(e => e.BRUTTO),
+                    SUM_TARA = r.Sum(e => e.TARA)
+                });
+
 
             DataSet ds = new DataSet("N");
             ds.Tables.Add(dt0);
             ds.Tables.Add(dt1);
             ds.Tables.Add(dt2);
+            ds.Tables.Add(dt3);
 
-            report.Report.RegisterData(ds, "N");
+            Report report = new Report();
+
+            report.Report.RegisterData(ds, ds.DataSetName);
 
             ds.WriteXmlSchema(Server.MapPath("~/Template/PDF/Sertification.xsd"));
             ds.WriteXml(Server.MapPath("~/Template/PDF/Sertification.xml"));
-
 
             report.Load(Server.MapPath("~/Template/PDF/Specification.frx"));
             

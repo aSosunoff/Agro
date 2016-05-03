@@ -157,12 +157,12 @@ namespace Model.Engine.Service.Logic
             range.Find.Execute(FindText: stubToReplace, ReplaceWith: text);
         }
 
-        private class Val
-        {
-            public string Key { get; set; }
+        //private class Val
+        //{
+        //    public string Key { get; set; }
 
-            public string Value{ get; set; }
-        }
+        //    public string Value{ get; set; }
+        //}
         public string PrintDog(int id, string fileName)
         {
 
@@ -244,14 +244,6 @@ namespace Model.Engine.Service.Logic
 
             return File(filePath, "application/doc", "tmpGood.doc");
              */
-        }
-
-        public DataSet GetSpecification(int id)
-        {
-            
-
-
-            return null;
         }
     }
 }

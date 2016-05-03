@@ -9,39 +9,45 @@ namespace Components
 {
     public static class Convert
     {
-        public static DataTable ConvertToDataTables<T>(this IEnumerable<T> source, string nameDataTable)
+        public static DataTable ConvertToDataTable(string nameDataTable, object value)
         {
-            var props = typeof(T).GetProperties();
+            var propInfo = value.GetType().GetProperties();
 
             var dt = new DataTable(nameDataTable);
 
             dt.Columns.AddRange(
-              props.Select(p => new DataColumn(p.Name, p.PropertyType)).ToArray()
-            );
+                    propInfo.Select(e => new DataColumn(e.Name, e.PropertyType)).ToArray()
+                );
 
-            source.ToList().ForEach(
-              i => dt.Rows.Add(props.Select(p => p.GetValue(i, null)).ToArray())
-            );
+            dt.Rows.Add(propInfo.Select((e, i) => value.GetType().GetProperty(propInfo[i].Name).GetValue(value, null)).ToArray());
 
             return dt;
         }
 
-        public static DataTable ConvertToDataTable<T>(this IEnumerable<T> source, string nameDataTable)
+        public static DataTable ConvertToDataTable(string nameDataTable, IEnumerable<object> source)
         {
-            var props = typeof(T).GetProperties();
+            if (source.Count() > 0)
+            {
+                var prorpInfo = source.ToList()[0].GetType().GetProperties();
 
-            var dt = new DataTable(nameDataTable);
+                var dt = new DataTable(nameDataTable);
 
-            dt.Columns.AddRange(
-              props.Select(p => new DataColumn(p.Name, p.PropertyType)).ToArray()
-            );
+                dt.Columns.AddRange(
+                  prorpInfo.Select(p => new DataColumn(p.Name, p.PropertyType)).ToArray()
+                );
 
-            source.ToList().ForEach(
-              i => dt.Rows.Add(props.Select(p => p.GetValue(i, null)).ToArray())
-            );
+                source.ToList().ForEach(
+                  i => dt.Rows.Add(prorpInfo.Select(p => p.GetValue(i, null)).ToArray())
+                );
 
-            return dt;
+                return dt;
+            }
+            else
+            {
+                throw new Exception("Is not found element");
+            }  
         }
+
         ///// <summary>
         ///// Convert a List{T} to a DataTable.
         ///// </summary>

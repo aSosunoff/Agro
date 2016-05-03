@@ -1,8 +1,8 @@
 <?xml version="1.0" standalone="yes"?>
 <N>
   <INFO_CONTRACT>
-    <NUMBER_CONTRACT>29</NUMBER_CONTRACT>
-    <DATE>2016-04-28T22:53:29+03:00</DATE>
+    <NUMBER_CONTRACT>31</NUMBER_CONTRACT>
+    <DATE>2016-05-03T16:23:54+03:00</DATE>
   </INFO_CONTRACT>
   <INFO_COMPANY>
     <NAME_COMPANY>ООО"Траст"</NAME_COMPANY>
@@ -11,15 +11,22 @@
     <PHONE>89044446784</PHONE>
   </INFO_COMPANY>
   <ORDER>
-    <QANTITY>8</QANTITY>
-    <NAME_PRODUCT>АГЕРАТУМ БЕЛЫЙ ШАР, 0,1 Г</NAME_PRODUCT>
+    <QANTITY>3</QANTITY>
+    <NAME_PRODUCT>АГЕРАТУМ ВЕСЕННИЕ КАПЕЛИ</NAME_PRODUCT>
+    <NUMBER_LABLE>4</NUMBER_LABLE>
+    <BRUTTO>22</BRUTTO>
+    <TARA>76</TARA>
   </ORDER>
   <ORDER>
     <QANTITY>2</QANTITY>
-    <NAME_PRODUCT>БАКЛАЖАН АВАТАР F1, 35 ШТ.</NAME_PRODUCT>
+    <NAME_PRODUCT>БАКЛАЖАН АЛЕКСЕЕВСКИЙ, 0,2 Г</NAME_PRODUCT>
+    <NUMBER_LABLE>27</NUMBER_LABLE>
+    <BRUTTO>18</BRUTTO>
+    <TARA>92</TARA>
   </ORDER>
-  <ORDER>
-    <QANTITY>54</QANTITY>
-    <NAME_PRODUCT>АЛТЕЙ (МАЛЬВА) РОЗОВЫЙ АРАБИАН НАЙТС, 4 ШТ. МОЯ КОЛЛЕКЦИЯ ЭЛИТА</NAME_PRODUCT>
-  </ORDER>
+  <ORDER_SUM>
+    <SUM_QANTITY>5</SUM_QANTITY>
+    <SUM_BRUTTO>40</SUM_BRUTTO>
+    <SUM_TARA>168</SUM_TARA>
+  </ORDER_SUM>
 </N>
