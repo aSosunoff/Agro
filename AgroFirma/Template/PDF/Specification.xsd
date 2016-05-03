@@ -3,7 +3,7 @@
   <xs:element name="N" msdata:IsDataSet="true" msdata:UseCurrentLocale="true">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="INFO_CONTRACT">
+        <xs:element name="CONTRACT">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="NUMBER_CONTRACT" type="xs:int" minOccurs="0" />
@@ -11,13 +11,24 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="INFO_COMPANY">
+        <xs:element name="CONTRACTOR_INFO">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="NAME_COMPANY" type="xs:string" minOccurs="0" />
-              <xs:element name="CITY" type="xs:string" minOccurs="0" />
-              <xs:element name="ADDRESS" type="xs:string" minOccurs="0" />
+              <xs:element name="CITY_NAME" type="xs:string" minOccurs="0" />
+              <xs:element name="LEGAL_ADDRESS" type="xs:string" minOccurs="0" />
               <xs:element name="PHONE" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="USER_INFO">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="NAME_COMPANY" type="xs:string" minOccurs="0" />
+              <xs:element name="CITY_NAME" type="xs:string" minOccurs="0" />
+              <xs:element name="LEGAL_ADDRESS" type="xs:string" minOccurs="0" />
+              <xs:element name="PHONE" type="xs:string" minOccurs="0" />
+              <xs:element name="CHECKING_ACCOUNT" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

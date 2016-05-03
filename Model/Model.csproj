@@ -120,8 +120,6 @@
     <Compile Include="Engine\Service\Logic\SStreetService.cs" />
     <Compile Include="Engine\Service\ServiceLayer.cs" />
     <Compile Include="Infrastructure\CategoryModalBinder.cs" />
-    <Compile Include="Infrastructure\FileOfWork.cs" />
-    <Compile Include="Infrastructure\JazzClass.cs" />
     <Compile Include="Infrastructure\StockModelBinder.cs" />
     <Compile Include="ModelEntities.Context.cs">
       <AutoGen>True</AutoGen>
@@ -200,7 +198,12 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Components\Components.csproj">
+      <Project>{8DDE6656-F953-40D9-A6E6-DAC1749B631E}</Project>
+      <Name>Components</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

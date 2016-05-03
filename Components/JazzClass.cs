@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 
-namespace Model.Infrastructure
+namespace Components
 {
     public class WrapModel<T>
     {
@@ -97,7 +95,7 @@ namespace Model.Infrastructure
                 listItems.Add(new SelectListItem()
                 {
                     Text = el.ITEM.GetValueString(textColName),
-                    Value = Convert.ToString(el.ITEM.GetValueInt(valueColName))
+                    Value = System.Convert.ToString(el.ITEM.GetValueInt(valueColName))
                 });
             }
             return listItems;

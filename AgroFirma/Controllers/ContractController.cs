@@ -10,6 +10,7 @@ using Components;
 using FastReport;
 using FastReport.Export.Pdf;
 using Model;
+using Model.Engine.Repository.Interface;
 using Model.Engine.Service;
 using Model.Engine.Service.Interface;
 
@@ -103,7 +104,7 @@ namespace AgroFirma.Controllers
         {
             rcontract rcontractItem = _serviceLayer.Get<IRContractService>()._Repository.GetItem(e => e.PK_ID == id);
 
-            DataTable dt0 = Components.Convert.ConvertToDataTable("INFO_CONTRACT", 
+            DataTable dt0 = Components.Convert.ConvertToDataTable("CONTRACT", 
                 new
                 {
                     NUMBER_CONTRACT = rcontractItem.PK_ID, 
@@ -114,14 +115,31 @@ namespace AgroFirma.Controllers
                 ._Repository
                 .GetItem(e => e.PK_ID == rcontractItem.FK_ID_CONTRACT_CONTRACTOR);
 
-            DataTable dt1 = Components.Convert.ConvertToDataTable("INFO_COMPANY",
+            DataTable dt1 = Components.Convert.ConvertToDataTable("CONTRACTOR_INFO",
                 new
                 {
-                    NAME_COMPANY = rcontractorInfoItem.NAME_COMPANY,
-                    CITY = rcontractorInfoItem.CITY_NAME,
-                    ADDRESS = rcontractorInfoItem.LEGAL_ADDRESS,
-                    PHONE = rcontractorInfoItem.PHONE
+                    rcontractorInfoItem.NAME_COMPANY,
+                    rcontractorInfoItem.CITY_NAME,
+                    rcontractorInfoItem.LEGAL_ADDRESS,
+                    rcontractorInfoItem.PHONE
                 });
+
+            ruser_info ruserInfoItem = _serviceLayer.Get<IRUser_infoService>()
+                ._Repository
+                .GetItem(e => e.PK_ID == rcontractItem.FK_ID_CONTRACT_USER);
+
+            DataTable dtUserInfo = Components.Convert.ConvertToDataTable("USER_INFO",
+                new
+                {
+                    ruserInfoItem.NAME_COMPANY,
+                    ruserInfoItem.CITY_NAME,
+                    ruserInfoItem.LEGAL_ADDRESS,
+                    ruserInfoItem.PHONE,
+                    ruserInfoItem.CHECKING_ACCOUNT
+                });
+
+
+
 
             IEnumerable<rorder> rorderList = _serviceLayer.Get<IROrderService>()
                 ._Repository
@@ -166,6 +184,7 @@ namespace AgroFirma.Controllers
             DataSet ds = new DataSet("N");
             ds.Tables.Add(dt0);
             ds.Tables.Add(dt1);
+            ds.Tables.Add(dtUserInfo);
             ds.Tables.Add(dt2);
             ds.Tables.Add(dt3);
 
@@ -173,8 +192,8 @@ namespace AgroFirma.Controllers
 
             report.Report.RegisterData(ds, ds.DataSetName);
 
-            ds.WriteXmlSchema(Server.MapPath("~/Template/PDF/Sertification.xsd"));
-            ds.WriteXml(Server.MapPath("~/Template/PDF/Sertification.xml"));
+            ds.WriteXmlSchema(Server.MapPath("~/Template/PDF/Specification.xsd"));
+            ds.WriteXml(Server.MapPath("~/Template/PDF/Specification.xml"));
 
             report.Load(Server.MapPath("~/Template/PDF/Specification.frx"));
             
@@ -186,6 +205,13 @@ namespace AgroFirma.Controllers
             stream.Position = 0;
 
             return new FileStreamResult(stream, "application/pdf");
+        }
+
+        public FileResult WaybillToPDF(int id)
+        {
+            rcontract rcontractItem = _serviceLayer.Get<IRContractService>()._Repository.GetItem(e => e.PK_ID == id);
+
+            return null;
         }
     }
 }

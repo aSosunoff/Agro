@@ -2,7 +2,7 @@
 using System.IO;
 using System.Web;
 
-namespace AgroFirma.Component
+namespace Components
 {
     //public static class FileExtensions
     //{

@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
-using AgroFirma.Component;
+using Components;
 
 namespace Model.Infrastructure
 {
