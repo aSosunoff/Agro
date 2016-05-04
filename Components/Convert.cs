@@ -9,6 +9,11 @@ namespace Components
 {
     public static class Convert
     {
+        public static DataTable ConvertToDataTable<T>(this T item, string nameDataTable, Func<T, object> value)
+        {
+            return ConvertToDataTable(nameDataTable, value.Invoke(item));
+        }
+
         public static DataTable ConvertToDataTable(string nameDataTable, object value)
         {
             var propInfo = value.GetType().GetProperties();
@@ -22,6 +27,21 @@ namespace Components
             dt.Rows.Add(propInfo.Select((e, i) => value.GetType().GetProperty(propInfo[i].Name).GetValue(value, null)).ToArray());
 
             return dt;
+        }
+
+        public static DataTable ConvertToDataTable<T>(this IEnumerable<T> items, string nameDataTable, Func<T, object> value)
+        {
+            if (items.Count() > 0)
+            {
+                List<object> source = new List<object>();
+
+                items.ToList().ForEach(
+                        i => source.Add(value.Invoke(i))
+                    );
+
+                return ConvertToDataTable(nameDataTable, source);
+            }
+            return null;
         }
 
         public static DataTable ConvertToDataTable(string nameDataTable, IEnumerable<object> source)
@@ -42,10 +62,7 @@ namespace Components
 
                 return dt;
             }
-            else
-            {
-                throw new Exception("Is not found element");
-            }  
+            return null;
         }
 
         ///// <summary>

@@ -219,6 +219,7 @@
     <Compile Include="Controllers\AdministrationController.cs" />
     <Compile Include="Controllers\BasketController.cs" />
     <Compile Include="Controllers\CatalogController.cs" />
+    <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\ContractController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
@@ -339,6 +340,7 @@
     <Content Include="Views\Contract\DetailsAdmin.cshtml" />
     <Content Include="Template\Dogovor_Postavki_Tovara.doc" />
     <Content Include="Template\PDF\Specification.frx" />
+    <Content Include="Views\Contact\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -27,7 +27,7 @@
             <th>
                 Статус
             </th>
-            <th colspan="3">
+            <th colspan="2">
                 Операции
             </th>
         </tr>
@@ -95,12 +95,6 @@
                         @Html.ActionLink(" ", "SpecificationToPDF", new { id = element.PK_ID }, new { @class = "glyphicon glyphicon-list pull-right", target = "_blank" })
                     }
                 </td> 
-                <td>
-                    @if (element.FLAG_PAYMENT == 1)
-                    {
-                        @Html.ActionLink(" ", "WaybillToPDF", new { id = element.PK_ID }, new { @class = "glyphicon glyphicon-send pull-right", target = "_blank" })
-                    }
-                </td>
             </tr>
         }
     </table>

@@ -102,91 +102,80 @@ namespace AgroFirma.Controllers
 
         public FileResult SpecificationToPDF(int id)
         {
-            rcontract rcontractItem = _serviceLayer.Get<IRContractService>()._Repository.GetItem(e => e.PK_ID == id);
+            rcontract contract = _serviceLayer.Get<IRContractService>()._Repository.GetItem(e => e.PK_ID == id);
 
-            DataTable dt0 = Components.Convert.ConvertToDataTable("CONTRACT", 
-                new
-                {
-                    NUMBER_CONTRACT = rcontractItem.PK_ID, 
-                    DATE = rcontractItem .DATE
-                });
+            DataTable dtContract = contract.ConvertToDataTable("CONTRACT", 
+                e =>
+                    new
+                    {
+                        NUMBER_CONTRACT = contract.PK_ID, 
+                        contract.DATE
+                    });
 
-            rcontractor_info rcontractorInfoItem = _serviceLayer.Get<IRContractor_infoService>()
+
+            DataTable dtContractorInfo = _serviceLayer.Get<IRContractor_infoService>()
                 ._Repository
-                .GetItem(e => e.PK_ID == rcontractItem.FK_ID_CONTRACT_CONTRACTOR);
+                .GetItem(e => e.PK_ID == contract.FK_ID_CONTRACT_CONTRACTOR)
+                .ConvertToDataTable("CONTRACTOR_INFO", 
+                e =>
+                    new
+                    {
+                        e.NAME_COMPANY,
+                        e.CITY_NAME,
+                        e.LEGAL_ADDRESS,
+                        e.PHONE
+                    });
 
-            DataTable dt1 = Components.Convert.ConvertToDataTable("CONTRACTOR_INFO",
-                new
-                {
-                    rcontractorInfoItem.NAME_COMPANY,
-                    rcontractorInfoItem.CITY_NAME,
-                    rcontractorInfoItem.LEGAL_ADDRESS,
-                    rcontractorInfoItem.PHONE
-                });
 
-            ruser_info ruserInfoItem = _serviceLayer.Get<IRUser_infoService>()
+            DataTable dtUserInfo = _serviceLayer.Get<IRUser_infoService>()
                 ._Repository
-                .GetItem(e => e.PK_ID == rcontractItem.FK_ID_CONTRACT_USER);
+                .GetItem(e => e.PK_ID == contract.FK_ID_CONTRACT_USER)
+                .ConvertToDataTable("USER_INFO", 
+                e => 
+                    new
+                    {
+                        e.NAME_COMPANY,
+                        e.CITY_NAME,
+                        e.LEGAL_ADDRESS,
+                        e.PHONE,
+                        e.CHECKING_ACCOUNT
+                    });
 
-            DataTable dtUserInfo = Components.Convert.ConvertToDataTable("USER_INFO",
-                new
-                {
-                    ruserInfoItem.NAME_COMPANY,
-                    ruserInfoItem.CITY_NAME,
-                    ruserInfoItem.LEGAL_ADDRESS,
-                    ruserInfoItem.PHONE,
-                    ruserInfoItem.CHECKING_ACCOUNT
-                });
-
-
-
-
-            IEnumerable<rorder> rorderList = _serviceLayer.Get<IROrderService>()
-                ._Repository
-                .GetSortList(e => e.FK_ID_CONTRACT == id)
-                .ToList();
 
             //TODO: NUMBER_LABLE Номер упаковочного ярлыка задан рамдомно
             //TODO: BRUTTO брутто задано рамдомно
             //TODO: TARA Тара задано рамдомно
+
             Random random = new Random();
-            var r = rorderList
-                    .Select(e =>
-                        new
-                        {
-                            QANTITY = e.QANTITY,
-                            NAME_PRODUCT = e.rstock.NAME,
-                            NUMBER_LABLE = random.Next(0, 100),
-                            BRUTTO = random.Next(0, 100),
-                            TARA = random.Next(0, 100)
-                        })
-                        .ToList();
 
-            DataTable dt2 = Components.Convert.ConvertToDataTable("ORDER", r.Select(e => 
-                new
-                {
-                    e.QANTITY,
-                    e.NAME_PRODUCT,
-                    e.NUMBER_LABLE,
-                    e.BRUTTO,
-                    e.TARA
-                }));
-
-            DataTable dt3 = Components.Convert.ConvertToDataTable("ORDER_SUM",
-                new
-                {
-                    SUM_QANTITY = r.Sum(e => e.QANTITY),
-                    SUM_BRUTTO = r.Sum(e => e.BRUTTO),
-                    SUM_TARA = r.Sum(e => e.TARA)
-                });
-
+            //TODO: Код продукции (номенкла-турный номер) рандомное число -> изменить в дальнейшем
+            //TODO: Масса, т выведено рандомное число исправить в дальнейшем
+            DataTable dtOrder = _serviceLayer.Get<IROrderService>()
+                ._Repository
+                .GetSortList(e => e.FK_ID_CONTRACT == id)
+                .ToList()
+                .ConvertToDataTable("ORDER", 
+                e => 
+                    new
+                    {
+                        e.PK_ID,
+                        NUMBER_PRODUCT = random.Next(0, 100),
+                        MASSA = random.Next(0, 100),
+                        e.QANTITY,
+                        NAME_PRODUCT = e.rstock.NAME,
+                        e.rstock.PRICE_ONE,
+                        PRICE_SUM = e.QANTITY * e.rstock.PRICE_ONE,
+                        STEP = e.rstock.STEP_GetValue,
+                        NUMBER_LABLE = random.Next(0, 100),
+                        BRUTTO = random.Next(0, 100),
+                        TARA = random.Next(0, 100)
+                    });
 
             DataSet ds = new DataSet("N");
-            ds.Tables.Add(dt0);
-            ds.Tables.Add(dt1);
+            ds.Tables.Add(dtContract);
+            ds.Tables.Add(dtContractorInfo);
             ds.Tables.Add(dtUserInfo);
-            ds.Tables.Add(dt2);
-            ds.Tables.Add(dt3);
+            ds.Tables.Add(dtOrder);
 
             Report report = new Report();
 
@@ -205,13 +194,6 @@ namespace AgroFirma.Controllers
             stream.Position = 0;
 
             return new FileStreamResult(stream, "application/pdf");
-        }
-
-        public FileResult WaybillToPDF(int id)
-        {
-            rcontract rcontractItem = _serviceLayer.Get<IRContractService>()._Repository.GetItem(e => e.PK_ID == id);
-
-            return null;
         }
     }
 }
