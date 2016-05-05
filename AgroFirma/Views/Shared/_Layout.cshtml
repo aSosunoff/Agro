@@ -1,4 +1,4 @@
-﻿@using AgroFirma.Component.Helpers
+﻿@using AgroFirma.Helpers
 @using Components
 @using Model
 @using Model.Infrastructure
@@ -89,6 +89,10 @@
                             @Html.ActionLinkBasketCount(String.Empty, "List", "Basket", (int)@ViewBag.CountElementToBasket)
                         </li>
                     }
+                    <li>
+                        <a href="#" class="glyphicon glyphicon-share"></a>
+                        @* TODO: выход с сайта не работает *@
+                    </li>
                     @*<li>
                         @Html.ActionLinkContractCount("List", "Contract", @Model.CountElementToContract)
                     </li>

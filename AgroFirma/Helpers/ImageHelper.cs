@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
-namespace AgroFirma.Component.Helpers
+namespace AgroFirma.Helpers
 {
     public static class ImageHelper
     {

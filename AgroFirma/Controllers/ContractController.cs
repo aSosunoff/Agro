@@ -6,13 +6,16 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using AgroFirma.Component;
+using AgroFirma.Models;
 using Components;
 using FastReport;
 using FastReport.Export.Pdf;
+using Microsoft.Office.Interop.Word;
 using Model;
 using Model.Engine.Repository.Interface;
 using Model.Engine.Service;
 using Model.Engine.Service.Interface;
+using DataTable = System.Data.DataTable;
 
 namespace AgroFirma.Controllers
 {
@@ -91,14 +94,148 @@ namespace AgroFirma.Controllers
             return View(_serviceLayer.Get<IROrderService>()._Repository.GetSortList(e => e.FK_ID_CONTRACT == id).ToList());
         }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         public FileResult PrintDog(int id)
         {//TODO: Поменять на FastReport. Или пофиксить метод в движке
             string fileName = "Dogovor_Postavki_Tovara.doc";
 
-            string filePath = _serviceLayer.Get<IRContractService>().PrintDog(id, fileName);
+            string filePathTemplate = Path.Combine(
+                HttpContext.Server.MapPath(
+                    String.Format("\\Template\\{0}", fileName)));
+
+            string filePath = PrintDog(id, fileName, filePathTemplate);
 
             return File(filePath, "application/doc", fileName);
         }
+
+        private string PrintDog(int id, string fileName, string filePathTemplate)
+        {        
+            var wordApp = new ApplicationClass();
+
+            wordApp.Visible = true;
+
+            var wordDocument = (DocumentClass)wordApp.Documents.Open(filePathTemplate);
+
+
+            //Достаём договор
+            rcontract itemContract = _serviceLayer.Get<IRContractService>()._Repository.GetItem(e => e.PK_ID == id);
+
+            itemContract.ReplaseWordStub(
+                e => 
+                    new
+                    {
+                        ID = e.PK_ID,
+                        DATE_REG = e.DATE.ToString("D")
+                    }, wordDocument);
+
+            //Достайм поставщика по контракту
+            _serviceLayer.Get<IRContractor_infoService>()
+                ._Repository.GetItem(e => e.PK_ID == itemContract.FK_ID_CONTRACT_CONTRACTOR)
+                .ReplaseWordStub(
+                    e =>
+                        new
+                        {
+                            NAME_COMPANY_CITY = e.CITY_NAME,
+                            NAME_COMPANY_CONTRACTOR = e.NAME_COMPANY,
+                            FIO_CONTRACTOR = String.Format("{0} {1} {2}", e.SURNAME, e.NAME, e.MIDDLE_NAME),
+                            LEGAL_ADDRESS_CONTRACTOR = e.LEGAL_ADDRESS,
+                            MAIL_ADDRESS_CONTRACTOR = e.MAIL_ADDRESS,
+                            PHONE_CONTRACTOR = e.PHONE,
+                            FAX_CONTRACTOR = e.FAX,
+                            INN_CONTRACTOR = Convert.ToString(e.INN),
+                            CHECKING_ACCOUNT_CONTRACTOR = Convert.ToString(e.CHECKING_ACCOUNT),
+                            BANK_CONTRACTOR = e.BANK,
+                            CORRESPONDENT_ACCOUNT_CONTRACTOR = Convert.ToString(e.CORRESPONDENT_ACCOUNT),
+                            BIK_CONTRACTOR = Convert.ToString(e.BIK),
+                            KPP_CONTRACTOR = Convert.ToString(e.KPP)
+
+                        }, wordDocument);
+
+
+            //Достайм заказчика по контракту
+            _serviceLayer.Get<IRUser_infoService>()
+                ._Repository
+                .GetItem(e => e.PK_ID == itemContract.FK_ID_CONTRACT_USER)
+                .ReplaseWordStub(
+                    e => 
+                        new
+                        {
+                            NAME_COMPANY_USER = e.NAME_COMPANY,
+                            FIO_USER = String.Format("{0} {1} {2}", e.SURNAME, e.NAME, e.MIDDLE_NAME),
+                            LEGAL_ADDRESS_USER = e.LEGAL_ADDRESS,
+                            MAIL_ADDRESS_USER = e.MAIL_ADDRESS,
+                            PHONE_USER = e.PHONE,
+                            FAX_USER = e.FAX,
+                            INN_USER = Convert.ToString(e.INN),
+                            KPP_USER = Convert.ToString(e.KPP),
+                            CHECKING_ACCOUNT_USER = Convert.ToString(e.CHECKING_ACCOUNT),
+                            BANK_USER = e.BANK,
+                            CORRESPONDENT_ACCOUNT_USER = Convert.ToString(e.CORRESPONDENT_ACCOUNT),
+                            BIK_USER = Convert.ToString(e.BIK)
+                        }, wordDocument);
+
+
+
+            string filePathTemplateSuccess = Path.Combine(
+                HttpContext.Server.MapPath(
+                    String.Format("\\Template\\Success\\{0}", fileName)));
+
+            wordDocument.SaveAs(filePathTemplateSuccess);
+
+            wordDocument.Close();
+
+            wordApp.Quit();
+
+            return filePathTemplateSuccess;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         public FileResult SpecificationToPDF(int id)
         {

@@ -9,6 +9,5 @@ namespace Model.Engine.Service.Interface
         void Create(rcontract rcontract);
         void Pay(int id);
         void RefuseContract(int id);
-        string PrintDog(int id, string fileName);
     }
 }

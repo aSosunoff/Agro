@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Components
 {
-    public static class Convert
+    public static class ConvertClass
     {
         public static DataTable ConvertToDataTable<T>(this T item, string nameDataTable, Func<T, object> value)
         {

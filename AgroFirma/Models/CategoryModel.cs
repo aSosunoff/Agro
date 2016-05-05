@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Model;
 
-namespace AgroFirma.Component
+namespace AgroFirma.Models
 {
     public class CategoryModel
     {
