@@ -25,24 +25,14 @@ namespace Model
 
                 _ServiceLayer = ServiceLayer.Instance(serviceLayer);
 
-                ConnectByPriorInModel model = new ConnectByPriorInModel()
-                {
-                    StartWith = new StartWith()
-                    {
-                        ColummName = "PK_ID",
-                        ColummValue = 0
-                    },
-                    ConnectByPrior = new ConnectByPrior()
-                    {
-                        Left = "PK_ID",
-                        Right = "PARENT_ID"
-                    }
-                };
-
-
                 return _ServiceLayer.Get<ICCategoryService>()
                     ._Repository.GetAllList()
-                    .ConnectByPriorAllElement(model)
+                    .ConnectByPriorAllElement(
+                    e => 
+                        new
+                            {
+                                e.PK_ID, e.PARENT_ID, ROOT = 0
+                            })
                     .Where(e => e.ITEM.IS_ACTIVE == 1)
                     .PackSelectListItem("PK_ID", "TEXT")
                     .OrderBy(e => e.Text)

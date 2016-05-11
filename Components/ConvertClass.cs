@@ -2,26 +2,43 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+
 
 namespace Components
 {
     public static class ConvertClass
     {
-        public static DataTable ConvertToDataTable<T>(this T item, string nameDataTable, Func<T, object> value)
+        /// <summary>
+        /// Возвращаем базовый тип, если пришёл тип Nullable
+        /// </summary>
+        private static Type GetCoreType(Type t)
         {
-            return ConvertToDataTable(nameDataTable, value.Invoke(item));
+            if ((t != null) && t.IsValueType && t.IsGenericType)
+            {
+                if (t.GetGenericTypeDefinition() == typeof(Nullable<>))
+                {
+                    return Nullable.GetUnderlyingType(t);
+                }
+            }
+            return t;
         }
 
-        public static DataTable ConvertToDataTable(string nameDataTable, object value)
+        public static DataTable ToDataTable<T>(this T item, string nameDataTable, Func<T, object> value)
+        {
+            return ToDataTable(nameDataTable, value.Invoke(item));
+        }
+
+        public static DataTable ToDataTable(string nameDataTable, object value)
         {
             var propInfo = value.GetType().GetProperties();
 
             var dt = new DataTable(nameDataTable);
 
             dt.Columns.AddRange(
-                    propInfo.Select(e => new DataColumn(e.Name, e.PropertyType)).ToArray()
+                    propInfo.Select(e => new DataColumn(e.Name, GetCoreType(e.PropertyType))).ToArray()
                 );
 
             dt.Rows.Add(propInfo.Select((e, i) => value.GetType().GetProperty(propInfo[i].Name).GetValue(value, null)).ToArray());
@@ -29,41 +46,36 @@ namespace Components
             return dt;
         }
 
-        public static DataTable ConvertToDataTable<T>(this IEnumerable<T> items, string nameDataTable, Func<T, object> value)
+
+        public static DataTable ToDataTable<T>(this IEnumerable<T> items, string nameDataTable, Expression<Func<T, object>> value)
         {
-            if (items.Count() > 0)
-            {
-                List<object> source = new List<object>();
+            List<object> source = new List<object>();
 
-                items.ToList().ForEach(
-                        i => source.Add(value.Invoke(i))
-                    );
+            items.ToList().ForEach(
+                    i => source.Add(value.Compile().Invoke(i))
+                );
 
-                return ConvertToDataTable(nameDataTable, source);
-            }
-            return null;
-        }
+            var dt = new DataTable(nameDataTable);
+            //Members - используем для того что бы достать имя
+            var Members = ((NewExpression)value.Body).Members;//nameCol
+            //Arguments - используем для того что бы достать тип
+            var Arguments = ((NewExpression)value.Body).Arguments;//typeCol
+            //TODO: попытаться использовать что то одно. Из Members попробовать Type что бы не использовать вспомогательную строку с Arguments
+            for (int i = 0; i < Members.Count; i++)
+                dt.Columns.Add(new DataColumn(Members[i].Name, GetCoreType(Arguments[i].Type)));
 
-        public static DataTable ConvertToDataTable(string nameDataTable, IEnumerable<object> source)
-        {
             if (source.Count() > 0)
             {
                 var prorpInfo = source.ToList()[0].GetType().GetProperties();
 
-                var dt = new DataTable(nameDataTable);
-
-                dt.Columns.AddRange(
-                  prorpInfo.Select(p => new DataColumn(p.Name, p.PropertyType)).ToArray()
-                );
-
                 source.ToList().ForEach(
-                  i => dt.Rows.Add(prorpInfo.Select(p => p.GetValue(i, null)).ToArray())
-                );
-
-                return dt;
+                    i => dt.Rows.Add(prorpInfo.Select(p => p.GetValue(i, null)).ToArray())
+                    );
             }
-            return null;
+            return dt;
         }
+
+        
 
         ///// <summary>
         ///// Convert a List{T} to a DataTable.

@@ -24,51 +24,33 @@ namespace AgroFirma.Controllers
             {
                 ViewBag.CategoryTitle = item.TEXT;
 
-                ConnectByPriorInModel model = new ConnectByPriorInModel()
-                {
-                    StartWith = new StartWith()
-                    {
-                        ColummName = "PK_ID",
-                        ColummValue = id
-                    },
-                    ConnectByPrior = new ConnectByPrior()
-                    {
-                        Left = "PK_ID",
-                        Right = "PARENT_ID"
-                    }
-                };
-                //TODO: Сделать Reset модели 
-
                 CategoryModel categoryModel = new CategoryModel();
 
                 categoryModel.Ccategories = _serviceLayer
                     .Get<ICCategoryService>()
                     ._Repository
                     .GetAllList()
-                    .ConnectByPrior(model)
+                    .ConnectByPrior(
+                    e => 
+                        new
+                            {
+                                e.PK_ID, e.PARENT_ID, ROOT = id
+                            })
                     .Where(e => e.LEVEL == 2)
                     .RemoveWrapModel();
-
-                model = new ConnectByPriorInModel()
-                {
-                    StartWith = new StartWith()
-                    {
-                        ColummName = "PK_ID",
-                        ColummValue = id
-                    },
-                    ConnectByPrior = new ConnectByPrior()
-                    {
-                        Left = "PK_ID",
-                        Right = "PARENT_ID"
-                    }
-                };
-
 
                 int[] arrayIdCategory = _serviceLayer
                     .Get<ICCategoryService>()
                     ._Repository
                     .GetAllList()
-                    .ConnectByPrior(model)
+                    .ConnectByPrior(
+                    e =>
+                        new
+                        {
+                            e.PK_ID,
+                            e.PARENT_ID,
+                            ROOT = id
+                        })
                     .Where(e => e.FLAG_TREE)
                     .RemoveWrapModel().Select(e => e.PK_ID)
                     .ToArray();

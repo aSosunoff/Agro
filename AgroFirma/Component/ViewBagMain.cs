@@ -83,21 +83,16 @@ namespace AgroFirma.Component
             CountElementToBasket = _serviceLayer.Get<IRBasketService>().Count();
             CountElementToContract = _serviceLayer.Get<IRContractService>().Count();
 
-            ConnectByPriorInModel model = new ConnectByPriorInModel()
-            {
-                StartWith = new StartWith()
-                {
-                    ColummName = "PK_ID",
-                    ColummValue = 0
-                },
-                ConnectByPrior = new ConnectByPrior()
-                {
-                    Left = "PK_ID",
-                    Right = "PARENT_ID"
-                }
-            };
-
-            var wrapModelList = _serviceLayer.Get<ICCategoryService>()._Repository.GetAllList().ConnectByPriorAllElement(model);
+            var wrapModelList = _serviceLayer
+                .Get<ICCategoryService>()
+                ._Repository
+                .GetAllList()
+                .ConnectByPriorAllElement(
+                e => 
+                    new
+                        {
+                            e.PK_ID, e.PARENT_ID, ROOT = 0
+                        });
             WrapModels = wrapModelList.Count > 0 ? wrapModelList : null;
 
             //TODO: Предусмотреть настройку в админке сколько новостей выводить сейчас 3 Take(3)
