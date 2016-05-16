@@ -39,13 +39,13 @@ namespace Sandbox
                 .Get<ICCategoryService>()
                 ._Repository
                 .GetAllList()
-                .ConnectByPriorAllElement(
+                .ConnectByPrior(
                 e =>
                     new
                     {
                         e.PK_ID,
                         e.PARENT_ID,
-                        ROOT = 0
+                        ROOT = 666
                     });
         }
 
@@ -66,7 +66,7 @@ namespace Sandbox
             return RootVal;
         }
 
-        public static List<WrapModel<T>> ConnectByPriorAllElement<T>(this IEnumerable<T> list, Expression<Func<T, object>> funcEx)
+        public static List<WrapModel<T>> ConnectByPrior<T>(this IEnumerable<T> list, Expression<Func<T, object>> funcEx)
         {
             if (list.Count() > 0)
             {
@@ -84,72 +84,46 @@ namespace Sandbox
                     if (argCount == 3)
                         RootVal = (int)((ConstantExpression)((NewExpression)funcEx.Body).Arguments[2]).Value;
 
-                    //TODO: пофиксить тип. сделать независимость к типу столбцов объектов
-                    //Достаём родителей первого уровня
-                    List<T> parentList = list.Where(e => e.getValue(ParentIdName) == RootVal).ToList();
-
-                    List<WrapModel<T>> priorModels = new List<WrapModel<T>>();
-
-                    foreach (var element in parentList)
-                    {
-                        //Записываем индекс корневого элемента
-                        int lvl = (int)TheeLevel.Start;
-
-                        //Добавляем наш элемент в список который обёрнут в класс обёртку со своими полями данных
-                        priorModels.Add(new WrapModel<T>()
-                        {
-                            ID = priorModels.Count + 1,
-                            //Порядковый номер элемента
-                            LEVEL = lvl,
-                            //Уровень вложенности
-                            ITEM = element,
-                            //Наш элемент
-                            FLAG_TREE = true
-                            //Флаг является ли элемент последним в цепочке
-                        });
-
-                        RootVal = element.getValue(idName);
-
-                        if (list.Any(e => e.getValue(ParentIdName) == RootVal))
-                        {
-                            priorModels[priorModels.Count - 1].FLAG_TREE = false;
-                            lvl++;
-                            priorModels = ConnectByPriorLoop(list, idName, ParentIdName, RootVal, priorModels, lvl);
-                        }
-                    }
-                    return priorModels;
+                    return loop(list, idName, ParentIdName, RootVal);
                 }
             }
             return null;
         }
 
-        private static List<WrapModel<T>> ConnectByPriorLoop<T>(IEnumerable<T> list, string idName, string ParentIdName, int RootVal, List<WrapModel<T>> PriorModels, int LEVEL)
+        private static List<WrapModel<T>> loop<T>(IEnumerable<T> list, string idName, string ParentIdName, int RootVal, List<WrapModel<T>> priorModels = null, int lvl = (int)TheeLevel.Start)
         {
-            var elements = list.Where(e => e.getValue(ParentIdName) == RootVal).ToList();
+            //Достаём родителей первого уровня
+            List<T> parentList = list.Where(e => e.getValue(ParentIdName) == RootVal).ToList();
 
-            for (int i = 0; i < elements.Count(); i++)
+            if (priorModels == null)
+                priorModels = new List<WrapModel<T>>();
+
+            foreach (var element in parentList)
             {
-
-                PriorModels.Add(new WrapModel<T>()
+                //Добавляем наш элемент в список который обёрнут в класс обёртку со своими полями данных
+                priorModels.Add(new WrapModel<T>()
                 {
-                    ID = PriorModels.Count + 1,
-                    LEVEL = LEVEL,
-                    ITEM = elements[i],
-                    FLAG_TREE = false
+                    ID = priorModels.Count + 1,
+                    //Порядковый номер элемента
+                    LEVEL = lvl,
+                    //Уровень вложенности
+                    ITEM = element,
+                    //Наш элемент
+                    FLAG_TREE = true
+                    //Флаг является ли элемент последним в цепочке
                 });
 
-                RootVal = elements[i].getValue(idName);
+                RootVal = element.getValue(idName);
 
                 if (list.Any(e => e.getValue(ParentIdName) == RootVal))
                 {
-                    LEVEL += 1;
-                    PriorModels = ConnectByPriorLoop(list, idName, ParentIdName, RootVal, PriorModels, LEVEL);
-                    LEVEL -= 1;
+                    priorModels[priorModels.Count - 1].FLAG_TREE = false;
+                    lvl++;
+                    priorModels = loop(list, idName, ParentIdName, RootVal, priorModels, lvl);
+                    lvl--;
                 }
-                PriorModels[PriorModels.Count - 1].FLAG_TREE = true;
             }
-
-            return PriorModels;
+            return priorModels;
         }
     }
 }

@@ -27,7 +27,7 @@ namespace Model
 
                 return _ServiceLayer.Get<ICCategoryService>()
                     ._Repository.GetAllList()
-                    .ConnectByPriorAllElement(
+                    .ConnectByPrior(
                     e => 
                         new
                             {

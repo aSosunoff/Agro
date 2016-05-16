@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Web.Mvc;
 
 namespace Components
@@ -88,93 +89,86 @@ namespace Components
             Start = 1
         }
 
-        public static List<WrapModel<T>> ConnectByPriorAllElement<T>(this IEnumerable<T> list, Func<T, object> func)
+        private static int getValue<T>(this T t, string idName)
         {
+            int RootVal = 0;
+
+            switch (t.GetType().GetProperty(idName).PropertyType.Name)
+            {
+                case "Decimal":
+                    RootVal = (int)(decimal)t.GetType().GetProperty(idName).GetValue(t, null);
+                    break;
+                case "Int32":
+                    RootVal = (int)t.GetType().GetProperty(idName).GetValue(t, null);
+                    break;
+            }
+
+            return RootVal;
+        }
+
+        public static List<WrapModel<T>> ConnectByPrior<T>(this IEnumerable<T> list, Expression<Func<T, object>> funcEx)
+        {
+            
             if (list.Count() > 0)
             {
-                var item = func.Invoke(list.ToList()[0]);
-                var itemCount = item.GetType().GetProperties().Count();
+                //Получаем колличество аргументов их должно быть 2 - 3. первые 2 это имена id и parentId, 3 это id этолемента с которого начинается построение дерева
+                var argCount = ((NewExpression)funcEx.Body).Arguments.Count;
 
-                if ((itemCount >= 2) && (itemCount <= 3))
+                if ((argCount >= 2) && (argCount <= 3))
                 {
-                    string IdName = item.GetType().GetProperties()[0].Name;
-                    string ParentIdName = item.GetType().GetProperties()[1].Name;
+                    //Достаём имя столбца с id
+                    //Достаём имя столбца с parentId
+                    string idName = ((NewExpression)funcEx.Body).Members[0].Name;
+                    string ParentIdName = ((NewExpression)funcEx.Body).Members[1].Name;
 
                     int RootVal = 0;
-                    if (itemCount == 3)
-                        RootVal = (int)item.GetType().GetProperties()[2].GetValue(item, null);
+                    if (argCount == 3)
+                    { 
+                        switch (((NewExpression)funcEx.Body).Arguments[2].GetType().FullName.ToString())
+                        {
+                            case "System.Linq.Expressions.ConstantExpression":
+                                RootVal = 
+                                    (int)
+                                    ((ConstantExpression)
+                                        ((NewExpression)funcEx.Body)
+                                            .Arguments[2])
+                                                .Value;
+                                break;
+                            case "System.Linq.Expressions.FieldExpression":
+                                var arg = (MemberExpression) ((NewExpression) funcEx.Body).Arguments[2];
+                                RootVal =
+                                (int)
+                                ((ConstantExpression)
+                                    arg.Expression).Value
+                                    .GetType()
+                                    .GetField(arg.Member.Name)
+                                    .GetValue(
+                                        ((ConstantExpression)
+                                            arg.Expression).Value);
+                                 
 
-                    //TODO: пофиксить тип. сделать независимость к типу столбцов объектов
-                    List<T> parentList = new List<T>();
-                    switch (list.ToList()[0].GetType().GetProperty(ParentIdName).PropertyType.Name)
-                    {
-                        case "Decimal":
-                            parentList = list.Where(e => e.GetValueDecimal(ParentIdName) == RootVal).ToList();
-                            break;
-                        case "Int32":
-                            parentList = list.Where(e => e.GetValueInt(ParentIdName) == RootVal).ToList();
-                            break;
+                                break;
+                        }
                     }
 
-                    List<WrapModel<T>> priorModels = new List<WrapModel<T>>();
-
-                    foreach (var element in parentList)
-                    {
-                        switch (element.GetType().GetProperty(IdName).PropertyType.Name)
-                        {
-                            case "Decimal":
-                                RootVal = (int)element.GetValueDecimal(IdName);
-                                break;
-                            case "Int32":
-                                RootVal = element.GetValueInt(IdName);
-                                break; 
-                        }
                         
 
-                        priorModels = list.ConnectByPrior(IdName, ParentIdName, RootVal, priorModels);
-                    }
-                    return priorModels;
+                    return loop(list, idName, ParentIdName, RootVal);
                 }
             }
             return null;
         }
 
-        public static List<WrapModel<T>> ConnectByPrior<T>(this IEnumerable<T> list, Func<T, object> func, List<WrapModel<T>> priorModels = null)
+        private static List<WrapModel<T>> loop<T>(IEnumerable<T> list, string idName, string ParentIdName, int RootVal, List<WrapModel<T>> priorModels = null, int lvl = (int)TheeLevel.Start)
         {
-            if (list.Count() > 0)
-            {
-                var item = func.Invoke(list.ToList()[0]);
-                var itemCount = item.GetType().GetProperties().Count();
+            //Достаём родителей первого уровня
+            List<T> parentList = list.Where(e => e.getValue(ParentIdName) == RootVal).ToList();
 
-                if ((itemCount >= 2) && (itemCount <= 3))
-                {
-                    string IdName = item.GetType().GetProperties()[0].Name;
-                    string ParentIdName = item.GetType().GetProperties()[1].Name;
-
-                    int RootVal = 0;
-                    if (itemCount == 3)
-                        RootVal = (int)item.GetType().GetProperties()[2].GetValue(item, null);
-
-                    return list.ConnectByPrior(IdName, ParentIdName, RootVal, priorModels);
-                }
-            }
-            return null;
-        }
-
-        private static List<WrapModel<T>> ConnectByPrior<T>(this IEnumerable<T> list, string IdName, string ParentIdName, int RootVal, List<WrapModel<T>> priorModels = null)
-        {
             if (priorModels == null)
                 priorModels = new List<WrapModel<T>>();
 
-            //Выбираем корневой элемент
-            //TODO: жёстко привязано к Int32
-            var currentElement = list.SingleOrDefault(e => e.GetValueInt(IdName) == RootVal);
-
-            if (currentElement != null)
+            foreach (var element in parentList)
             {
-                //Записываем индекс корневого элемента
-                int lvl = (int)TheeLevel.Start;
-
                 //Добавляем наш элемент в список который обёрнут в класс обёртку со своими полями данных
                 priorModels.Add(new WrapModel<T>()
                 {
@@ -182,70 +176,23 @@ namespace Components
                     //Порядковый номер элемента
                     LEVEL = lvl,
                     //Уровень вложенности
-                    ITEM = currentElement,
+                    ITEM = element,
                     //Наш элемент
                     FLAG_TREE = true
                     //Флаг является ли элемент последним в цепочке
                 });
 
-                switch (currentElement.GetType().GetProperty(IdName).PropertyType.Name)
-                {
-                    case "Decimal":
-                        RootVal = (int)currentElement.GetValueDecimal(IdName);
-                        break;
-                    case "Int32":
-                        RootVal = currentElement.GetValueInt(IdName);
-                        break;
-                }
+                RootVal = element.getValue(idName);
 
-                //TODO: жёстко привязано к Int32
-                if (list.Any(e => e.GetValueInt(ParentIdName) == RootVal))
+                if (list.Any(e => e.getValue(ParentIdName) == RootVal))
                 {
                     priorModels[priorModels.Count - 1].FLAG_TREE = false;
                     lvl++;
-                    return ConnectByPriorLoop(list, IdName, ParentIdName, RootVal, priorModels, lvl);
+                    priorModels = loop(list, idName, ParentIdName, RootVal, priorModels, lvl);
+                    lvl--;
                 }
             }
-            else
-                return null;
             return priorModels;
-        }
-
-        private static List<WrapModel<T>> ConnectByPriorLoop<T>(IEnumerable<T> list, string IdName, string ParentIdName, int RootVal, List<WrapModel<T>> PriorModels, int LEVEL)
-        {
-            var elements = list.Where(e => e.GetValueInt(ParentIdName) == RootVal).ToList();
-
-            for (int i = 0; i < elements.Count(); i++)
-            {
-
-                PriorModels.Add(new WrapModel<T>()
-                {
-                    ID = PriorModels.Count + 1,
-                    LEVEL = LEVEL,
-                    ITEM = elements[i],
-                    FLAG_TREE = false
-                });
-
-                switch (elements[i].GetType().GetProperty(IdName).PropertyType.Name)
-                {
-                    case "Decimal":
-                        RootVal = (int)elements[i].GetValueDecimal(IdName);
-                        break;
-                    case "Int32":
-                        RootVal = elements[i].GetValueInt(IdName);
-                        break;
-                }
-
-                if (list.Any(e => e.GetValueInt(ParentIdName) == RootVal))
-                {
-                    LEVEL += 1;
-                    PriorModels = ConnectByPriorLoop(list, IdName, ParentIdName, RootVal, PriorModels, LEVEL);
-                    LEVEL -= 1;
-                }
-                PriorModels[PriorModels.Count - 1].FLAG_TREE = true;
-            }
-
-            return PriorModels;
         }
     }
 }

@@ -34,9 +34,11 @@ namespace AgroFirma.Controllers
                     e => 
                         new
                             {
-                                e.PK_ID, e.PARENT_ID, ROOT = id
+                                e.PK_ID, 
+                                e.PARENT_ID, 
+                                ROOT = id
                             })
-                    .Where(e => e.LEVEL == 2)
+                    .Where(e => e.LEVEL == 1)
                     .RemoveWrapModel();
 
                 int[] arrayIdCategory = _serviceLayer
@@ -52,14 +54,14 @@ namespace AgroFirma.Controllers
                             ROOT = id
                         })
                     .Where(e => e.FLAG_TREE)
-                    .RemoveWrapModel().Select(e => e.PK_ID)
+                    .RemoveWrapModel()
+                    .Select(e => e.PK_ID)
                     .ToArray();
 
                 categoryModel.Rstocks = _serviceLayer
                     .Get<IRStockService>()
                     ._Repository
-                    .GetSortList(e => arrayIdCategory
-                        .Contains(e.FK_ID_CATEGORY))
+                    .GetSortList(e => arrayIdCategory.Contains(e.FK_ID_CATEGORY) || e.FK_ID_CATEGORY == id)
                     .ToList();
 
                 return View(categoryModel);

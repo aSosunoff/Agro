@@ -87,11 +87,13 @@ namespace AgroFirma.Component
                 .Get<ICCategoryService>()
                 ._Repository
                 .GetAllList()
-                .ConnectByPriorAllElement(
+                .ConnectByPrior(
                 e => 
                     new
                         {
-                            e.PK_ID, e.PARENT_ID, ROOT = 0
+                            e.PK_ID, 
+                            e.PARENT_ID, 
+                            ROOT = 0
                         });
             WrapModels = wrapModelList.Count > 0 ? wrapModelList : null;
 
