@@ -26,14 +26,7 @@ namespace Components
         {
             return (string)item.GetType().GetProperty(colName).GetValue(item, null);
         }
-        public static int GetValueInt<T>(this T item, string colName)
-        {
-            return (int)item.GetType().GetProperty(colName).GetValue(item, null);
-        }
-        public static decimal GetValueDecimal<T>(this T item, string colName)
-        {
-            return (decimal)item.GetType().GetProperty(colName).GetValue(item, null);
-        }
+
 
         public static IEnumerable<T> RemoveWrapModel<T>(this IEnumerable<WrapModel<T>> wrapModels)
         {
@@ -77,7 +70,7 @@ namespace Components
                 listItems.Add(new SelectListItem()
                 {
                     Text = el.ITEM.GetValueString(textColName),
-                    Value = System.Convert.ToString(el.ITEM.GetValueInt(valueColName))
+                    Value = Convert.ToString(el.ITEM.getValue(valueColName))
                 });
             }
             return listItems;
@@ -89,21 +82,21 @@ namespace Components
             Start = 1
         }
 
-        private static int getValue<T>(this T t, string idName)
+        public static int getValue<T>(this T t, string idName)
         {
-            int RootVal = 0;
+            int val = 0;
 
             switch (t.GetType().GetProperty(idName).PropertyType.Name)
             {
                 case "Decimal":
-                    RootVal = (int)(decimal)t.GetType().GetProperty(idName).GetValue(t, null);
+                    val = (int)(decimal)t.GetType().GetProperty(idName).GetValue(t, null);
                     break;
                 case "Int32":
-                    RootVal = (int)t.GetType().GetProperty(idName).GetValue(t, null);
+                    val = (int)t.GetType().GetProperty(idName).GetValue(t, null);
                     break;
             }
 
-            return RootVal;
+            return val;
         }
 
         public static List<WrapModel<T>> ConnectByPrior<T>(this IEnumerable<T> list, Expression<Func<T, object>> funcEx)

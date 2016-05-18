@@ -14,7 +14,8 @@ namespace Model.Infrastructure
                 case "IMAGE_PATH":
 
                     FileOfWork.FileBase = (HttpPostedFileBase)bindingContext.ValueProvider.GetValue(propertyDescriptor.Name).ConvertTo(typeof(HttpPostedFileBase));
-
+                    //(string)bindingContext.ValueProvider.GetValue("IMAGE_FILE_PATH_SERVER").ConvertTo(typeof(string))
+                    //TODO: добавить усливие если пользователь не выбрал фото, то загрузить фото загруженное ранее. Для этого в Partial модели предусмотрено поле в котором скопировано поле ранее загруженного изображения
                     value = FileOfWork.GetPath(String.Format("\\tmp\\{0}\\", controllerContext.RouteData.Values["controller"]));
 
                     break;

@@ -10,17 +10,14 @@ namespace Model
     [MetadataType(typeof(news))]
     public partial class rnews
     {
-        //public bool IS_ACTIVE_BOOL
-        //{
-        //    get { return IS_ACTIVE == 1 ? true : false ; }
-        //    set
-        //    {
-        //        if (value)
-        //            IS_ACTIVE = 1;
-        //        else
-        //            IS_ACTIVE = 0;
-        //    }
-        //}
+        public string IMAGE_FILE_PATH_SERVER
+        {//Добавлено поле для копирования пути загруженного ранее изображения. Необходимо в том случае если пользователь при изменении элемента не меняет изображение. 
+            get
+            {
+                return IMAGE_PATH;    
+            }
+            private set { }
+        }
     }
 
 

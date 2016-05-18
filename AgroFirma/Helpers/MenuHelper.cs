@@ -31,7 +31,7 @@ namespace AgroFirma.Helpers
                 TagBuilder li = new TagBuilder("li");
                 TagBuilder a = new TagBuilder("a");
 
-                a.MergeAttribute("href", Path.Combine(String.Format("/{0}/{1}/?id={2}", controllerName, actionName, element.ITEM.GetValueInt("PK_ID"))));
+                a.MergeAttribute("href", Path.Combine(String.Format("/{0}/{1}/?id={2}", controllerName, actionName, element.ITEM.getValue("PK_ID"))));
 
                 a.SetInnerText(element.ITEM.GetValueString("TEXT"));
 
@@ -47,7 +47,7 @@ namespace AgroFirma.Helpers
                     IEnumerable<WrapModel<T>> models =
                         wrapModels.Where(
                             e =>
-                                e.ITEM.GetValueInt("PARENT_ID") == element.ITEM.GetValueInt("PK_ID"));
+                                e.ITEM.getValue("PARENT_ID") == element.ITEM.getValue("PK_ID"));
                     ul.InnerHtml += GetTagLi(wrapModels, models, actionName, controllerName);
 
 
