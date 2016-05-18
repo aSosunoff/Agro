@@ -276,6 +276,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="USER_STREET_FK_idx">
+          <End Role="sstreet" Type="Self.sstreet" Multiplicity="1" />
+          <End Role="ruser" Type="Self.ruser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sstreet">
+              <PropertyRef Name="PK_ID" />
+            </Principal>
+            <Dependent Role="ruser">
+              <PropertyRef Name="FK_ID_STREET" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="agro_mydbModelStoreContainer">
           <EntitySet Name="ccategory" EntityType="Self.ccategory" Schema="agro_mydb" store:Type="Tables" />
           <EntitySet Name="rbasket" EntityType="Self.rbasket" Schema="agro_mydb" store:Type="Tables" />
@@ -327,6 +339,10 @@
           <AssociationSet Name="USER_INFO_USER_FK" Association="Self.USER_INFO_USER_FK">
             <End Role="ruser" EntitySet="ruser" />
             <End Role="ruser_info" EntitySet="ruser_info" />
+          </AssociationSet>
+          <AssociationSet Name="USER_STREET_FK_idx" Association="Self.USER_STREET_FK_idx">
+            <End Role="sstreet" EntitySet="sstreet" />
+            <End Role="ruser" EntitySet="ruser" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
