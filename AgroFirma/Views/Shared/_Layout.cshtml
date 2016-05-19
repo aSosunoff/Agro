@@ -41,6 +41,7 @@
 
                             <li role="presentation" class="dropdown-header">Категория</li>
                             <li role="presentation">@Html.ActionLink("Добавить", "Add", "Catalog")</li>
+                            <li role="presentation">@Html.ActionLink("Редактировать", "ListAdmin", "Catalog")</li>
                             <li role="presentation" class="divider"></li>
 
                             <li role="presentation" class="dropdown-header">Новости</li>
@@ -93,23 +94,6 @@
                         <a href="#" class="glyphicon glyphicon-share"></a>
                         @* TODO: выход с сайта не работает *@
                     </li>
-                    @*<li>
-                        @Html.ActionLinkContractCount("List", "Contract", @Model.CountElementToContract)
-                    </li>
-                    <li>
-                        @Html.ActionLinkBasketCount("List", "Basket", @Model.CountElementToBasket)
-                    </li>*@
-
-                    @*<li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Действие</a></li>
-                                <li><a href="#">Другое действие</a></li>
-                                <li><a href="#">Что-то еще</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#">Отдельная ссылка</a></li>
-                            </ul>
-                        </li>*@
                 </ul>
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->

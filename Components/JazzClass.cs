@@ -128,18 +128,31 @@ namespace Components
                                                 .Value;
                                 break;
                             case "System.Linq.Expressions.FieldExpression":
-                                var arg = (MemberExpression) ((NewExpression) funcEx.Body).Arguments[2];
+                                var argField = (MemberExpression) ((NewExpression) funcEx.Body).Arguments[2];
                                 RootVal =
                                 (int)
                                 ((ConstantExpression)
-                                    arg.Expression).Value
+                                    argField.Expression).Value
                                     .GetType()
-                                    .GetField(arg.Member.Name)
+                                    .GetField(argField.Member.Name)
                                     .GetValue(
                                         ((ConstantExpression)
-                                            arg.Expression).Value);
-                                 
-
+                                            argField.Expression).Value);
+                                break;
+                            case "System.Linq.Expressions.PropertyExpression":
+                                //((ConstantExpression)((MemberExpression)argProperty.Expression).Expression).Value.GetType().GetField(((MemberExpression)argProperty.Expression).Member.Name)
+                                //TODO: пофиксить не работает как надо
+                                var argProperty = (MemberExpression)((NewExpression) funcEx.Body).Arguments[2];
+                                RootVal =
+                                (int)
+                                ((ConstantExpression)
+                                    ((MemberExpression)
+                                        argProperty.Expression).Expression).Value
+                                        .GetType()
+                                        .GetField(argProperty.Member.Name)
+                                        .GetValue(
+                                            ((ConstantExpression)
+                                                argProperty.Expression).Value);
                                 break;
                         }
                     }

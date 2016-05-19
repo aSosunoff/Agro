@@ -94,7 +94,7 @@ namespace AgroFirma.Component
                             e.PK_ID, 
                             e.PARENT_ID, 
                             ROOT = 0
-                        });
+                        }).Where(r => r.ITEM.IS_ACTIVE == 1).ToList();
             WrapModels = wrapModelList.Count > 0 ? wrapModelList : null;
 
             //TODO: Предусмотреть настройку в админке сколько новостей выводить сейчас 3 Take(3)

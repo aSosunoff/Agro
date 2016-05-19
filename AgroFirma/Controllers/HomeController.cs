@@ -16,7 +16,7 @@ namespace AgroFirma.Controllers
 
         public ActionResult Index()
         {
-
+            ViewBag.ErrorMessage = ViewBagMain.MessageError.Look();
             return View();
         }
     }

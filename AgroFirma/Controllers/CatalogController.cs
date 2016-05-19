@@ -19,7 +19,7 @@ namespace AgroFirma.Controllers
 
         public ActionResult List(int id)
         {
-            ccategory item = _serviceLayer.Get<ICCategoryService>()._Repository.GetItem(e => e.PK_ID == id);
+            ccategory item = _serviceLayer.Get<ICCategoryService>()._Repository.GetItem(e => e.PK_ID == id && e.IS_ACTIVE == 1);
             if (item != null)
             {
                 ViewBag.CategoryTitle = item.TEXT;
@@ -66,6 +66,7 @@ namespace AgroFirma.Controllers
 
                 return View(categoryModel);
             }
+            ViewBagMain.MessageError.Init("Такой категории не существует");
             return RedirectToAction("Index", "Home");
         }
 
@@ -103,6 +104,40 @@ namespace AgroFirma.Controllers
             return View(ccategory);
         }
 
+        public ActionResult ListAdmin()
+        {
+            ViewBag.ErrorMessage = ViewBagMain.MessageError.Look();
+            ViewBag.SuccessMessage = ViewBagMain.MessageSuccess.Look();
+
+            var listCategory = _serviceLayer
+                .Get<ICCategoryService>()
+                ._Repository
+                .GetAllList();
+            return View(listCategory);
+        }
+
+        public ActionResult DeleteItem(int id)
+        {//TODO: Необходимо переделать на POST Через AJAX
+            _serviceLayer.Get<ICCategoryService>().VirtualDeleteTreeDown(id);
+
+            ViewBagMain.MessageError.Init("Категирия удалена");
+            //TODO: Вставить детальное описание удалённых категорий
+            return RedirectToAction("ListAdmin");
+        }
+
+        public ActionResult RecoverItem(int id)
+        {
+            _serviceLayer.Get<ICCategoryService>().VirtualRecoverTreeDown(id);
+
+            ViewBagMain.MessageSuccess.Init("Категирия восстановлена");
+            //TODO: Вставить детальное описание восстановленых категорий
+            return RedirectToAction("ListAdmin");
+        }
+
+        //public ActionResult Edit(int id)
+        //{//TODO: Проверка на поле родитель
+        //    return View(_serviceLayer.Get<ICCategoryService>()._Repository.GetItem(e => e.PK_ID == id && e.IS_ACTIVE == 1));
+        //}
 
     }
 }

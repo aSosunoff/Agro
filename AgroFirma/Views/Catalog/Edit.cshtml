@@ -1,0 +1,51 @@
+﻿@using AgroFirma.Helpers
+@model Model.ccategory
+@{
+    ViewBag.Title = "Категории";
+    ViewBag.ListGroupTitle = "Редактирование категории";
+}
+
+@if (@Model != null)
+{
+    using (@Html.BeginForm("Edit", "Catalog", null, FormMethod.Post, new { enctype = "multipart/form-data", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(e => e.PK_ID)
+        @Html.HiddenFor(e => e.IS_ACTIVE)
+
+        <div class="col-lg-4">
+            <div class="form-group">
+                @Html.DisplayImage(new { src = Model.IMAGE_PATH, @class = "img-thumbnail img-thumbnail-custom img-responsive center-block", alt = "Responsive image" })
+            </div>
+        </div>
+
+        <div class="col-lg-8">
+            <div class="form-group">
+                @Html.LabelFor(model => model.IMAGE_PATH, new { @class = "control-label" })
+                @Html.TextBoxFor(model => model.IMAGE_PATH, new { @class = "form-control", type = "file" })
+                @Html.ValidationMessageFor(model => model.IMAGE_PATH, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.TEXT, htmlAttributes: new { @class = "control-label" })
+                @Html.TextBoxFor(model => model.TEXT, new { @class = "form-control", placeholder = "Наименование" })
+                @Html.ValidationMessageFor(model => model.TEXT, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.TEXT, htmlAttributes: new { @class = "control-label" })
+                @Html.TextBoxFor(model => model.TEXT, new { @class = "form-control", placeholder = "Содержание" })
+                @Html.ValidationMessageFor(model => model.TEXT, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Сохранить" class="btn btn-primary pull-right" />
+            </div>
+        </div>
+    }
+}
+else
+{
+    <h3 class="text-center alert-danger">Категорию которую Вы хотите отредактировать нет</h3>
+}

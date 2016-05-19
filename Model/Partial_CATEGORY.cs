@@ -24,7 +24,7 @@ namespace Model
                 IServiceLayer serviceLayer = new ServiceLayer(new UnitOfWork());
 
                 _ServiceLayer = ServiceLayer.Instance(serviceLayer);
-
+                //TODO: Проверить где ещё используется возможно и не надо использовать ConnectByPrior
                 return _ServiceLayer.Get<ICCategoryService>()
                     ._Repository.GetAllList()
                     .ConnectByPrior(

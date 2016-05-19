@@ -344,6 +344,8 @@
     <Content Include="Template\Dogovor_Postavki_Tovara.doc" />
     <Content Include="Template\PDF\Specification.frx" />
     <Content Include="Views\Contact\Index.cshtml" />
+    <Content Include="Views\Catalog\ListAdmin.cshtml" />
+    <Content Include="Views\Catalog\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
